@@ -1,0 +1,49 @@
+.nav {
+    display: flex;
+    height: 52px;
+    border-bottom: 1px solid #38434f;
+}
+.logoContainer {
+    width: 18%;
+    color: white;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #1E2226;
+}
+.inputContainer {
+    width: 36%;
+    display: flex;
+    align-items: center;
+    background-color: #1E2226;
+}
+.input {
+    height: 34px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    background-color: #38434f;
+    border-radius: 7px;
+    border: none;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    color: white;
+}
+.buttons {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E2226;
+    color: white;
+    font-family: Calibri;
+    cursor: pointer;
+    gap: 20px;
+}
+.hamburger {
+    width: 6%;
+    background-color: #1E2226;
+    display: flex;
+    justify-content: center;
+}
