@@ -29,6 +29,13 @@
     font-size: 14px;
     outline: none;
     color: white;
+    transition: width 0.3s ease, border 0.3s ease, outline 0.1s ease;
+    transform-origin: left center;
+}
+.input:focus {
+    border: 1px solid black;
+    outline: 1px solid white;
+    width: 300px;
 }
 .buttons {
     width: 40%;
