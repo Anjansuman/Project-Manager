@@ -1,4 +1,5 @@
 import { Nav } from "./navBar/Nav";
+import { Panels } from "./Panels";
 
 function App() {
 
@@ -6,6 +7,7 @@ function App() {
     <div style = {{marginBottom: 10}}>
       <Nav/>
     </div>
+    <Panels/>
   </div>
 }
 
