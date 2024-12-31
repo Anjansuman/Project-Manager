@@ -1,4 +1,5 @@
 import { MainPanel } from "./mainpanel/MainPanel";
+import { SidePanel } from "./sidepanel/SidePanel";
 
 export function Panels() {
 
@@ -11,6 +12,7 @@ export function Panels() {
     }
 
     return <div style = {style}>
+        <SidePanel/>
         <MainPanel/>
     </div>
 }
