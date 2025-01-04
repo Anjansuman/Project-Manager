@@ -1,0 +1,56 @@
+.hamburger {
+    width: 6%;
+    background-color: #1E2226;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.barContainer {
+    transition: transform 0.2s ease;
+}
+.barContainer:active .bar {
+    transform: scale(0.95);
+}
+.bar {
+    height: 2px;
+    width: 35px;        
+    margin-bottom: 6px;
+    border: 2px solid gray;
+    border-radius: 7px;
+    transition: transform 0.2s ease;
+    position: relative;
+    top: 3px;
+}
+.bar:hover {
+    border-color: white;
+}
+.menuBarPanel {
+    height: auto;
+    width: 260px;
+    background-color: #1e2226;
+    position: absolute;
+    right: 25px;
+    top: 70px;
+    border: 1px solid #0a66c2;
+    border-radius: 12px;
+    box-shadow: -8px 10px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.menuButton {
+    height: 40px;
+    width: 90%;
+    margin: 13px;
+    background-color: none;
+    color: white;
+    border: 1px solid #0a66c2;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+.menuButton:hover {
+    border-color: rgb(56, 67, 79);
+    color: rgb(56, 67, 79);
+}
