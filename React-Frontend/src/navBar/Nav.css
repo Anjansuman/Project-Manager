@@ -43,14 +43,17 @@
     justify-content: space-between;
     align-items: center;
     background-color: #1E2226;
-    color: white;
     font-family: Calibri;
     cursor: pointer;
     gap: 20px;
 }
+.button {
+    color: gray;
+}
+.button:hover {
+    color: white;
+}
 .hamburger {
     width: 6%;
     background-color: #1E2226;
-    display: flex;
-    justify-content: center;
 }

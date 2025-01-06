@@ -9,12 +9,12 @@ export function Nav() {
         <div className = "inputContainer">
             <input type="text" placeholder = "Search" className = "input"/>
         </div>
-        <div className = "buttons">
-            <div>Home</div>
-            <div>My Projects</div>
-            <div>Messaging</div>
-            <div>Notifications</div>
-            <div>Me</div>
+        <div className = "buttons"> {/* this div is for storing buttons*/}
+            <div className="button">Home</div>
+            <div className="button">My Projects</div>
+            <div className="button">Messaging</div>
+            <div className="button">Notifications</div>
+            <div className="button">Me</div>
         </div>
         <div className = "hamburger"></div>
     </div>
