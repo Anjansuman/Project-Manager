@@ -1,13 +1,14 @@
 import "./Nav.css";
-
+import { MenuBar } from "./MenuBar";
 export function Nav() {
 
+
     return <div className = "nav">
-        <div className = "logoContainer">
+        <div className = "logoContainer"> {/* this div is for storing logo*/}
             LOGO |
         </div>
-        <div className = "inputContainer">
-            <input type="text" placeholder = "Search" className = "input"/>
+        <div className = "inputContainer"> {/* this div is for storing search bar*/}
+            <input type="text" placeholder = "Search" className="input"/>
         </div>
         <div className = "buttons"> {/* this div is for storing buttons*/}
             <div className="button">Home</div>
@@ -16,6 +17,6 @@ export function Nav() {
             <div className="button">Notifications</div>
             <div className="button">Me</div>
         </div>
-        <div className = "hamburger"></div>
+        <MenuBar/>
     </div>
 }
