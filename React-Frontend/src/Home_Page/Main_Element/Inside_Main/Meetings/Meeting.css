@@ -1,0 +1,22 @@
+.img-container-animation:hover .img-animation {
+    height: 80px;
+    left: -80px;
+}
+.img-animation {
+    filter: drop-shadow(3px 3px 3px #00000080);
+    left: 0;
+    transition: left 0.4s ease, height 0.4s ease;
+}
+.light {
+    background: linear-gradient(to right, rgb(255, 183, 0), #653AD8);
+    clip-path: polygon(0% 41%, 0% 58%, 100% 100%, 100% 0%);
+    opacity: 0;
+    transition: none;
+}
+.img-container-animation:hover .light {
+    opacity: 1;
+    transition: opacity 0.4s ease 0.25s;
+}
+.meetings {
+    text-shadow: 2px 0px 3px rgba(0, 0, 0, 0.5);
+}
