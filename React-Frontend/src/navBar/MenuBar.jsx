@@ -3,7 +3,13 @@ import { useState } from "react";
 import { MenuBarPanel } from "./MenuBarPanel";
 import { AddMemberPanel } from "./AddMemberPanel";
 
+import { useRecoilValue } from "recoil";
+import { Theme_State } from "../Atoms/Theme_State";
+
 export function MenuBar() {
+
+    const theme_state = useRecoilValue(Theme_State);
+    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
     
     const [isMenuPanelVisible, setIsMenuPanelVisible] = useState(false);
     const [isMemPanelVisible, setIsMemPanelVisible] = useState(false);
@@ -25,7 +31,13 @@ export function MenuBar() {
     }
 
     return <>
-    <div className = "hamburger" onClick = {handleMenuPanel}>
+    <div className = "hamburger"
+        style={{
+            backgroundColor:  theme.dark_panel,
+            borderBottom: '1px solid',
+            borderBottomColor: theme.gray_border,
+        }}
+        onClick = {handleMenuPanel}>
         <div className = "barContainer">
             <div className="bar"></div>
             <div className="bar"></div>

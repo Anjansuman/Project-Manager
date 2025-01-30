@@ -1,7 +1,6 @@
 .nav {
     display: flex;
-    height: 52px;
-    border-bottom: 1px solid #38434f;
+    height: 63px;
 }
 .logoContainer {
     width: 18%;
@@ -9,13 +8,11 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    background-color: #1E2226;
 }
 .inputContainer {
     width: 36%;
     display: flex;
     align-items: center;
-    background-color: #1E2226;
 }
 .input {
     height: 34px;
@@ -42,18 +39,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1E2226;
     font-family: Calibri;
     cursor: pointer;
     gap: 20px;
 }
-.button {
-    color: gray;
-}
+
 .button:hover {
     color: white;
 }
-.hamburger {
-    width: 6%;
-    background-color: #1E2226;
-}
+

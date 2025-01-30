@@ -18,5 +18,3 @@ export function ImageInput() {
         </label>
     </div>
 }
-
-// I didn't used the FileName till yet, will use it later and this will show which file is selected.

@@ -1,5 +1,4 @@
 import { Main_Element } from "./Main_Element/Main_Element";
-import { Right_Element } from "./Right_Element";
 
 import { useRecoilValue } from "recoil";
 import { Theme_State } from "../Atoms/Theme_State";
@@ -16,3 +15,9 @@ export function Home() {
         <Main_Element />
     </div>
 }
+
+// try adding grid for making your home page look good
+// like use total grid-cols-4
+// and for left and right panels use grid-1
+// and for middle panel use grid-2
+// and and and make the grid as a variable and pass it down to main-element and side-element from the home-page

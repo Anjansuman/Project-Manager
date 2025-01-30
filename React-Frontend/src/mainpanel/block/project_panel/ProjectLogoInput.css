@@ -1,0 +1,43 @@
+/* Container */
+.project-image-input-container {
+    position: relative;
+    display: inline-block;
+    margin: 0 20px 20px 0;
+  }
+  
+  /* Hidden File Input */
+.project-image-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    width: 0;
+    height: 0;
+}
+  /* Custom Button */
+.project-image-file-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 80px;
+    border: 2px dashed #ccc;
+    border-radius: 14px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+  
+.project-image-file-button:hover {
+    border-color: #1da1f2;
+    color: #1da1f2;
+}
+  
+  /* File Name Display */
+.file-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}  

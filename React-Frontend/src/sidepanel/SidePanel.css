@@ -1,8 +1,7 @@
 .sidePanel {
     height: 77.4vh;
     width: 28%;
-    background-color: #1E2226;
-    border: 1px solid #38434f;
+    border: 1px solid;
     border-radius: 14px;
     padding: 20px;
     margin: 15px;

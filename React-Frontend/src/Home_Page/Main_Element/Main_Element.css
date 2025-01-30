@@ -1,0 +1,24 @@
+.upper-part {
+    width: 556px; /* Match the SVG width */
+    height: 306px; /* Match the SVG height */
+    background-color: #653AD8;
+    clip-path: path("M556 30C556 13.4315 542.569 0 526 0H30C13.4315 0 0 13.4315 0 30V250C0 266.569 13.4315 280 30 280H90.2477C105.266 280 117.68 268.766 122.06 254.4C142.425 187.599 204.537 139 278 139C351.463 139 413.575 187.599 433.94 254.4C438.32 268.766 450.734 280 465.752 280H526C542.569 280 556 266.569 556 250V30Z");
+}
+.lower-left-part {
+    width: 264px; /* Match the SVG width */
+    height: 412px; /* Match the SVG height */
+    background-color: coral; /* Background color for visibility */
+    clip-path: path("M119.697 28.679C116.278 12.8988 103.321 0 87.1743 0H30C13.4315 0 0 13.4315 0 30V382C0 398.569 13.4315 412 30 412H234C250.569 412 264 398.569 264 382V183.706C264 168.194 252.049 155.534 237.056 151.553C178.342 135.962 132.642 88.4236 119.697 28.679Z");
+}
+.lower-right-part {
+    width: 264px; /* Match the SVG width */
+    height: 412px; /* Match the SVG height */
+    background-color: coral; /* Background color for visibility */
+    clip-path: path("M27.1366 150.765C12.0553 154.686 0 167.381 0 182.964L0 382C0 398.569 13.4315 412 30 412H234C250.569 412 264 398.569 264 382V30C264 13.4315 250.569 0 234 0L177.612 0C161.536 0 148.611 12.7921 145.126 28.486C131.885 88.1245 85.9732 135.466 27.1366 150.765Z");
+}
+.circle {
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    clip-path: circle(50% at 50% 50%);
+}
