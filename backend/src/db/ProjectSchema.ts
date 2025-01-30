@@ -31,5 +31,8 @@ const ProjectSchema = new mongoose.Schema({
     members: [{
         type: mongoose.Types.ObjectId,
         ref: userModel
-    }]
-})
+    }],
+    // write logic for storing project files and folders in db so that user can access them
+});
+
+export const projectModel = new mongoose.Model("Projects", ProjectSchema);

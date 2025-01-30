@@ -29,13 +29,13 @@ export function userMiddleware(req: AuthRequest, res: Response, next: NextFuncti
     try {
         const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
 
-        if(!verifiedToken.userId) {
+        if(!verifiedToken.username) {
             return res.status(401).json({
                 msg: "Invalid token!"
             });
         }
 
-        req.userId = verifiedToken.userId;
+        req.userId = verifiedToken.username;
         next();
 
     } catch (error) {

@@ -3,9 +3,17 @@ import mongoose from "mongoose";
 mongoose.connect("some url");
 
 const userSchema = new mongoose.Schema({
-    usename: {
+    name: {
+        type: String,
+        required: true
+    },
+    username: {
         type: String,
         unique: true,
+        required: true
+    },
+    role: {
+        type: String,
         required: true
     },
     email: {
