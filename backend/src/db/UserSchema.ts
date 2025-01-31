@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 mongoose.connect("some url");
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -39,4 +39,4 @@ const userSchema = new mongoose.Schema({
 
 });
 
-export const userModel = new mongoose.Model("user", userSchema);
+export const UserModel = mongoose.model("Users", UserSchema);

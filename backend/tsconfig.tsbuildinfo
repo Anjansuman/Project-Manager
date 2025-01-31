@@ -1,0 +1,1 @@
+{"root":["./src/global.d.ts","./src/index.ts","./src/db/organizationschema.ts","./src/db/projectschema.ts","./src/db/userschema.ts","./src/middleware/usermiddleware.ts"],"version":"5.7.3"}

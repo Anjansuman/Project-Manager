@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { userModel } from "./UserSchema";
+import { UserModel } from "./UserSchema";
 
 mongoose.connect("some url");
 
@@ -25,14 +25,14 @@ const ProjectSchema = new mongoose.Schema({
 
     leader: {
         type: mongoose.Types.ObjectId,
-        ref: userModel
+        ref: UserModel
     },
 
     members: [{
         type: mongoose.Types.ObjectId,
-        ref: userModel
+        ref: UserModel
     }],
     // write logic for storing project files and folders in db so that user can access them
 });
 
-export const projectModel = new mongoose.Model("Projects", ProjectSchema);
+export const ProjectModel = mongoose.model("Projects", ProjectSchema);
