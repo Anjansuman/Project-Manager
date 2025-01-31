@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 import { UserModel } from "./UserSchema";
 
-mongoose.connect("some url");
 
 const ProjectSchema = new mongoose.Schema({
     title: {

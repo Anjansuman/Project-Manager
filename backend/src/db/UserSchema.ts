@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-mongoose.connect("some url");
 
 const UserSchema = new mongoose.Schema({
     name: {

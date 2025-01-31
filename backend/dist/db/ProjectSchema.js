@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const UserSchema_1 = require("./UserSchema");
-mongoose_1.default.connect("some url");
 const ProjectSchema = new mongoose_1.default.Schema({
     title: {
         type: String,

@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 
 import { UserModel } from "./UserSchema";
 
-mongoose.connect("some url");
-
 // made this for the best case like if a user is present in to orgs then it will cause problems
 // solve for that
 
