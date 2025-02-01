@@ -1,0 +1,49 @@
+import { Router } from "express";
+
+import { userMiddleware } from "../middleware/userMiddleware";
+import { UserModel } from "../db/UserSchema";
+import { ProjectModel } from "../db/ProjectSchema";
+
+
+const router = Router();
+
+
+// this will show the dashboard
+router.post("/", userMiddleware, async (req, res) => {
+    try {
+
+        const userId = req.userId;
+
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user) {
+            res.status(404).json({
+                message: "user not found!"
+            });
+            return;
+        }
+
+        const projects = await ProjectModel.find({
+            members: user._id
+        })
+
+        res.status(200).json({
+            name: user.name,
+            username: user.username,
+            role: user.role,
+            profileImg: user.profileImg,
+            projects: projects // make this more specific
+        });
+        return;
+
+    } catch (error) {
+        res.status(500).json({
+            error: error
+        });
+        return;
+    }
+});
+
+export default router;

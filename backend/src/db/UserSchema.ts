@@ -34,8 +34,8 @@ const UserSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
-    } 
-
+    }
+    
 });
 
 export const UserModel = mongoose.model("Users", UserSchema);

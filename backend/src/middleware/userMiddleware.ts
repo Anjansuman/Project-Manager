@@ -33,6 +33,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
         }
 
         req.userId = verifiedToken.userId;
+        req.orgId = verifiedToken.orgId;
         next();
 
     } catch (error) {
