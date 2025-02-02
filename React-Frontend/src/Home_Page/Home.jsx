@@ -21,3 +21,5 @@ export function Home() {
 // and for left and right panels use grid-1
 // and for middle panel use grid-2
 // and and and make the grid as a variable and pass it down to main-element and side-element from the home-page
+
+// [value, setVAlue]

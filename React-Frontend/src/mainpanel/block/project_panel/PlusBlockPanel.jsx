@@ -5,6 +5,8 @@ import { ProjectLogoInput } from "./ProjectLogoInput";
 import { DoneButton } from "./DoneButton";
 import { LottieButton } from "./LottieButton";
 
+import { Input } from "../../../Components/ui/Input";
+
 export function PlusBlockPanel({ onAddBlock, onClose }) {
 
     const [inputContent, setInputContent] = useState("");
@@ -80,7 +82,8 @@ export function PlusBlockPanel({ onAddBlock, onClose }) {
         {/* this is for chosing a leader */}
         <div>
             <div style = {{color: "white"}}>Leader</div>
-            <input type="text" className="search-member" placeholder="search"/>
+            {/* <input type="text" className="search-member" placeholder="search"/> */}
+            <Input placeholder={"Project Title"} />
             {/* if the leader is selected, show leader's name in the search bar */}
             <div className="drop-down-button">
                 <div className="drop-down-arrow-left"></div>
