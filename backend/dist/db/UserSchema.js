@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const OrganizationSchema_1 = require("./OrganizationSchema");
 const UserSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -38,6 +39,11 @@ const UserSchema = new mongoose_1.default.Schema({
     },
     profileImg: {
         type: String,
+    },
+    organization: {
+        type: mongoose_1.default.Types.ObjectId,
+        ref: OrganizationSchema_1.OrganizationModel,
+        unique: true
     }
 });
 exports.UserModel = mongoose_1.default.model("Users", UserSchema);

@@ -49,7 +49,7 @@ router.post("/",async (req, res) => {
 
         const token = "Bearer " + jwt.sign({
             userId: user._id,
-            orgId: orgName || "not in any organization"
+            orgId: orgName?._id || "not in any organization"
         }, SECRET_KEY);
 
         res.status(200).json({

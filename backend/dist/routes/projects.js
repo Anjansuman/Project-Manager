@@ -62,6 +62,8 @@ router.put("/", userMiddleware_1.userMiddleware, (req, res) => __awaiter(void 0,
             return;
         }
         const { title, description, projectImg, deadline, leader, members } = parsedData.data;
+        // this will search if the leader exists in users field
+        const searchLeader = yield UserSchema_1.UserModel.findOne({});
         const newProject = yield ProjectSchema_1.ProjectModel.create({
             title,
             description,

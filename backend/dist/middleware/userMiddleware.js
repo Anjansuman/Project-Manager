@@ -30,6 +30,7 @@ const userMiddleware = (req, res, next) => {
             return;
         }
         req.userId = verifiedToken.userId;
+        req.orgId = verifiedToken.orgId;
         next();
     }
     catch (error) {

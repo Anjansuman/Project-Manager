@@ -63,7 +63,8 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const token = "Bearer " + jsonwebtoken_1.default.sign({
-            userId: newUser._id
+            userId: newUser._id,
+            orgId: "not in any organization"
         }, config_1.SECRET_KEY);
         res.status(200).json({
             message: "User created successfully!",

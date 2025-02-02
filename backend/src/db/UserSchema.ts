@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { OrganizationModel } from "./OrganizationSchema";
 
 
 const UserSchema = new mongoose.Schema({
@@ -34,8 +35,13 @@ const UserSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
+    },
+    organization: {
+        type: mongoose.Types.ObjectId,
+        ref: OrganizationModel,
+        unique: true
     }
-    
+
 });
 
 export const UserModel = mongoose.model("Users", UserSchema);

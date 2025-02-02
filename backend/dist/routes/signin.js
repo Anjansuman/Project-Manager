@@ -18,6 +18,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const UserSigninSchema_1 = require("../zod/UserSigninSchema");
 const UserSchema_1 = require("../db/UserSchema");
 const config_1 = require("../config");
+const OrganizationSchema_1 = require("../db/OrganizationSchema");
 const router = (0, express_1.Router)();
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -45,8 +46,12 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
+        const orgName = yield OrganizationSchema_1.OrganizationModel.findOne({
+            members: user._id
+        });
         const token = "Bearer " + jsonwebtoken_1.default.sign({
-            userId: user._id
+            userId: user._id,
+            orgId: orgName || "not in any organization"
         }, config_1.SECRET_KEY);
         res.status(200).json({
             message: "Signed-in successfully!",

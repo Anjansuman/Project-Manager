@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { UserModel } from "./UserSchema";
 
 
-const ProjectSchema = new mongoose.Schema({
+const ProjectSchema: mongoose.Schema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -26,7 +26,6 @@ const ProjectSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: UserModel
     },
-
     members: [{
         type: mongoose.Types.ObjectId,
         ref: UserModel
