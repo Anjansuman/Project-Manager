@@ -5,7 +5,7 @@ import { Home } from "./Components/pages/Home/Home";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { ThemeState } from "./Atoms/ThemeState";
 
-import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 

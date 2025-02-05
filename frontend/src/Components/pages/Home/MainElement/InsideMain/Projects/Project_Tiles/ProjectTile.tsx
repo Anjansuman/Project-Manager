@@ -5,7 +5,7 @@ import { ThemeState } from "../../../../../../../Atoms/ThemeState";
 export const Project_Tile = () => {
 
 
-        const theme_state = useRecoilValue(ThemeState);
+    const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
