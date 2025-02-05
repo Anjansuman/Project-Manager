@@ -1,4 +1,4 @@
-import video_cam from "../../../../Images/video_cam.png";
+import video_cam from "../../../../../ui/Images/video_cam.png";
 import "./Meeting.css";
 
 import { useRecoilValue } from "recoil";

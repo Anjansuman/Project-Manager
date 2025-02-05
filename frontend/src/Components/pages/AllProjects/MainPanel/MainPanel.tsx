@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Blocks } from "./Block/Blocks";
 import { PlusBlock } from "./Block/PlusBlock";
 // import { PlusBlockPanel } from "./Block/project_panel/PlusBlockPanel";
-import "./MainPanel.css";
 
 
 import { useRecoilValue } from "recoil";

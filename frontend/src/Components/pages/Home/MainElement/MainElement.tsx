@@ -1,4 +1,3 @@
-import "./Main_Element.css";
 import { Profile } from "./InsideMain/Profile/Profile";
 import { Brand } from "./InsideMain/Branding/Brand";
 import { Meeting } from "./InsideMain/Meetings/Meeting";

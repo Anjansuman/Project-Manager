@@ -1,0 +1,50 @@
+.nav {
+    display: flex;
+    height: 63px;
+}
+.logoContainer {
+    width: 18%;
+    color: white;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.inputContainer {
+    width: 36%;
+    display: flex;
+    align-items: center;
+}
+.input {
+    height: 34px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    background-color: #38434f;
+    border-radius: 7px;
+    border: none;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    color: white;
+    transition: width 0.3s ease, border 0.3s ease, outline 0.1s ease;
+    transform-origin: left center;
+}
+.input:focus {
+    border: 1px solid black;
+    outline: 1px solid white;
+    width: 300px;
+}
+.buttons {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Calibri;
+    cursor: pointer;
+    gap: 20px;
+}
+
+.button:hover {
+    color: white;
+}
+

@@ -1,4 +1,4 @@
-import BrandLogo from "../../../../Images/BrandLogo.png";
+import BrandLogo from "../../../../../ui/Images/BrandLogo.png";
 import { Add_Project_Button } from "./Add_Project/Add_Project_Button";
 
 import { useRecoilValue } from "recoil";
