@@ -1,0 +1,9 @@
+.img-blur-div {
+    transition: background-color 0.4s ease;
+}
+.Appearing-element {
+    transition: top 0.4s ease;
+}
+.Profile-container:hover .Appearing-element {
+    top: -89px;
+}

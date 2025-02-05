@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Varela+Round&display=swap');
+
+.addButton {
+    height: 194px;
+    width: 164px;
+    border: 1px solid #0a66c2;
+    border-radius: 14px;
+    padding: 12px;
+    margin-right: 25.2px;
+    margin-bottom: 25.2px;
+    background-color: #1E2226;
+    color: #0A66C2;
+    font-family: Afacad Flux; /*change the font to rounded corners*/
+    font-size: 74px;
+    cursor: pointer;
+    transition: border 0.3s ease, transform 0.2s ease, color 0.2s ease;
+}
+.addButton:hover {
+    color: rgb(56, 67, 79);
+    border: 1px solid rgb(56, 67, 79);
+    transform: scale(0.95);
+}
+.addButton:active {
+    transform: scale(1.05);
+}
+
+/* css for panel for adding a block */
+.plusBlockPanel {
+    height: 300px;
+    width: 600px;
+    background-color: #1E2226;
+    border: 1px solid #0a66c2;
+    border-radius: 14px;
+    padding: 12px;
+    position: absolute;
+    z-index: 2px;
+}
+.divContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 100px;
+}
+.inputField {
+    height: 34px;
+    width: 250px;
+    background-color: #38434f;
+    border-radius: 7px;
+    border: none;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    color: white;
+    transition: border 0.3s ease, outline 0.1s ease;
+}
+.input:focus {
+    border: 1px solid black;
+    outline: 1px solid white;
+}
+/* add is nothing but send button */
+.add {
+    height: 60px;
+    width: 60px;
+    border: none;
+    background-color: #1E2226;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.add:hover {
+    transform: scale(1.1);
+}
+.add:active {
+    transform: scale(1.0);
+}
+.sendMessageIcon {
+    height: 35px;
+    width: 35px;
+}
+.cancel {
+    height: 40px;
+    width: 40px;
+    background-color: #1E2226;
+    border-top: 1px solid #0a66c2;
+    border-right: 1px solid #0a66c2;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 14px 0 14px;
+    font-size: 18px;
+    color: #0a66c2;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    cursor: pointer;
+}
+.cancel:hover {
+    background-color: red;
+}
+
+/* now the css for the Blocks */
+.block {
+    height: 194px;
+    width: 164px;
+    border: 1px solid #0a66c2;
+    border-radius: 14px;
+    padding: 12px;
+    margin-right: 25.2px;
+    margin-bottom: 25.2px;
+    background-color: #1E2226;
+    cursor: pointer;
+    transition: border 0.3s ease, transform 0.2s ease;
+}
+.block:hover {
+    border: 1px solid rgb(56, 67, 79);
+    transform: scale(0.95);
+}
+.block:active {
+    transform: scale(1.05);
+}
+.image {
+    height: 30px;
+    width: 90px;
+    border: 1px solid red;
+    border-radius: 100px;
+    margin-bottom: 12px;
+}
+.insideBlock {
+    height: 121px;
+    width: 98%;
+    border: 1px solid red;
+    border-radius: 14px;
+}
