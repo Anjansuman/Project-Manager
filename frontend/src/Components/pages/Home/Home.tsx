@@ -9,7 +9,7 @@ export function Home() {
     const theme_mode = theme_state.mode;
     const theme = (theme_mode == 'light') ? theme_state.light : theme_state.dark;
 
-    return <div className={`h-screen`}
+    return <div className={`h-screen font-[sans]`}
         style={{ backgroundColor: theme.background }}
     >
         <Main_Element />

@@ -14,7 +14,7 @@ export const Project = () => {
 
     return <div className="h-[100%] w-[100%] border-2 border-[#653AD8] rounded-3xl p-2 ">
 
-        <div className="h-[15%] text-2xl font-sans font-bold p-4 flex items-center"
+        <div className="h-[15%] text-2xl font-bold p-4 flex items-center"
             style={{ color: theme.font_color }}
         >
             <Link to='/projects'>Projects</Link>

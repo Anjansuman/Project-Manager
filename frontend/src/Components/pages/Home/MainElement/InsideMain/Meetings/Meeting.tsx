@@ -19,7 +19,7 @@ export const Meeting = () => {
         </div>
         <div>
             <div className="light h-[260px] w-[160px] flex items-center absolute left-[156.74px] top-[63.5px]">
-                <div className="meetings text-white font-sans font-bold text-3xl ml-2">Meetings</div>
+                <div className="meetings text-white font-bold text-3xl ml-2">Meetings</div>
             </div>
         </div>
     </div>

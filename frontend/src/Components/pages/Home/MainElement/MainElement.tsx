@@ -33,7 +33,7 @@ export const Main_Element = () => {
                     <Navbar/>
                 </div>
 
-                <div className="h-[46%] mr-6 p-0.5 rounded-3xl flex justify-center items-center font-sans"
+                <div className="h-[46%] mr-6 p-0.5 rounded-3xl flex justify-center items-center "
                     style={{
                         backgroundColor: theme.light_panel,
                         color: theme.font_color,
@@ -75,7 +75,7 @@ export const Main_Element = () => {
 /*
 
 <div className="w-[50%]">
-        <div className="h-sc w-[100%] bg-[#653AD8] rounded-t-3xl pt-10 text-white font-sans">
+        <div className="h-sc w-[100%] bg-[#653AD8] rounded-t-3xl pt-10 text-white">
             <div className="flex justify-center text-xl font-bold mb-2">Pro-Eject</div>
             <div className="flex justify-center text-5xl font-medium">Your Project Manager</div>
         </div>

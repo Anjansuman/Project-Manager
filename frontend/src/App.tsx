@@ -42,7 +42,7 @@ function ErrorPage() {
       style={{ backgroundColor: theme.background }}
   >
       <div>
-        <div className="text-red-500 font-semibold text-6xl">
+        <div className="text-red-500 font-bold text-6xl">
           ERROR 404!
         </div>
         <div className="flex justify-center text-xl"

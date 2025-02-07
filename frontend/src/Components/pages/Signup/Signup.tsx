@@ -3,6 +3,8 @@ import { useRef } from "react";
 import axios from "axios";
 
 import { Input } from "../../ui/Customs/Input";
+import { PanelDesign } from "./PanelDesign";
+import { Button } from "../../ui/Customs/Button";
 
 const backend = import.meta.env.VITE_BACKEND_URL;
 
@@ -35,43 +37,41 @@ export const Signup = () => {
     }
 
 
-    return <div className="h-screen bg-black px-50 py-24">
-        <div className="h-full bg-[#03061C] rounded-2xl border border-[#1D1D3B] flex overflow-hidden ">
+    return <div className="h-screen bg-black px-50 py-20">
+        <div className="h-full bg-[#03061C] font-[code] rounded-2xl border border-[#1D1D3B] flex overflow-hidden ">
             <div className="w-[50%] ">
-                <div className="text-2xl font-bold text-white mb-2 flex justify-center p-3">
+                <div className="text-3xl font-bold text-white mb-2 flex justify-center p-3">
                     Sign-up
                 </div>
                <div className="flex flex-col items-center text-white">
                     <div className="mb-3">
                         Name:
-                        <Input placeholder="Name" inputRef={nameRef} h={'50px'} w={"350px"} />
+                        <Input placeholder="Name" inputRef={nameRef} h={'45px'} w={"350px"} />
                         {/* <Input placeholder="Name" /> */}
                     </div>
                     <div className="mb-3">
                         Username:
-                        <Input placeholder="Username" inputRef={usernameRef} h={'50px'} w={"350px"} />
+                        <Input placeholder="Username" inputRef={usernameRef} h={'45px'} w={"350px"} />
                     </div>
                     <div className="mb-3">
                         Role:
-                        <Input placeholder="Role" inputRef={roleRef} h={'50px'} w={"350px"} />
+                        <Input placeholder="Role" inputRef={roleRef} h={'45px'} w={"350px"} />
                     </div>
                     <div className="mb-3">
                         Email:
-                        <Input placeholder={"example@gmail.com"} inputRef={emailRef} h={'50px'} w={"350px"} />
+                        <Input placeholder={"example@gmail.com"} inputRef={emailRef} h={'45px'} w={"350px"} />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-8">
                         Password:
-                        <Input placeholder={"Enter your password"} inputRef={passwordRef} h={'50px'} w={"350px"} />
+                        <Input placeholder={"Enter your password"} inputRef={passwordRef} h={'45px'} w={"350px"} />
                     </div>
                     <div>
-                        <button className="bg-white" onClick={signup} >
-                            Sign-up
-                        </button>
+                        <Button text={"Sign-up"} onClick={signup} size={'md'} w={'200px'} rounded={true} />
                     </div>
                </div>
             </div>
             <div className="w-[50%] h-full bg-[#653AD8] ">
-
+                <PanelDesign />
             </div>
         </div>
     </div>
