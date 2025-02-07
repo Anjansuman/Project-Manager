@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const UserSchema_1 = require("./UserSchema");
 const ProjectSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
@@ -22,12 +21,12 @@ const ProjectSchema = new mongoose_1.default.Schema({
         type: Date,
     },
     leader: {
-        type: mongoose_1.default.Types.ObjectId,
-        ref: UserSchema_1.UserModel
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "UserModel"
     },
     members: [{
-            type: mongoose_1.default.Types.ObjectId,
-            ref: UserSchema_1.UserModel
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: "UserModel"
         }],
     // write logic for storing project files and folders in db so that user can access them
 });

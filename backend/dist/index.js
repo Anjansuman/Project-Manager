@@ -16,18 +16,20 @@ exports.connectDB = connectDB;
 const express_1 = __importDefault(require("express"));
 const config_1 = require("./config");
 const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 const signup_1 = __importDefault(require("./routes/signup"));
 const signin_1 = __importDefault(require("./routes/signin"));
 const dashboard_1 = __importDefault(require("./routes/dashboard"));
 const projects_1 = __importDefault(require("./routes/projects"));
-const orgMembers_1 = __importDefault(require("./routes/orgMembers"));
+const organization_1 = __importDefault(require("./routes/organization"));
 app.use("/eject/v1/signup", signup_1.default);
 app.use("/eject/v1/signin", signin_1.default);
 app.use("/eject/v1/dashboard", dashboard_1.default);
 app.use("/eject/v1/projects", projects_1.default);
-app.use("/ejectv1/getOrgmembers", orgMembers_1.default);
+app.use("/ejectv1/Organization", organization_1.default);
 // write this to get inner files to the frontend
 app.get("/eject/v1/projects/:project_name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));

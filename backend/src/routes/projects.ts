@@ -41,7 +41,7 @@ router.get("/", userMiddleware, async (req, res) => {
             name: user.name,
             profileImg: user.profileImg,
             projects: projects,
-            org: org?.members
+            //return all the members of the org
         });
         return;
 

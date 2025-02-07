@@ -23,12 +23,12 @@ const ProjectSchema: mongoose.Schema = new mongoose.Schema({
     },
 
     leader: {
-        type: mongoose.Types.ObjectId,
-        ref: UserModel
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserModel"
     },
     members: [{
-        type: mongoose.Types.ObjectId,
-        ref: UserModel
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserModel"
     }],
     // write logic for storing project files and folders in db so that user can access them
 });

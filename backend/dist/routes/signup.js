@@ -28,7 +28,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
-        const { name, username, email, password, role, profileImg } = parsedData.data;
+        const { name, username, email, password, role } = parsedData.data;
         const usernameTaken = yield UserSchema_1.UserModel.findOne({
             username: username
         });
@@ -53,8 +53,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             username,
             role,
             email,
-            password: hashedPassword,
-            profileImg
+            password: hashedPassword
         });
         if (!newUser) {
             res.status(500).json({

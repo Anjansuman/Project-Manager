@@ -3,9 +3,11 @@ import express from "express";
 
 import { MONGO_URL } from "./config";
 import mongoose from "mongoose";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 
 import signupRoute from "./routes/signup";

@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
             return;
         }
 
-        const { name, username, email, password, role, profileImg } = parsedData.data;
+        const { name, username, email, password, role } = parsedData.data;
 
         const usernameTaken = await UserModel.findOne({
             username: username
@@ -53,8 +53,7 @@ router.post("/", async (req, res) => {
             username,
             role,
             email,
-            password: hashedPassword,
-            profileImg
+            password: hashedPassword
         });
 
 

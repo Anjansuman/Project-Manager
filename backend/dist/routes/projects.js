@@ -40,7 +40,7 @@ router.get("/", userMiddleware_1.userMiddleware, (req, res) => __awaiter(void 0,
             name: user.name,
             profileImg: user.profileImg,
             projects: projects,
-            org: org === null || org === void 0 ? void 0 : org.members
+            //return all the members of the org
         });
         return;
     }

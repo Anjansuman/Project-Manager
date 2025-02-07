@@ -10,6 +10,5 @@ exports.UserSignupSchema = zod_1.default.object({
     username: zod_1.default.string().min(3, "Username must be at least 3 characters").max(30, "Username must be less than 30 characters"),
     email: zod_1.default.string().email(),
     password: zod_1.default.string().min(8, "Password must be at least 8 characters"),
-    role: zod_1.default.string().optional(),
-    profileImg: zod_1.default.string().optional(),
+    role: zod_1.default.string().optional()
 });

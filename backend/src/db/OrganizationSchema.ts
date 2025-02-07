@@ -15,8 +15,8 @@ const OrganizationSchema = new mongoose.Schema({
         type: String,
     },
     projects: [{
-        type: mongoose.Types.ObjectId,
-        ref: ProjectModel
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ProjectModel"
     }]
 })
 

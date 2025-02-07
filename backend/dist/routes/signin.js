@@ -51,7 +51,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         const token = "Bearer " + jsonwebtoken_1.default.sign({
             userId: user._id,
-            orgId: orgName || "not in any organization"
+            orgId: (orgName === null || orgName === void 0 ? void 0 : orgName._id) || "not in any organization"
         }, config_1.SECRET_KEY);
         res.status(200).json({
             message: "Signed-in successfully!",
