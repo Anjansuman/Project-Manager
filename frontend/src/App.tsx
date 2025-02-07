@@ -1,10 +1,12 @@
 import { Nav } from "./Components/Nav-Bar/Nav";
 import { Panels } from "./Components/pages/AllProjects/Panels";
 import { Home } from "./Components/pages/Home/Home";
+import { Signup } from "./Components/pages/Signup/Signup";
+import { Signin } from "./Components/pages/Signin/Signin";
 
-import { RecoilRoot, useRecoilValue } from "recoil";
 import { ThemeState } from "./Atoms/ThemeState";
 
+import { RecoilRoot, useRecoilValue } from "recoil";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
 
             <Route path='/' element={<Home/>} />
             <Route path='/projects' element={<Project_Panel/>} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/signin' element={<Signin />} />
             <Route path='*' element={<ErrorPage />} />
 
         </Routes>

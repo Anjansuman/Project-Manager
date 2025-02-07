@@ -1,14 +1,18 @@
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../Atoms/ThemeState";
+import { RefObject } from "react";
 
 
 interface InputProps {
-    inputRef: () => void;
+    inputRef: RefObject<HTMLInputElement>;
     placeholder: string;
+    w?: string;
+    h?: string;
+    bg?: string;
 }
 
-export const Input = ({ inputRef, placeholder }: InputProps) => {
+export const Input = ({ inputRef, placeholder, w, h, bg }: InputProps) => {
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode === 'light') ? theme_state.light : theme_state.dark;
@@ -18,9 +22,11 @@ export const Input = ({ inputRef, placeholder }: InputProps) => {
             type="text"
             ref={inputRef}
             placeholder={placeholder}
-            className="h-[34px] w-[250px] flex justify-center bg-[#38434f] rounded-md border-none px-2 text-sm outline-none text-white"
+            className={`flex justify-center rounded-md border-none px-3 text-md outline-none text-white`}
             style={{
-                backgroundColor: theme.light_panel_47
+                backgroundColor: `${bg ? bg : theme.light_panel_47}`,
+                height: `${h || '34px'}`,
+                width: `${w || '250px'}`
             }}    
         />
     </div>
