@@ -40,10 +40,10 @@ export const Signup = () => {
     return <div className="h-screen bg-black px-50 py-20">
         <div className="h-full bg-[#03061C] font-[code] rounded-2xl border border-[#1D1D3B] flex overflow-hidden ">
             <div className="w-[50%] ">
-                <div className="text-3xl font-bold text-white mb-2 flex justify-center p-3">
-                    Sign-up
-                </div>
-               <div className="flex flex-col items-center text-white">
+               <div className="h-full flex flex-col items-center justify-center text-white">
+                    <div className="text-3xl font-bold text-white mb-3">
+                        Sign-up
+                    </div>
                     <div className="mb-3">
                         Name:
                         <Input placeholder="Name" inputRef={nameRef} h={'45px'} w={"350px"} />

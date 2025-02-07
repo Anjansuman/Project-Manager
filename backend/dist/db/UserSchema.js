@@ -42,7 +42,6 @@ const UserSchema = new mongoose_1.default.Schema({
     organization: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "OrganizationModel",
-        unique: true
     }
 });
 exports.UserModel = mongoose_1.default.model("Users", UserSchema);

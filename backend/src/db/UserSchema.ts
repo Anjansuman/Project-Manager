@@ -39,7 +39,6 @@ const UserSchema = new mongoose.Schema({
     organization: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "OrganizationModel",
-        unique: true
     }
 
 });
