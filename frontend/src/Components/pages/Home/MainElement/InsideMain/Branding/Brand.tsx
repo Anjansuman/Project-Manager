@@ -3,6 +3,7 @@ import { Add_Project_Button } from "./Add_Project/Add_Project_Button";
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../../../Atoms/ThemeState";
+import { Logo } from "../../../../../ui/SVGs/Logo";
 
 export const Brand = () => {
 
@@ -15,13 +16,13 @@ export const Brand = () => {
         style={{ borderColor: theme.dark_border }}
     >
         <div className="flex justify-center items-center">
-            <div>
-                <img src={BrandLogo} alt="" className="h-20 mr-6 cursor-pointer hover:mr-8"
-                    style={{
-                        filter: 'drop-shadow(2px 2px 2px #00000080)',
-                        transition: 'margin 0.4s ease',
-                    }}
-                />
+            <div className="mr-6 cursor-pointer hover:mr-8"
+                style={{
+                    filter: 'drop-shadow(2px 2px 2px #00000080)',
+                    transition: 'margin 0.4s ease',
+                }}
+            >
+                <Logo h={'100'} />
             </div>
 
             <div className="cursor-pointer hover:ml-2"

@@ -56,7 +56,7 @@ export const Add_Project_Button = () => {
       {/* Outer Circle */}
       <div
         className="relative w-28 h-28 rounded-full shadow-lg flex justify-center items-center transition-transform duration-500 ease-out cursor-pointer"
-        style={{ backgroundColor: "#1D1D3B69" }}
+        style={{ backgroundColor: "#03061C57" }}
         onMouseMove={handleBoundaryMouseMove}
         onMouseLeave={handleBoundaryMouseLeave}
       >
@@ -64,7 +64,7 @@ export const Add_Project_Button = () => {
         <div
           className="relative w-24 h-24 rounded-full shadow-md flex justify-center items-center transition-transform duration-500 ease-out"
           style={{
-            backgroundColor: "#1D1D3B69",
+            backgroundColor: "#03061C57",
             transform: `translate(${midPosition.x}px, ${midPosition.y}px)`,
           }}
           onMouseMove={handleMidMouseMove}
@@ -73,7 +73,7 @@ export const Add_Project_Button = () => {
           <div
             className="w-20 h-20 rounded-full shadow-sm flex justify-center items-center transition-transform duration-500 ease-out text-[white]"
             style={{
-              backgroundColor: "#1D1D3B69",
+              backgroundColor: "#03061C57",
               transform: `translate(${inPosition.x}px, ${inPosition.y}px)`,
             }}
           >

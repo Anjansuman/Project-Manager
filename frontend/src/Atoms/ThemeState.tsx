@@ -20,9 +20,9 @@ export const ThemeState = atom({
         },
 
         dark: {
-            background: '#03061C',
-            dark_panel : '#1D1D3B',
-            dark_panel_69: '#1D1D3B69',
+            background: 'black',
+            dark_panel : '#03061C',
+            dark_panel_69: '#03061C69',
             dark_border: '#1D1D3B',
             light_panel: '#653AD8',
             light_panel_47: '#653AD847',
@@ -34,3 +34,5 @@ export const ThemeState = atom({
         }
     }
 })
+
+// dark-panel : #1D1D3B

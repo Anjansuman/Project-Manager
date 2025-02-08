@@ -30,7 +30,7 @@ export const Signin = () => {
                 localStorage.setItem("token", jwt);
                 alert("Signed in successfully");
                 // Navigate to home-page 
-                navigate("/home");
+                navigate("/");
             } else {
                 alert("Sign-in failed. Please try again.");
             }

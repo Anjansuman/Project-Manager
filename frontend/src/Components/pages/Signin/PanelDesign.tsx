@@ -11,8 +11,13 @@ export const PanelDesign = () => {
             <div className="">
                 <Logo h={'180'} />
             </div>
-            <div className="text-5xl font-bold ">
-                eject
+            <div className="flex">
+                <div className="text-5xl font-bold text-[#03061C] ">
+                    Pro
+                </div>
+                <div className="text-5xl font-bold ">
+                    -eject
+                </div>
             </div>
         </div>
         <div className="flex flex-col items-center">
