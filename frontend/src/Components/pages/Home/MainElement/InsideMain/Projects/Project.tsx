@@ -5,7 +5,11 @@ import { ThemeState } from "../../../../../../Atoms/ThemeState";
 
 import { Link } from "react-router-dom";
 
-export const Project = () => {
+interface ProjectProps {
+    project: { title: string, projectImg: string, completion: string }[]
+}
+
+export const Project = ({ project }: ProjectProps) => {
 
 
     const theme_state = useRecoilValue(ThemeState);
@@ -21,10 +25,12 @@ export const Project = () => {
         </div>
         <div className="h-[1%] w-[30%] ml-3 bg-[#653AD847] mb-3 rounded-full"></div>
         <div className="h-[80%] flex flex-wrap pl-3 pb-2">
-            <Project_Tile/>
-            <Project_Tile/>
-            <Project_Tile/>
-            <Project_Tile/>
+            
+            {project.map((details) => {
+                const { title, projectImg, completion } = details;
+                return <Project_Tile title={title} image={projectImg} completion={completion} />;
+            })}
+
             <div className="flex items-center ml-11">
                 <Link to='/projects'>
                     <div className="h-20 w-20 bg-[#653AD847] rounded-full flex justify-center items-center shadow-lg cursor-pointer">

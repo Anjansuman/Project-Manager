@@ -7,8 +7,25 @@ import { Notification } from "./InsideMain/Notifications/Notification";
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../Atoms/ThemeState";
+import { useState } from "react";
 
-export const Main_Element = () => {
+interface MainElementProps {
+    profileData: {
+        image?: string;
+        name: string;
+        role: string;
+    };
+    project: {
+        title: string;
+        projectImg: string;
+        completion: string
+    }[];
+}
+
+export const Main_Element = ({ profileData, project }: MainElementProps) => {
+
+    const [proFileData, setProfileData] = useState<any>(null);
+
 
 
     const theme_state = useRecoilValue(ThemeState);
@@ -47,7 +64,7 @@ export const Main_Element = () => {
             <div className="h-[100%] w-[24%] rounded-3xl p-0.5"
                 style={{ backgroundColor: theme.dark_panel}}
             >
-                <Profile/>
+                <Profile name={profileData.name} role={profileData.role} />
             </div>
         </div>
 
@@ -55,7 +72,7 @@ export const Main_Element = () => {
             <div className="h-[100%] w-[76%] rounded-3xl mr-6 p-0.5"
                 style={{ backgroundColor: theme.dark_panel}}
             >
-                <Project/>
+                <Project project={project} />
             </div>
 
             <div className="h-[100%] w-[24%] rounded-3xl p-0.5"

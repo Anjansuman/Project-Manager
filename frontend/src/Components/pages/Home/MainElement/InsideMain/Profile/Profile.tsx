@@ -4,7 +4,13 @@ import "./Profile.css";
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../../../Atoms/ThemeState";
 
-export const Profile = () => {
+interface ProfileProps {
+    image?: string;
+    name: string;
+    role: string;
+}
+
+export const Profile = ({ name, role }: ProfileProps) => {
 
 
     const theme_state = useRecoilValue(ThemeState);
@@ -28,8 +34,8 @@ export const Profile = () => {
             </div>
 
             <div className="text-white">
-                <div className="text-lg font-bold">Anjan Suman</div>
-                <div className="text-xs">Software Developer Engineer</div>
+                <div className="text-lg font-bold">{name}</div>
+                <div className="text-xs">{role}</div>
             </div>
 
         </div>
