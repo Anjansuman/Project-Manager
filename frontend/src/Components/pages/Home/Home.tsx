@@ -12,6 +12,12 @@ interface ProfileData {
     role: string;
 }
 
+interface ProjectData {
+    title: string,
+    projectImg: string,
+    completion: string
+}
+
 export function Home() {
 
     const theme_state = useRecoilValue(ThemeState);
@@ -19,7 +25,7 @@ export function Home() {
     const theme = (theme_mode == 'light') ? theme_state.light : theme_state.dark;
 
     const [profileData, setProfileData] = useState<ProfileData>({name: '', image: '', role: ''});
-    const [project, setProject] = useState<{title: string, projectImg: string, completion: string}[]>([]);
+    const [project, setProject] = useState<ProjectData[]>([{ title: '', projectImg: '', completion: '' }]);
 
     async function fetchData() {
         try {
@@ -30,12 +36,13 @@ export function Home() {
                 }
             });
             const data = await response.data;
+            const proj = data.projects;
             setProfileData({
                 name: data.name,
                 image: data.image,
                 role: data.role
             });
-            setProject(data.project);
+            setProject(proj);
         } catch (error) {
             console.log("Error: ", error);
         }

@@ -1,4 +1,5 @@
-import { Project_Tile } from "./Project_Tiles/ProjectTile";
+// import { Project_Tile } from "./Project_Tiles/ProjectTile";
+import { ProjectTile } from "../../../../../ui/Customs/ProjectTile"
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../../../Atoms/ThemeState";
@@ -27,8 +28,7 @@ export const Project = ({ project }: ProjectProps) => {
         <div className="h-[80%] flex flex-wrap pl-3 pb-2">
             
             {project.map((details) => {
-                const { title, projectImg, completion } = details;
-                return <Project_Tile title={title} image={projectImg} completion={completion} />;
+                return <ProjectTile title={details.title} image={details.projectImg} completion={details.completion} />
             })}
 
             <div className="flex items-center ml-11">
