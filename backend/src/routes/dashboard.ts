@@ -9,7 +9,7 @@ const router = Router();
 
 
 // this will show the dashboard
-router.post("/", userMiddleware, async (req, res) => {
+router.get("/", userMiddleware, async (req, res) => {
     try {
 
         const userId = req.userId;
@@ -29,12 +29,19 @@ router.post("/", userMiddleware, async (req, res) => {
             members: user._id
         })
 
+        console.log(projects);
+
         res.status(200).json({
             name: user.name,
             username: user.username,
             role: user.role,
-            profileImg: user.profileImg,
-            projects: projects // make this more specific
+            image: user.profileImg,
+            projects: projects.map(({ title, projectImg, completion }) => ({
+                title,
+                projectImg,
+                completion: completion || '0'
+            }))
+            // make this more specific
         });
         return;
 
@@ -45,5 +52,6 @@ router.post("/", userMiddleware, async (req, res) => {
         return;
     }
 });
+
 
 export default router;

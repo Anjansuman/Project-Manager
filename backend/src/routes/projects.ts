@@ -10,6 +10,11 @@ import { AddProjectSchema } from "../zod/AddProjectSchema";
 
 const router = Router();
 
+interface projectsData {
+    title: string,
+    projectImg: string,
+    completion: string
+}
 
 // this will show the projects
 router.get("/", userMiddleware, async (req, res) => {
@@ -38,9 +43,11 @@ router.get("/", userMiddleware, async (req, res) => {
 
         // check if org members is empty
         res.status(200).json({
-            name: user.name,
-            profileImg: user.profileImg,
-            projects: projects,
+            project: projects.map(({ title, projectImg, completion }) => ({
+                title,
+                projectImg,
+                completion: completion || '0'
+            }))
             //return all the members of the org
         });
         return;
@@ -65,20 +72,37 @@ router.put("/", userMiddleware, async (req, res) => {
             return;
         }
 
-        const { title, description, projectImg, deadline, leader, members } = parsedData.data;
+        const { title, description, projectImg, deadline, completion, leader, members } = parsedData.data;
 
         // this will search if the leader exists in users field
         const searchLeader = await UserModel.findOne({
-            
+            name: leader
         })
+
+        if(!searchLeader) {
+            console.log("leader not found");
+            res.status(404).json({
+                msg: "user doesn't exist!"
+            })
+            return;
+        }
+
+        // make this in a loop so that multiple can be found
+        const searchMember = await UserModel.findOne({
+            name: members[0]
+        })
+
+        console.log(leader);
+        console.log(searchLeader._id)
 
         const newProject = await ProjectModel.create({
             title,
             description,
             projectImg,
             deadline,
-            leader,
-            members
+            completion,
+            leader: searchLeader?._id,
+            members: searchMember?._id
         });
 
         if(!newProject) {

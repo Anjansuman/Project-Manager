@@ -22,13 +22,23 @@ const ProjectSchema: mongoose.Schema = new mongoose.Schema({
         type: Date,
     },
 
+    // this will have the percentage of completion.
+    completion: {
+        type: String
+    },
+
+    chats: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chats"
+    },
+
     leader: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "UserModel"
+        ref: "Users"
     },
     members: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "UserModel"
+        ref: "Users"
     }],
     // write logic for storing project files and folders in db so that user can access them
 });
