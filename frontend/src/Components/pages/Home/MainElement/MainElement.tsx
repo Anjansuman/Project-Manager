@@ -7,7 +7,6 @@ import { Notification } from "./InsideMain/Notifications/Notification";
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../Atoms/ThemeState";
-import { useState } from "react";
 
 interface MainElementProps {
     profileData: {
@@ -23,9 +22,6 @@ interface MainElementProps {
 }
 
 export const Main_Element = ({ profileData, project }: MainElementProps) => {
-
-    const [proFileData, setProfileData] = useState<any>(null);
-
 
 
     const theme_state = useRecoilValue(ThemeState);

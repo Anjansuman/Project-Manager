@@ -1,9 +1,9 @@
 import "./Nav.css";
 // import { MenuBar } from "./MenuBar";
-import LOGO from "../ui/Images/BrandLogo.png"
 
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../Atoms/ThemeState";
+import { Logo } from "../ui/SVGs/Logo";
 
 export function Nav() {
 
@@ -12,18 +12,16 @@ export function Nav() {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
-    return <div className = "nav">
+    return <div className = "h-[63px] flex justify-between ">
         <div className = "logoContainer"
             style={{
                 backgroundColor: theme.dark_panel,
                 borderBottom: '1px solid',
                 borderBottomColor: theme.gray_border,
             }}> {/* this div is for storing logo*/}
-            <img src={LOGO} alt="" className="h-10 mr-3"
-                style={{
-                    filter: 'drop-shadow(2px 2px 2px #00000080)',
-                }}
-            />
+            <div className="mr-4">
+                <Logo h={'42'} color={theme.font_color} />
+            </div>
         </div>
         <div className = "inputContainer"
             style={{

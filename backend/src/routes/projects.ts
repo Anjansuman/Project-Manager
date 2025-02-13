@@ -43,7 +43,7 @@ router.get("/", userMiddleware, async (req, res) => {
 
         // check if org members is empty
         res.status(200).json({
-            project: projects.map(({ title, projectImg, completion }) => ({
+            projects: projects.map(({ title, projectImg, completion }) => ({
                 title,
                 projectImg,
                 completion: completion || '0'
