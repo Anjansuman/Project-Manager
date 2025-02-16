@@ -1,11 +1,16 @@
 
 import express from "express";
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+
 
 import { MONGO_URL } from "./config";
 import mongoose from "mongoose";
 import cors from "cors";
 
 const app = express();
+const server = createServer(app);
+
 app.use(express.json());
 app.use(cors());
 
@@ -28,7 +33,16 @@ app.get("/eject/v1/projects/:project_name", async (req, res) => {
 
 })
 
-app.listen(3000);
+
+const wss = new WebSocketServer({ server });
+
+wss.on("connection", (socket) => {
+    console.log("Websocket server connected");
+})
+
+
+const PORT = 8080;
+app.listen(PORT);
 
 export async function connectDB(): Promise<void> {
     try {
