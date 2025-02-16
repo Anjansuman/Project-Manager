@@ -30,7 +30,7 @@ export const ThemeState = atom({
             font_color: 'white',
             default_font_color: 'gray',
             hover_font_color: 'white',
-            gray_border: 'transparent'
+            gray_border: '#1d1d2b'
         }
     }
 })

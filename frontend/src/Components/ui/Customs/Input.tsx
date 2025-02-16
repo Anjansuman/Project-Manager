@@ -5,7 +5,7 @@ import { RefObject } from "react";
 
 
 interface InputProps {
-    inputRef: RefObject<HTMLInputElement>;
+    inputRef?: RefObject<HTMLInputElement>;
     placeholder: string;
     w?: string;
     h?: string;
