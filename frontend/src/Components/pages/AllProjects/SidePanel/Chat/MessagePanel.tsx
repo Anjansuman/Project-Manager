@@ -2,14 +2,18 @@ import { useState, useRef, useEffect } from "react";
 
 import { MessageBox } from "../../../../ui/Customs/MessageBox"
 import { Input } from "../../../../ui/Customs/Input";
-import { Button } from "../../../../ui/Customs/Button";
 import { SendButton } from "../../../../ui/SVGs/SendButton";
 
+
+interface Messages {
+    msg: string,
+    time: string
+}
 
 export const MessagePanel = ({ projectId }: { projectId: string }) => {
 
     const wsRef = useRef<WebSocket | null>();
-    const [messages, setMessages] = useState<string[]>(["hellow"]);
+    const [messages, setMessages] = useState<Messages[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -17,11 +21,22 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         wsRef.current = ws;
 
         ws.onmessage = (event) => {
-            setMessages(m => [...m, event.data])
+            try {
+                const receivedData = JSON.parse(event.data);
+                
+                if(receivedData.message && receivedData.time) {
+                    setMessages((m) => [...m, {
+                        msg: receivedData.message,
+                        time: receivedData.time
+                    }]);
+                }
+
+            } catch (error) {
+                console.log("Error parsing msg or time: ", error);
+            }
         }
 
         ws.onopen = () => {
-            console.log("Websocket connected!")
             ws.send(JSON.stringify({
                 type: "join",
                 payload: {
@@ -41,12 +56,21 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         const input = inputRef.current?.value.trim();
         if (!input || !wsRef.current) return;
 
-        wsRef.current?.send(JSON.stringify({
+        const messageData = {
             type: "chat",
             payload: {
-                message: input
+                message: input,
+                time: getTime()
+                //sender: userId
             }
-        }))
+        };
+
+        wsRef.current.send(JSON.stringify(messageData));
+
+        setMessages((m) => [...m, {
+            msg: input,
+            time: getTime()
+        }])
 
         if(inputRef.current) {
             inputRef.current.value = "";
@@ -59,12 +83,16 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         }
     }
 
+    const getTime = () => {
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    };
+
     
     return <div className="h-full w-full">
         <div className="h-[89%] w-full bg-[#03061C69] p-[3px] rounded-xl mb-3 shadow-lg">
             <div className="h-full w-full bg-[#03061C] rounded-xl p-3 overflow-y-scroll overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] shadow-lg">
-                {messages.map((m, key) => <div className="w-full mb-2 shadow-sm ">
-                    <MessageBox key={key} text={m} />
+                {messages.map((m, key) => <div className="w-full mb-2 shadow-sm flex">
+                    <MessageBox key={key} text={m.msg} time={m.time} />
                 </div>)}
             </div>
         </div>

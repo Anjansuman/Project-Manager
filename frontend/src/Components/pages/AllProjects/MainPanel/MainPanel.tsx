@@ -65,7 +65,7 @@ export function MainPanel() {
         setIsPanelVisible(false);
     }
 
-    const renderBlock = blocks.map(() => (<Blocks/>));
+    // const renderBlock = blocks.map(() => (<Blocks/>));
 
     // it is used for conditional styling for blocks 
 

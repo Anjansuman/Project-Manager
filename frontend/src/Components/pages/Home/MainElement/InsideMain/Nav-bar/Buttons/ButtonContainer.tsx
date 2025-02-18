@@ -1,3 +1,5 @@
+import { HomeButton } from "../../../../../../ui/SVGs/HomeButton";
+import { ProjectButton } from "../../../../../../ui/SVGs/ProjectButton";
 import { Home_Button } from "./HomeButton";
 import { ToggleButton } from "./ToggleButton";
 
@@ -5,11 +7,11 @@ export const Button_Container = () => {
     return <div className="h-[100%] w-[100%] px-12 flex justify-between items-center ">
         <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
-            ><Home_Button/></div>
+            ><HomeButton height={"30"} /></div>
 
             <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
-            >My Projects</div>
+            ><ProjectButton height={'45'} /></div>
 
             <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
