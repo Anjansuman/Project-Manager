@@ -5,29 +5,31 @@ import { RefObject } from "react";
 
 
 interface InputProps {
-    inputRef?: RefObject<HTMLInputElement>;
-    placeholder: string;
-    w?: string;
-    h?: string;
-    bg?: string;
+    inputRef?: RefObject<HTMLInputElement>,
+    placeholder: string,
+    w?: string,
+    h?: string,
+    bg?: string,
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
 }
 
-export const Input = ({ inputRef, placeholder, w, h, bg }: InputProps) => {
+export const Input = ({ inputRef, placeholder, w, h, bg, onKeyDown }: InputProps) => {
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode === 'light') ? theme_state.light : theme_state.dark;
 
-    return <div>
+    return <div className="h-full w-full">
         <input
             type="text"
             ref={inputRef}
             placeholder={placeholder}
-            className={`flex justify-center rounded-md border-none px-3 text-md outline-none text-white`}
+            className={`flex justify-center rounded-md border-none px-3 text-md outline-none text-white overflow-y-auto`}
             style={{
                 backgroundColor: `${bg ? bg : theme.light_panel_47}`,
-                height: `${h || '34px'}`,
-                width: `${w || '250px'}`
-            }}    
+                height: `${h || '100%'}`,
+                width: `${w || '100%'}`
+            }}
+            onKeyDown={onKeyDown}
         />
     </div>
 }

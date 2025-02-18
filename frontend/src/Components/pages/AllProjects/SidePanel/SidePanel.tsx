@@ -21,12 +21,12 @@ export function SidePanel() {
         {/* <SearchButton/> */}
         {/* <Members/> */}
         
-        <div className="h-[5%] text-white text-xl flex items-center">
+        {/* <div className="h-[5%] text-white text-xl flex items-center">
             Project name
-        </div>
+        </div> */}
 
-        <div className="h-[85%] w-full flex items-center justify-center ">
-            <MessagePanel projectId={""} />
+        <div className="h-full w-full flex items-center justify-center ">
+            <MessagePanel projectId={"red"} />
         </div>
 
     </div>

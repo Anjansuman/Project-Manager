@@ -3,6 +3,7 @@ import { Server } from "http";
 
 export function setupWebSocket(server: Server) {
 
+    const wss = new WebSocketServer({ server });
 
     interface User {
         socket: WebSocket,
@@ -11,9 +12,9 @@ export function setupWebSocket(server: Server) {
 
     let allSockets: User[] = [];
 
-    const wss = new WebSocketServer({ server });
 
     wss.on("connection", (socket) => {
+
 
         socket.on("message", (message) => {
             const parsedMessage = JSON.parse(message.toString());
@@ -29,7 +30,7 @@ export function setupWebSocket(server: Server) {
 
             // this is to exit from a room
             if(parsedMessage.type === "exit") {
-                allSockets.filter(x => x.socket !== socket);
+                allSockets = allSockets.filter(x => x.socket !== socket);
             }
 
             // This is to check if the user want to send a message or not

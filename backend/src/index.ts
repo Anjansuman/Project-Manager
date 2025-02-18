@@ -1,7 +1,6 @@
 
 import express from "express";
 import { createServer } from "http";
-import { WebSocketServer } from "ws";
 
 
 import { MONGO_URL } from "./config";
@@ -20,6 +19,7 @@ import signinRoute from "./routes/signin";
 import dashboardRoute from "./routes/dashboard";
 import projectsRoute from "./routes/projects";
 import organization from "./routes/organization"
+import { setupWebSocket } from "./WebSocket/chat";
 
 app.use("/eject/v1/signup", signupRoute);
 app.use("/eject/v1/signin", signinRoute);
@@ -34,15 +34,12 @@ app.get("/eject/v1/projects/:project_name", async (req, res) => {
 })
 
 
-const wss = new WebSocketServer({ server });
+// const wss = new WebSocketServer({ server });
 
-wss.on("connection", (socket) => {
-    console.log("Websocket server connected");
-})
+setupWebSocket(server);
 
-
-const PORT = 8080;
-app.listen(PORT);
+const PORT = 3000;
+server.listen(PORT);
 
 export async function connectDB(): Promise<void> {
     try {
