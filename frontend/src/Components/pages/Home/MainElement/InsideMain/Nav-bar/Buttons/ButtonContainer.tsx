@@ -7,7 +7,7 @@ export const Button_Container = () => {
     return <div className="h-[100%] w-[100%] px-12 flex justify-between items-center ">
         <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
-            ><HomeButton height={"30"} /></div>
+            ><HomeButton height={"40"} /></div>
 
             <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}

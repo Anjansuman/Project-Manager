@@ -1,5 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../Atoms/ThemeState";
+import { BarGraph } from "./Bar-Graph/BarGraph";
+import { BottomBox } from "../../../ui/Customs/BottomBox";
 
 export const Project = () => {
 
@@ -29,60 +31,13 @@ export const Project = () => {
                 </div>
 
                 <div className="h-40 w-40 flex flex-col justify-around ">
-                    <div className="flex items-center">
-                        <div className="h-[10px] rounded-xs border border-[#e03131] bg-[#e0313160] "
-                            style={{
-                                width: '40%'
-                            }}
-                        ></div>
-                        <div className="text-gray-500 text-xs ml-2">
-                            HTML
-                        </div>
-                    </div>
 
-                    <div className="flex items-center">
-                        <div className="h-[10px] rounded-xs border border-[#2f9e44] bg-[#2f9e4460] "
-                            style={{
-                                width: '60%'
-                            }}
-                        ></div>
-                        <div className="text-gray-500 text-xs ml-2">
-                            CSS
-                        </div>
-                    </div>
+                    <BarGraph color={"#e03131"} percent={'40%'} text={'HTML'} />
+                    <BarGraph color={"#2f9e44"} percent={'60%'} text={'CSS'} />
+                    <BarGraph color={"#1971c2"} percent={'50%'} text={'Solidity'} />
+                    <BarGraph color={"#f08c00"} percent={'80%'} text={'Typescript'} />
+                    <BarGraph color={"#6741d9"} percent={'20%'} text={'Javascript'} />
 
-                    <div className="flex items-center">
-                        <div className="h-[10px] rounded-xs border border-[#1971c2] bg-[#1971c260] "
-                            style={{
-                                width: '50%'
-                            }}
-                        ></div>
-                        <div className="text-gray-500 text-xs ml-2">
-                            Solidity
-                        </div>
-                    </div>
-
-                    <div className="flex items-center">
-                        <div className="h-[10px] rounded-xs border border-[#f08c00] bg-[#f08c0060] "
-                            style={{
-                                width: '80%'
-                            }}
-                        ></div>
-                        <div className="text-gray-500 text-xs ml-2">
-                            Typescript
-                        </div>
-                    </div>
-
-                    <div className="flex items-center">
-                        <div className="h-[10px] rounded-xs border border-[#6741d9] bg-[#6741d960] "
-                            style={{
-                                width: '65%'
-                            }}
-                        ></div>
-                        <div className="text-gray-500 text-xs ml-2">
-                            Solidity
-                        </div>
-                    </div>
                 </div>
             </div>
             <div className="w-[50%] text-white text-7xl font-bold tracking-wider flex justify-center items-center">
@@ -91,5 +46,6 @@ export const Project = () => {
                 </div>
             </div>
         </div>
+        <BottomBox color={'#e03131'} element={<div>hellow</div>} />
     </div>
 }
