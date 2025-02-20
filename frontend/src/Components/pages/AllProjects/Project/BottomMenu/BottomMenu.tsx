@@ -22,17 +22,17 @@ export const BottomMenu = () => {
                 duration: 1
             })
             gsap.to('.meet', {
-                x: -300,
+                y: -300,
                 opacity: 1,
                 duration: 1
             })
             gsap.to('.chat', {
-                x: -200,
+                y: -200,
                 opacity: 1,
                 duration: 1
             })
             gsap.to('.delete', {
-                x: -100,
+                y: -100,
                 opacity: 1,
                 duration: 1
             })
@@ -46,17 +46,17 @@ export const BottomMenu = () => {
                 duration: 1
             })
             gsap.to('.meet', {
-                x: 0,
+                y: 0,
                 opacity: 0,
                 duration: 1
             })
             gsap.to('.chat', {
-                x: 0,
+                y: 0,
                 opacity: 0,
                 duration: 1
             })
             gsap.to('.delete', {
-                x: 0,
+                y: 0,
                 opacity: 0,
                 duration: 1
             })
@@ -71,7 +71,7 @@ export const BottomMenu = () => {
                 <BottomBox element={<div>28</div>} z={20} onClick={() => setClick(false)}/>
             </div>
             <div className="cross absolute right-16 bottom-32 opacity-0">
-                <CrossIcon color={'white'} onClick={() => setClick(true)} size={'10'} />
+                <CrossIcon color={'white'} onClick={() => setClick(true)} size={'40'} />
             </div>
         </div>
 
