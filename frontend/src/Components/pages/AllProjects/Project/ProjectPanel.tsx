@@ -1,7 +1,8 @@
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../Atoms/ThemeState";
 import { BarGraph } from "./Bar-Graph/BarGraph";
-import { BottomBox } from "../../../ui/Customs/BottomBox";
+import { BottomMenu } from "./BottomMenu/BottomMenu";
+import { ProjectFile } from "../../../ui/Customs/ProjectFile";
 
 export const Project = () => {
 
@@ -18,7 +19,7 @@ export const Project = () => {
         }}
     >
         {/* start */}
-        <div className=" flex items-center justify-between">
+        <div className=" flex items-center justify-between mb-4">
             <div className="flex items-center">
                 <div className="h-50 w-50 bg-[#653AD847] p-1 rounded-xl mr-5">
                     <div className="h-full w-full bg-[#653AD847] rounded-xl">
@@ -46,6 +47,14 @@ export const Project = () => {
                 </div>
             </div>
         </div>
-        <BottomBox color={'#e03131'} element={<div>hellow</div>} />
+
+        <div className=" text-white border border-[gray] rounded-xl flex flex-wrap p-3 pb-0 ">
+            <ProjectFile />
+            <ProjectFile />
+            <ProjectFile />
+        </div>
+
+        <BottomMenu />
+        
     </div>
 }
