@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import { BottomBox } from "../../../../ui/Customs/BottomBox"
+import { BottomBox } from "../../../../ui/Customs/BottomBox";
+import { CameraIcon } from "../../../../ui/SVGs/CameraIcon";
+import { ChatIcon } from "../../../../ui/SVGs/ChatIcon";
 import { CrossIcon } from "../../../../ui/SVGs/CrossIcon";
 import { DeleteIcon } from "../../../../ui/SVGs/DeleteIcon";
-import { ChatIcon } from "../../../../ui/SVGs/ChatIcon";
-import { CameraIcon } from "../../../../ui/SVGs/CameraIcon";
 
 import gsap from "gsap";
+import { PlusIcon } from "../../../../ui/SVGs/PlusIcon";
 
-export const BottomMenu = () => {
+interface BottomMenu {
+    onClick?: () => void
+}
 
-    const [click, setClick] = useState(true);
-
+export const BottomMenu = ({ onClick }: BottomMenu) => {
+     const [click, setClick] = useState(true);
+    
     useEffect(() => {
         if(click == false) {
             gsap.to('.main', {
@@ -83,7 +87,7 @@ export const BottomMenu = () => {
             <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<ChatIcon color={'white'} size={'25'} />} z={10} />
         </div>
         <div className="delete absolute bottom-0 right-0 opacity-0">
-            <BottomBox color={'#e03131'} hoverBG={'#e0313199'} element={<DeleteIcon color={"white"} size={'25'} />} z={10} />
+            <BottomBox color={'#e03131'} hoverBG={'#e0313199'} element={<PlusIcon color={"white"} size={'35'} />} z={10} onClick={onClick} />
         </div>
     </div>
 }

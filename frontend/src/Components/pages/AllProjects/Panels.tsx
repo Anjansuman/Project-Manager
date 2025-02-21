@@ -2,23 +2,14 @@ import { MainPanel } from "./MainPanel/MainPanel";
 import { SidePanel } from "./SidePanel/SidePanel";
 import { Project } from "./Project/ProjectPanel";
 
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export function Panels() {
 
-    const style = {
-        display: "flex",
-        justifyContent: "space-around",
-        MarginTop: 15,
-        MarginLeft: 15,
-        Marginright: 15,
-    }
+    const { title } = useParams();
 
-    const location = useLocation();
-    const isProjectPanel = location.pathname.startsWith("/projects/");
-
-    return <div style = {style}>
+    return <div className="flex justify-around mx-[15] mt-[15] ">
         <SidePanel/>
-        {isProjectPanel ? <Project /> : <MainPanel />}
+        {title ? <Project /> : <MainPanel />}
     </div>
 }

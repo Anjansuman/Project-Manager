@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 interface ProjectTileProps {
     title: string,
     image: string,
-    completion: string
+    completion: string,
 }
 
 
@@ -18,7 +18,7 @@ export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
 
 
     return <div>
-        <Link to={'/projects/'}>
+        <Link to={`/projects/${title}`}>
             <div className="h-[213px] w-48 bg-[#653AD847] rounded-3xl mr-2 pt-6 cursor-pointer">
                 <div className="flex justify-center mb-4">
                     <div className="h-24 w-24 bg-[#653AD847] rounded-full shadow-lg flex justify-center items-center">

@@ -3,11 +3,12 @@ import { Panels } from "./Components/pages/AllProjects/Panels";
 import { Home } from "./Components/pages/Home/Home";
 import { Signup } from "./Components/pages/Signup/Signup";
 import { Signin } from "./Components/pages/Signin/Signin";
+import { Project } from "./Components/pages/AllProjects/Project/ProjectPanel";
 
 import { ThemeState } from "./Atoms/ThemeState";
 
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 function App() {
 
@@ -19,9 +20,11 @@ function App() {
         <Routes>
 
             <Route path='/' element={<Home/>} />
-            <Route path='/projects' element={<Project_Panel/>} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/signin' element={<Signin />} />
+
+            <Route path='/projects/*' element={<ProjectLayout />} />
+
             <Route path='*' element={<ErrorPage />} />
 
         </Routes>
@@ -54,7 +57,7 @@ function ErrorPage() {
   </div>
 }
 
-function Project_Panel() {
+function ProjectLayout() {
 
 
   const theme_state = useRecoilValue(ThemeState);
@@ -66,7 +69,10 @@ function Project_Panel() {
     <div style = {{marginBottom : 10}}>
       <Nav/>
     </div>
-    <Panels/>
+    <Routes>
+      <Route path="/" element={<Panels />} />
+      <Route path=":title" element={<Panels />} />
+    </Routes>
   </div>
 }
 

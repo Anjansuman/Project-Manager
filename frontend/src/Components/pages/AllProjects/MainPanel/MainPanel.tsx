@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { Blocks } from "./Block/Blocks";
-import { PlusBlock } from "./Block/PlusBlock";
+import { useState } from "react";
+// import { Blocks } from "./Block/Blocks";
 import { PlusBlockPanel } from "./Block/ProjectPanel/PlusBlockPanel";
 
-import axios from "axios";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 
 import { ThemeState } from "../../../../Atoms/ThemeState";
 import { Project } from "../../../../Atoms/Project";
 import { ProjectTile } from "../../../ui/Customs/ProjectTile";
+import { BottomMenu } from "./BottomMenu/BottomMenu";
+import { NoProjectIcon } from "../../../ui/SVGs/NoProjectIcon";
 
 
 interface ProjectData {
@@ -19,26 +19,6 @@ interface ProjectData {
 }
 
 export function MainPanel() {
-
-    const [project, setProject] = useState<ProjectData[]>([{ title: '', projectImg: '', completion: '' }]);
-
-    async function fetchData() {
-        const backend = import.meta.env.VITE_BACKEND_URL;
-        const response = await axios.get(`${backend}/projects`, {
-            headers: {
-                "Authorization": localStorage.getItem("token")
-            }
-        });
-        const projects = await response.data.projects;
-        console.log(projects);
-        setProject(projects);
-
-    }
-
-    useEffect(() => {
-        fetchData();
-        console.log(project);
-    }, []);
 
     const pro = useRecoilValueLoadable(Project);
 
@@ -79,16 +59,21 @@ export function MainPanel() {
             <div>Projects</div>
         </div>
         <div className={`flex flex-wrap ${(blocks.length > 3) ? 'justify-center' : ''}`}>
-            <PlusBlock onAddBlock = {handleShowPanel}/>
             {(pro.state === "loading") ? 
                 <div className="text-white"> Loading...</div> : ''
             }
             {isPanelVisible && <PlusBlockPanel onAddBlock = {handleAddBlock} onClose = {handleClosePanel}/>}
             {/* as plus panel gets visible set the text bar to focus to make it more clean */}
             {/* {renderBlock} */}
+            
+            {pro.state === 'hasValue' && pro.contents.length === 0 ? <NoProjectIcon /> : '' }
+
             {pro.state === 'hasValue' && pro.contents.map((details: ProjectData, key: number) => (
                 <ProjectTile key={key} title={details.title} image={details.projectImg} completion={details.completion} />
             ))}
+        </div>
+        <div>
+            <BottomMenu onClick={handleShowPanel} />
         </div>
     </div>
 }
