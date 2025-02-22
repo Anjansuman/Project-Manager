@@ -6,6 +6,7 @@ import { ThemeState } from "../../Atoms/ThemeState";
 import { Logo } from "../ui/SVGs/Logo";
 import { HomeButton } from "../ui/SVGs/HomeButton";
 import { ProjectButton } from "../ui/SVGs/ProjectButton";
+import { ProfileCircle } from "../ui/Customs/ProfileCircle";
 
 export function Nav() {
 
@@ -43,16 +44,18 @@ export function Nav() {
                 borderBottomColor: theme.gray_border,
             }}> {/* this div is for storing buttons*/}
             <div className="button flex flex-col text-xs items-center hover:text-white ">
-                <HomeButton height={"30"} />
+                <HomeButton height={"30px"} />
                 Home
             </div>
             <div className="button flex flex-col text-xs items-center hover:text-white ">
-                <ProjectButton height={'30'} />
+                <ProjectButton height={'30px'} />
                 My Projects
             </div>
             <div className="button hover:text-white ">Messaging</div>
             <div className="button hover:text-white ">Notifications</div>
-            <div className="button hover:text-white ">Me</div>
+            <div className="button flex flex-col text-xs items-center hover:text-white ">
+                <ProfileCircle size={'45px'} />
+            </div>
         </div>
         <div className="w-[6%] "
             style={{

@@ -44,7 +44,7 @@ export const Button = ({ text, onClick, bg, w, h, size = 'md', rounded, dark }: 
                 height: `${h || ""}`,
                 width: `${w || ""}`,
                 borderRadius: `${rounded ? '50px' : ''}`,
-                
+                color: theme.font_color
             }}
             onClick={onClick}
         >

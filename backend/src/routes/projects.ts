@@ -82,7 +82,7 @@ router.put("/", userMiddleware, async (req, res) => {
         if(!searchLeader) {
             console.log("leader not found");
             res.status(404).json({
-                msg: "user doesn't exist!"
+                message: "user doesn't exist!"
             })
             return;
         }
