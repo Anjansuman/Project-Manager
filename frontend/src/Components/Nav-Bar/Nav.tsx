@@ -4,6 +4,8 @@ import "./Nav.css";
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../Atoms/ThemeState";
 import { Logo } from "../ui/SVGs/Logo";
+import { HomeButton } from "../ui/SVGs/HomeButton";
+import { ProjectButton } from "../ui/SVGs/ProjectButton";
 
 export function Nav() {
 
@@ -12,7 +14,7 @@ export function Nav() {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
-    return <div className = "h-[63px] flex justify-between ">
+    return <div className = "h-[70px] flex justify-between ">
         <div className = "logoContainer"
             style={{
                 backgroundColor: theme.dark_panel,
@@ -33,18 +35,24 @@ export function Nav() {
                 style={{ backgroundColor: theme.light_panel_47 }}
             />
         </div>
-        <div className = "buttons"
+        <div className = "buttons text-[gray]"
             style={{
                 backgroundColor: theme.dark_panel,
-                color: theme.font_color,
+                // color: theme.font_color,
                 borderBottom: '1px solid',
                 borderBottomColor: theme.gray_border,
             }}> {/* this div is for storing buttons*/}
-            <div className="button">Home</div>
-            <div className="button">My Projects</div>
-            <div className="button">Messaging</div>
-            <div className="button">Notifications</div>
-            <div className="button">Me</div>
+            <div className="button flex flex-col text-xs items-center hover:text-white ">
+                <HomeButton height={"30"} />
+                Home
+            </div>
+            <div className="button flex flex-col text-xs items-center hover:text-white ">
+                <ProjectButton height={'30'} />
+                My Projects
+            </div>
+            <div className="button hover:text-white ">Messaging</div>
+            <div className="button hover:text-white ">Notifications</div>
+            <div className="button hover:text-white ">Me</div>
         </div>
         <div className="w-[6%] "
             style={{

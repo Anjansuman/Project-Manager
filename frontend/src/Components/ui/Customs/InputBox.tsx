@@ -6,7 +6,7 @@ import { RefObject } from "react";
 
 interface InputBoxProps {
     inputRef?: RefObject<HTMLTextAreaElement>;
-    placeholder: string;
+    placeholder?: string;
     w?: string;
     h?: string;
     bg?: string;
@@ -23,19 +23,17 @@ export const InputBox = ({ inputRef, placeholder, w, h, bg }: InputBoxProps) => 
         target.style.height =`${target.scrollHeight}px`;
     }
 
-    return <div className="h-full w-full flex justify-center items-center ">
+    return <div className=""
+        style={{ height: h }}
+    >
         <textarea
             ref={inputRef}
             placeholder={placeholder}
-            className={`h-auto max-h-[30%] rounded-md border-none px-3 text-md outline-none text-white resize-none overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none]`}
+            className={`h-full rounded-md border-none px-3 text-md outline-none text-white resize-none overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none]`}
             style={{
                 backgroundColor: bg ? bg : theme.light_panel_47,
-                height: h || "100%",
-                width: w || "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "left", // Centers text horizontally
+                // height: h || "100%",
+                // width: w || "100%",
             }}
             onInput={onInput}
               

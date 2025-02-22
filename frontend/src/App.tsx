@@ -1,5 +1,5 @@
 import { Nav } from "./Components/Nav-Bar/Nav";
-import { Panels } from "./Components/pages/AllProjects/Panels";
+// import { Panels } from "./Components/pages/AllProjects/Panels";
 import { Home } from "./Components/pages/Home/Home";
 import { Signup } from "./Components/pages/Signup/Signup";
 import { Signin } from "./Components/pages/Signin/Signin";
@@ -9,6 +9,10 @@ import { ThemeState } from "./Atoms/ThemeState";
 
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { MainPanel } from "./Components/pages/AllProjects/MainPanel/MainPanel";
+import { SidePanel } from "./Components/pages/AllProjects/SidePanel/SidePanel";
+import { NewProject } from "./Components/pages/AllProjects/MainPanel/AddNewProject/NewProject";
+import { ErrorProject } from "./Components/pages/AllProjects/ErrorProject/ErrorProject";
 
 function App() {
 
@@ -18,15 +22,19 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
 
-            <Route path='/' element={<Home/>} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/signin' element={<Signin />} />
+            {/* Group project-related routes under ProjectLayout */}
+            <Route path="/projects/*" element={<ProjectLayout />}>
+                <Route index element={<MainPanel />} />
+                <Route path=":title" element={<Project />} />
+                <Route path="new-project" element={<NewProject />} />
+                <Route path="*" element={<ErrorProject />} />
+            </Route>
 
-            <Route path='/projects/*' element={<ProjectLayout />} />
-
-            <Route path='*' element={<ErrorPage />} />
-
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
@@ -57,23 +65,25 @@ function ErrorPage() {
   </div>
 }
 
-function ProjectLayout() {
 
+export function ProjectLayout() {
 
   const theme_state = useRecoilValue(ThemeState);
-  const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
+  const theme = theme_state.mode === "light" ? theme_state.light : theme_state.dark;
 
+  
+  return (
+      <div className="h-[100vh] w-[100vw] overflow-hidden" style={{ backgroundColor: theme.background }}>
+          <div style={{ marginBottom: 10 }}>
+              <Nav />
+          </div>
 
-  return <div className='h-[100vh] w-[100vw] fixed top-0 left-0 'style = {{ backgroundColor: theme.background }}>
-    
-    <div style = {{marginBottom : 10}}>
-      <Nav/>
-    </div>
-    <Routes>
-      <Route path="/" element={<Panels />} />
-      <Route path=":title" element={<Panels />} />
-    </Routes>
-  </div>
+          <div className="flex justify-around mx-[15] mt-[15]">
+              <SidePanel />
+              <Outlet /> {/* Dynamically render the correct component here */}
+          </div>
+      </div>
+  );
 }
 
 export default App

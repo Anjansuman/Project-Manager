@@ -7,12 +7,11 @@ import { DeleteIcon } from "../../../../ui/SVGs/DeleteIcon";
 
 import gsap from "gsap";
 import { PlusIcon } from "../../../../ui/SVGs/PlusIcon";
+import { Link } from "react-router-dom";
 
-interface BottomMenu {
-    onClick?: () => void
-}
 
-export const BottomMenu = ({ onClick }: BottomMenu) => {
+
+export const BottomMenu = () => {
      const [click, setClick] = useState(true);
     
     useEffect(() => {
@@ -74,7 +73,7 @@ export const BottomMenu = ({ onClick }: BottomMenu) => {
             <div className="main absolute bottom-0 right-0">
                 <BottomBox element={<div>28</div>} z={20} onClick={() => setClick(false)}/>
             </div>
-            <div className="cross absolute right-16 bottom-32 opacity-0">
+            <div className="cross absolute right-16 bottom-24 opacity-0">
                 <CrossIcon color={'white'} onClick={() => setClick(true)} size={'40'} />
             </div>
         </div>
@@ -87,7 +86,9 @@ export const BottomMenu = ({ onClick }: BottomMenu) => {
             <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<ChatIcon color={'white'} size={'25'} />} z={10} />
         </div>
         <div className="delete absolute bottom-0 right-0 opacity-0">
-            <BottomBox color={'#e03131'} hoverBG={'#e0313199'} element={<PlusIcon color={"white"} size={'35'} />} z={10} onClick={onClick} />
+            <Link to='/projects/new-project'>
+                <BottomBox color={'#e03131'} hoverBG={'#e0313199'} element={<PlusIcon color={"white"} size={'35'} />} z={10} />
+            </Link>
         </div>
     </div>
 }

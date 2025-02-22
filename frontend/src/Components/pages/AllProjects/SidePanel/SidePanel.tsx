@@ -1,5 +1,5 @@
 // import { SearchButton } from "./SearchButton";
-import { Members } from "./Members";
+// import { Members } from "./Members";
 import { MessagePanel } from "./Chat/MessagePanel";
 
 import { useRecoilValue } from "recoil";
@@ -12,7 +12,7 @@ export function SidePanel() {
     const theme = (themeState.mode == 'light') ? themeState.light : themeState.dark;
 
 
-    return <div className = "h-[77.4vh] w-[28%] border rounded-[14px] p-4 m-[15px] "
+    return <div className = "h-[80vh] w-[28%] border rounded-[14px] p-4 m-[15px] "
         style={{
             backgroundColor: theme.light_panel,
             borderColor: theme.gray_border,

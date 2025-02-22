@@ -70,7 +70,7 @@ export const BottomMenu = () => {
             <div className="main absolute bottom-0 right-0">
                 <BottomBox element={<div>28</div>} z={20} onClick={() => setClick(false)}/>
             </div>
-            <div className="cross absolute right-16 bottom-32 opacity-0">
+            <div className="cross absolute right-16 bottom-24 opacity-0">
                 <CrossIcon color={'white'} onClick={() => setClick(true)} size={'40'} />
             </div>
         </div>

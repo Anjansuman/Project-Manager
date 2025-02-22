@@ -9,7 +9,7 @@ interface BottomBoxProps {
 }
 
 export const BottomBox = ({ color, element, onClick, z, hoverBG = "" }: BottomBoxProps) => {
-    return  <div className="h-[70px] w-[70px] bg-[#653AD847] border border-[#1d1d2b] p-0.5 rounded-full absolute right-12 bottom-28 cursor-pointer "
+    return  <div className="h-[70px] w-[70px] bg-[#653AD847] border border-[#1d1d2b] p-0.5 rounded-full absolute right-12 bottom-20 cursor-pointer "
         style={{
             zIndex: `${z}`
         }}

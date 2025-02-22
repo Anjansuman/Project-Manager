@@ -32,7 +32,7 @@ export const Project = () => {
     }, [])
 
 
-    return <div className="h-auto w-[70%] border bg-[#03061C] rounded-[14px] p-[25.2px] m-[15px] "
+    return <div className="h-[80vh] w-[70%] border bg-[#03061C] rounded-[14px] p-[25.2px] m-[15px] "
         style = {{
             backgroundColor:  theme.dark_panel,
             borderColor: theme.gray_border
