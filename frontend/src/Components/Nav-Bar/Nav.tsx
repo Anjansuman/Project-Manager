@@ -7,6 +7,7 @@ import { Logo } from "../ui/SVGs/Logo";
 import { HomeButton } from "../ui/SVGs/HomeButton";
 import { ProjectButton } from "../ui/SVGs/ProjectButton";
 import { ProfileCircle } from "../ui/Customs/ProfileCircle";
+import { BellIcon } from "../ui/SVGs/BellIcon";
 
 export function Nav() {
 
@@ -52,7 +53,10 @@ export function Nav() {
                 My Projects
             </div>
             <div className="button hover:text-white ">Messaging</div>
-            <div className="button hover:text-white ">Notifications</div>
+            <div className="button flex flex-col text-xs items-center hover:text-white ">
+                <BellIcon color={'#653AD880'} size={'30px'} />
+                Notifications
+            </div>
             <div className="button flex flex-col text-xs items-center hover:text-white ">
                 <ProfileCircle size={'45px'} />
             </div>

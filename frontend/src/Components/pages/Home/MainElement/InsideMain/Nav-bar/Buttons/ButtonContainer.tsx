@@ -1,3 +1,5 @@
+import { ProfileCircle } from "../../../../../../ui/Customs/ProfileCircle";
+import { BellIcon } from "../../../../../../ui/SVGs/BellIcon";
 import { HomeButton } from "../../../../../../ui/SVGs/HomeButton";
 import { ProjectButton } from "../../../../../../ui/SVGs/ProjectButton";
 import { ToggleButton } from "./ToggleButton";
@@ -18,11 +20,11 @@ export const Button_Container = () => {
 
             <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
-            >Notifications</div>
+            ><BellIcon color={'#653AD880'} size={'45px'} /></div>
 
             <div className="nav-button hover:text-white transition-colors duration-300 ease-in-out cursor-pointer"
                 style={{}}
-            >Me</div>
+            ><ProfileCircle /></div>
             <div>
 
                 {/* do something like when you click on the button a circle will appear and it will enlarge itself till covers the whole screen and while it expands it will change the theme mode that means theme will change radially */}

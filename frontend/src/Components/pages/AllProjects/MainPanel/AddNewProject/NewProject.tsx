@@ -48,11 +48,11 @@ export const NewProject = () => {
                 <div className="text-white flex flex-col justify-around ">
                     <div>
                         Title:
-                        <Input placeholder={'Title'} h={'40px'} w={'300px'} />
+                        <Input placeholder={'Title'} h={'40px'} w={'300px'} inputRef={titleRef} />
                     </div>
                     <div>
                         Deadline:
-                        <Input placeholder={'Deadline'} h={'40px'} />
+                        <Input placeholder={'Deadline'} h={'40px'} inputRef={deadlineRef} />
                     </div>
                 </div>
             </div>
