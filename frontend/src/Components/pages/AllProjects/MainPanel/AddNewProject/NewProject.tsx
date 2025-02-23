@@ -7,7 +7,7 @@ import { SelectMemberCard } from "../../../../ui/Customs/SelectMemberCard";
 
 import { useRecoilValue } from "recoil";
 import { HeadingBase } from "../../../../ui/SVGs/HeadingBase";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../../../../ui/Customs/Button";
 import axios from "axios";
 
@@ -97,30 +97,16 @@ export const NewProject = () => {
             </div>
         </div>
         <div className="text-white flex flex-col bg-[#653AD847] p-1 rounded-lg mb-8 ">
-            {/* <div className="mb-2 ml-2">
-                Description:
-            </div> */}
             <HeadingBase text={'Description:'} />
-            {/* <InputBox placeholder="Write a brief description..." h={'150px'} /> */}
             <textarea className="min-h-20 h-40 w-full resize-y mb-0 border-none rounded-lg rounded-tl-none bg-[#653AD847] px-3 py-2 text-white relative custom-resizer shadow-lg"
                 placeholder={'Write a brief description...'}
                 ref={descriptionRef}
             >
             </textarea>
         </div>
-        <div className="h-auto w-full bg-[#653AD847] rounded-lg flex flex-col items-center p-1 pb-0 text-white mb-8">
-           <HeadingBase text={'Leader'} />
-           <div className="w-full bg-[#653AD847] rounded-lg shadow-lg mb-1 ">
-                <Input placeholder="Enter a name..." bg={'transparent'} h={'50px'} />
-           </div>
-           <div className="w-full flex flex-wrap justify-start">
-            <SelectMemberCard  text={'Anjan Suman'} />
-           </div>
-            {/* selected leader */}
-        </div>
-        <div className="h-auto w-full bg-[#653AD847] rounded-lg flex flex-col items-end justify-center p-1 pb-0 text-white mb-8">
+        <div className="h-auto w-full bg-[#653AD847] rounded-lg flex flex-col items-start justify-center p-1 pb-0 text-white mb-8">
            <HeadingBase text={'Members'} />
-           <div className="w-full bg-[#653AD847] rounded-lg rounded-tr-none shadow-lg mb-1 ">
+           <div className="w-full bg-[#653AD847] rounded-lg rounded-tl-none shadow-lg mb-1 ">
                 <Input placeholder="Enter a name..." bg={'transparent'} h={'50px'} />
            </div>
            <div className="w-full flex flex-wrap justify-start">

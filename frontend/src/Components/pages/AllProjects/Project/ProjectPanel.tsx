@@ -7,11 +7,15 @@ import { ProjectFile } from "../../../ui/Customs/ProjectFile";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 gsap.registerPlugin(TextPlugin);
 
+
+
 export const Project = () => {
 
+    const title = useParams().title;
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
@@ -25,7 +29,7 @@ export const Project = () => {
             duration: 2
         })
         gsap.to(textRef.current, {
-            text: "Project Manager",
+            text: title,
             duration: 2,
             ease: 'power1.out'
         });

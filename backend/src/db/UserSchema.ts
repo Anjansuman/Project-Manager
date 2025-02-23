@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { OrganizationModel } from "./OrganizationSchema";
-import { optional } from "zod";
 
 
 const UserSchema = new mongoose.Schema({
