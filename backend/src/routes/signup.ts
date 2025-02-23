@@ -63,21 +63,9 @@ router.post("/", async (req, res) => {
             });
             return;
         }
-        
-        const individualOrg = await OrganizationModel.create({
-            name: username,
-        })
-
-        if(!individualOrg) {
-            res.status(500).json({
-                message: "Personal space creation failed!"
-            });
-            return;
-        }
 
         const token = "Bearer " + jwt.sign({
             userId: newUser._id,
-            orgId: "not in any organization"
         }, SECRET_KEY);
 
         res.status(200).json({

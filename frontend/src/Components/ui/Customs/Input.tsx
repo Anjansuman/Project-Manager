@@ -11,16 +11,17 @@ interface InputProps {
     h?: string,
     bg?: string,
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
+    inputType?: string
 }
 
-export const Input = ({ inputRef, placeholder, w, h, bg, onKeyDown }: InputProps) => {
+export const Input = ({ inputRef, placeholder, w, h, bg, onKeyDown, inputType }: InputProps) => {
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode === 'light') ? theme_state.light : theme_state.dark;
 
     return <div className="h-full w-full">
         <input
-            type="text"
+            type={`${inputType}` || 'text'}
             ref={inputRef}
             placeholder={placeholder}
             className={`flex justify-center rounded-md border-none px-3 text-md outline-none text-white overflow-y-auto`}

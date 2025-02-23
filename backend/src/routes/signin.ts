@@ -43,13 +43,8 @@ router.post("/",async (req, res) => {
             return;
         }
 
-        const orgName = await OrganizationModel.findOne({
-            members: user._id
-        });
-
         const token = "Bearer " + jwt.sign({
             userId: user._id,
-            orgId: orgName?._id || "not in any organization"
         }, SECRET_KEY);
 
         res.status(200).json({

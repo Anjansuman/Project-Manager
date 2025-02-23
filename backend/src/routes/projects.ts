@@ -7,6 +7,7 @@ import { ProjectModel } from "../db/ProjectSchema";
 import { OrganizationModel } from "../db/OrganizationSchema";
 
 import { AddProjectSchema } from "../zod/AddProjectSchema";
+import mongoose from "mongoose";
 
 const router = Router();
 
@@ -65,71 +66,87 @@ router.put("/", userMiddleware, async (req, res) => {
     try {
         const parsedData = AddProjectSchema.safeParse(req.body);
 
-        if(!parsedData.success) {
-            res.status(400).json({
-                message: "Validation failed!"
-            });
+        if (!parsedData.success) {
+            res.status(400).json({ message: "Validation failed!" });
             return;
         }
 
-        const { title, description, projectImg, deadline, completion, leader, members } = parsedData.data;
-
-        // this will search if the leader exists in users field
-        const searchLeader = await UserModel.findOne({
-            name: leader
-        })
-
-        if(!searchLeader) {
-            console.log("leader not found");
-            res.status(404).json({
-                message: "user doesn't exist!"
-            })
+        const { title, description, projectImg, deadline, completion, members, orgId } = parsedData.data;
+        const creatorId = new mongoose.Types.ObjectId(req.userId);
+        if (!creatorId) {
+            res.status(400).json({ message: "Creator ID is missing!" });
             return;
         }
 
-        // make this in a loop so that multiple can be found
-        const searchMember = await UserModel.findOne({
-            name: members[0]
-        })
+        let validMembers: mongoose.Types.ObjectId[] = [];
 
-        console.log(leader);
-        console.log(searchLeader._id)
+        if(members !== undefined) {
+            // Fetch all users in the members array
+            const foundMembers = await Promise.all(
+                members.map(async (username: string) => {
+                    return await UserModel.findOne({ username });
+                })
+            );
 
+            // Filter out members that do not exist
+            validMembers = foundMembers.filter(user => user !== null).map(user => user!._id);
+
+            if (validMembers.length !== members?.length) {
+                res.status(400).json({ message: "Some members do not exist!" });
+                return;
+            }
+        }
+
+        if (!validMembers.includes(creatorId)) {
+            validMembers.push(creatorId);
+        }
+
+        // If project is inside an organization, ensure all members belong to the same org
+        if (orgId) {
+            const org = await OrganizationModel.findById(orgId);
+            if (!org) {
+                res.status(400).json({ message: "Organization not found!" });
+                return;
+            }
+
+            const invalidMembers = validMembers.filter(memberId => !org.members.includes(memberId));
+            if (invalidMembers.length > 0) {
+                res.status(400).json({ message: "Some members are not part of the organization!" });
+                return;
+            }
+        }
+
+        // Create the project
         const newProject = await ProjectModel.create({
             title,
             description,
             projectImg,
             deadline,
             completion,
-            leader: searchLeader?._id,
-            members: searchMember?._id
+            members: validMembers, // Now includes all valid members
+            orgId: orgId || null
         });
 
-        if(!newProject) {
-            res.status(400).json({
-                message: "Project creation failed!"
-            })
+        if (!newProject) {
+            res.status(400).json({ message: "Project creation failed!" });
             return;
         }
 
-        // write the logic to mail every member of the project, that you have been added to this project and send them title, and description
+        // Send email notification to all members (implement SendGrid logic)
+        // await sendProjectInviteEmails(validMembers, title, description);
 
-        res.status(200).json({
-            message: "Project created successfully!"
-        })
+        res.status(200).json({ message: "Project created successfully!" });
         return;
 
     } catch (error) {
-        res.status(500).json({
-            message: "Internal server error!",
-            error: error
-        });
+        res.status(500).json({ message: "Internal server error!", error });
         return;
     }
 });
 
+
 router.get('/new-project',userMiddleware, async (req, res) => {
-    
+
 })
 
 export default router;

@@ -14,6 +14,14 @@ const OrganizationSchema = new mongoose.Schema({
     logo: {
         type: String,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users"
+    }],
     projects: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Projects"

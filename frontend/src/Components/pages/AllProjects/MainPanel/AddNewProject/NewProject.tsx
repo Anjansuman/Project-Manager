@@ -24,7 +24,8 @@ export const NewProject = () => {
             }
         });
         const data = await response.data;
-        
+        alert(data);
+
     }
 
     useEffect(() => {
@@ -37,18 +38,29 @@ export const NewProject = () => {
 
     async function submit() {
         const backend = import.meta.env.VITE_BACKEND_URL;
-        const response = await axios.put(`${backend}/projects`, {
-            title: titleRef.current?.value,
-            description: descriptionRef.current?.value,
-            deadline: deadlineRef.current?.value,
 
-        }, {
-            headers: {
-                "Authorization": localStorage.getItem("token")
-            }
-        })
-        const data = await response.data;
-        alert(data.message);
+        const title = titleRef.current?.value;
+        const description = descriptionRef.current?.value.trim() || null;
+        const deadline = deadlineRef.current?.value.trim();
+        const dead = deadline ? new Date(deadline) : null;
+
+        try {
+            const response = await axios.put(`${backend}/projects`, {
+                title: title,
+                description: description,
+                deadline: dead
+                
+            }, {
+                headers: {
+                    "Authorization": localStorage.getItem("token")
+                }
+            })
+            const data = await response.data;
+            alert(data.message);
+        } catch (error) {
+            console.error("Error submitting project:", error);
+            alert("Project submission failed!");
+        }
     }
 
     return <div className="h-[80vh] w-[70%] border rounded-[14px] p-[25.2px] m-[15px] overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
@@ -67,7 +79,8 @@ export const NewProject = () => {
                     </div>
                     <div>
                         Deadline:
-                        <Input placeholder={'Deadline'} h={'40px'} inputRef={deadlineRef} />
+                        <Input placeholder={'Deadline'} h={'40px'} inputRef={deadlineRef} inputType="date" />
+                        {/* <input type='date' /> */}
                     </div>
                 </div>
             </div>
@@ -91,6 +104,7 @@ export const NewProject = () => {
             {/* <InputBox placeholder="Write a brief description..." h={'150px'} /> */}
             <textarea className="min-h-20 h-40 w-full resize-y mb-0 border-none rounded-lg rounded-tl-none bg-[#653AD847] px-3 py-2 text-white relative custom-resizer shadow-lg"
                 placeholder={'Write a brief description...'}
+                ref={descriptionRef}
             >
             </textarea>
         </div>

@@ -36,12 +36,12 @@ router.put("/createOrg", userMiddleware, async (req, res) => {
             return;
         }
 
-        if(user.organization) {
-            res.status(400).json({
-                message: "You are already under an organization."
-            });
-            return;
-        }
+        // if(user.organization) {
+        //     res.status(400).json({
+        //         message: "You are already under an organization."
+        //     });
+        //     return;
+        // }
 
         // add the org into org model
         const { name, logo } = parsedData.data;

@@ -36,6 +36,20 @@ const ProjectSchema: mongoose.Schema = new mongoose.Schema({
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Users"
     // },
+    
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users"
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    },
+
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users"
