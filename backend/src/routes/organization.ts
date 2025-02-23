@@ -107,4 +107,26 @@ router.get("/getOrgMembers", userMiddleware, async (req, res) => {
     }
 });
 
+router.get("/get-allOrgs", userMiddleware, async (req, res) => {
+    try {
+
+        const userId = req.userId;
+        
+        const organizations = await OrganizationModel.find({
+            members: userId
+        }).select("name");
+
+        res.status(200).json({
+            organizations: organizations.map(org => org.name)
+        });
+        return;
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
+        });
+        return;
+    }
+})
+
 export default router;

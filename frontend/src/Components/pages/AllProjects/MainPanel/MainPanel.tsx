@@ -39,7 +39,7 @@ export function MainPanel() {
             borderColor: theme.gray_border
         }}
     >
-        <div className = "h-[10vh] w-[99.74%] border bg-[#653AD8] border-[#653AD8] rounded-[14px] mb-[25.2px] flex justify-center items-center text-white text-[30px] font-calibri ">
+        <div className = "h-50 w-[99.74%] border bg-[#653AD8] border-[#653AD8] rounded-[14px] mb-[25.2px] flex justify-center items-center text-white text-[30px] font-calibri ">
             <div className="w-[90%] flex justify-center items-center ">Projects</div>
             <div className="flex justify-center ">
                 <TriangleIcon color={'#03061C'} size={'10px'} onClick={() => setVisibleOrg(prev => !prev)} />
