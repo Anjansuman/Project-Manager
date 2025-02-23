@@ -34,7 +34,7 @@ export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
                     {title}
                 </div>
                 <div className="flex justify-center">
-                    <div className="h-3 w-32 rounded-full overflow-hidden"
+                    <div className="h-3 w-32 rounded-full overflow-hidden "
                         style={{ backgroundColor: theme.dark_panel }}
                     >
                         {/* here, make width length as variable and take input from the project details to show the completion bar */}

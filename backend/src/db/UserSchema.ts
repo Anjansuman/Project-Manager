@@ -37,9 +37,9 @@ const UserSchema = new mongoose.Schema({
     profileImg: {
         type: String,
     },
-    organization: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Organizations",
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 
 });

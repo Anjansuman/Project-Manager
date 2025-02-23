@@ -128,4 +128,8 @@ router.put("/", userMiddleware, async (req, res) => {
     }
 });
 
+router.get('/new-project',userMiddleware, async (req, res) => {
+    
+})
+
 export default router;

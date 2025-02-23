@@ -32,14 +32,18 @@ const ProjectSchema: mongoose.Schema = new mongoose.Schema({
         ref: "Chats"
     },
 
-    leader: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users"
-    },
+    // leader: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Users"
+    // },
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users"
     }],
+    orgId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Organizations"
+    }
     // write logic for storing project files and folders in db so that user can access them
 });
 

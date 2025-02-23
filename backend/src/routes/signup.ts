@@ -53,13 +53,24 @@ router.post("/", async (req, res) => {
             username,
             role,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            profileImg: '',
         });
-
-
+        
         if(!newUser) {
             res.status(500).json({
                 message: "User creation failed due internal server error"
+            });
+            return;
+        }
+        
+        const individualOrg = await OrganizationModel.create({
+            name: username,
+        })
+
+        if(!individualOrg) {
+            res.status(500).json({
+                message: "Personal space creation failed!"
             });
             return;
         }

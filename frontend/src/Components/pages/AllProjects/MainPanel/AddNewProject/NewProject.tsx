@@ -7,7 +7,7 @@ import { SelectMemberCard } from "../../../../ui/Customs/SelectMemberCard";
 
 import { useRecoilValue } from "recoil";
 import { HeadingBase } from "../../../../ui/SVGs/HeadingBase";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../../../ui/Customs/Button";
 import axios from "axios";
 
@@ -15,6 +15,21 @@ export const NewProject = () => {
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
+
+    async function getBackend() {
+        const backend = import.meta.env.VITE_BACKEND_URL;
+        const response = await axios.get(`${backend}/new-project`, {
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        });
+        const data = await response.data;
+        
+    }
+
+    useEffect(() => {
+        getBackend();
+    }, []);
     
     const titleRef = useRef<HTMLInputElement>(null);
     const deadlineRef = useRef<HTMLInputElement>(null);
@@ -45,7 +60,7 @@ export const NewProject = () => {
         <div className="flex items-center justify-between mb-8 ">
             <div className="flex">
                 <ImageInput bg={'#653AD847'} h={'160px'} w={'160px'} />
-                <div className="text-white flex flex-col justify-around ">
+                <div className="text-white flex flex-col justify-around font-semibold tracking-wide">
                     <div>
                         Title:
                         <Input placeholder={'Title'} h={'40px'} w={'300px'} inputRef={titleRef} />
@@ -65,7 +80,7 @@ export const NewProject = () => {
                     </div>
                     <div className="h-[213px] w-[1px] bg-[gray] rounded-2xl"></div>
                 </div>
-                <ProjectTile title={titleRef.toString()} image={'imageSelected'} completion={"20"} />
+                <ProjectTile title={'project'} image={'imageSelected'} completion={"20"} />
             </div>
         </div>
         <div className="text-white flex flex-col bg-[#653AD847] p-1 rounded-lg mb-8 ">

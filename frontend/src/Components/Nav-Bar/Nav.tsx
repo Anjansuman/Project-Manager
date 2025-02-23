@@ -8,6 +8,7 @@ import { HomeButton } from "../ui/SVGs/HomeButton";
 import { ProjectButton } from "../ui/SVGs/ProjectButton";
 import { ProfileCircle } from "../ui/Customs/ProfileCircle";
 import { BellIcon } from "../ui/SVGs/BellIcon";
+import { Link } from "react-router-dom";
 
 export function Nav() {
 
@@ -45,12 +46,16 @@ export function Nav() {
                 borderBottomColor: theme.gray_border,
             }}> {/* this div is for storing buttons*/}
             <div className="button flex flex-col text-xs items-center hover:text-white ">
-                <HomeButton height={"30px"} />
-                Home
+                <Link to='/'>
+                    <HomeButton height={"30px"} />
+                    Home
+                </Link>
             </div>
             <div className="button flex flex-col text-xs items-center hover:text-white ">
-                <ProjectButton height={'30px'} />
-                My Projects
+                <Link to='/projects' className="flex flex-col items-center">
+                    <ProjectButton height={'30px'} />
+                    My Projects
+                </Link>
             </div>
             <div className="button hover:text-white ">Messaging</div>
             <div className="button flex flex-col text-xs items-center hover:text-white ">
