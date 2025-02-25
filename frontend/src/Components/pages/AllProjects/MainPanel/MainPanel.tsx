@@ -12,7 +12,7 @@ import { BottomMenu } from "./BottomMenu/BottomMenu";
 import { NoProjectIcon } from "../../../ui/SVGs/NoProjectIcon";
 import { TriangleIcon } from "../../../ui/SVGs/TriangleIcon";
 import { useState } from "react";
-import { OrgPanel } from "./Org/OrgPanel";
+import { OrgPanel } from "./Org/OrgContainer";
 
 
 interface ProjectData {

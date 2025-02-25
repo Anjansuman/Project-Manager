@@ -6,13 +6,14 @@ import { NewOrgSchema } from "../zod/NewOrgSchema";
 import { OrganizationModel } from "../db/OrganizationSchema";
 import { UserModel } from "../db/UserSchema";
 import { SECRET_KEY } from "../config";
+import mongoose from "mongoose";
 
 const router = Router();
 
 // this will create an organization
 router.put("/createOrg", userMiddleware, async (req, res) => {
     try {
-        
+
         const parsedData = NewOrgSchema.safeParse(req.body);
 
         if(!parsedData.success) {
@@ -46,9 +47,12 @@ router.put("/createOrg", userMiddleware, async (req, res) => {
         // add the org into org model
         const { name, logo } = parsedData.data;
 
+
         const newOrg = await OrganizationModel.create({
             name,
             logo,
+            owner: new mongoose.Types.ObjectId(userId),
+            members: [new mongoose.Types.ObjectId(userId)],
             projects: []
         });
 
@@ -59,24 +63,24 @@ router.put("/createOrg", userMiddleware, async (req, res) => {
         }
 
         // update the user model with new org
-        const addOrgToUser = await UserModel.updateOne(
-            { _id: userId },
-            { $set: { organization: name } }
-        )
+        // const addOrgToUser = await UserModel.updateOne(
+        //     { _id: userId },
+        //     { $set: { organization: name } }
+        // )
 
         // update the jwt with new orgId
-        const token = jwt.sign({
-            userId: userId,
-            orgId: newOrg._id
-        }, SECRET_KEY);
+        // const token = jwt.sign({
+        //     userId: userId,
+        //     orgId: newOrg._id
+        // }, SECRET_KEY);
 
         res.status(200).json({
-            message: "Organization created successfully",
-            token: token
+            message: "Organization created successfully"
         })
 
     } catch (error) {
         res.status(500).json({
+            error: error,
             message: "Internal server error!"
         });
         return;

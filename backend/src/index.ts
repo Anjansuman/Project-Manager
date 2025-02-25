@@ -25,7 +25,7 @@ app.use("/eject/v1/signup", signupRoute);
 app.use("/eject/v1/signin", signinRoute);
 app.use("/eject/v1/dashboard", dashboardRoute);
 app.use("/eject/v1/projects", projectsRoute);
-app.use("/ejectv1/Organization", organization);
+app.use("/eject/v1/organization", organization);
 
 
 // write this to get inner files to the frontend

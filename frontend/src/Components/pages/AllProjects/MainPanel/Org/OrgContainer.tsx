@@ -4,6 +4,7 @@ import { PlusIcon } from "../../../../ui/SVGs/PlusIcon";
 
 import gsap from "gsap";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export const OrgPanel = () => {
 
@@ -27,6 +28,7 @@ export const OrgPanel = () => {
 
     useEffect(() => {
         orgData();
+        console.log(orgs);
     }, []);
 
     useEffect(() => {
@@ -42,9 +44,11 @@ export const OrgPanel = () => {
         </div>
         
         <div className="max-h-[300px] overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
-            <div className="border-2 border-[#03061C] mb-2 p-1 rounded-md flex justify-center items-center cursor-pointer  transition-all duration-200 ease-in-out hover:bg-[#5b2ed6] active:translate-y-0.5">
-                <PlusIcon color={'white'} size={'30px'} />
-            </div>
+            <Link to='/new-organization' >
+                <div className="border-2 border-[#03061C] mb-2 p-1 rounded-md flex justify-center items-center cursor-pointer  transition-all duration-200 ease-in-out hover:bg-[#5b2ed6] active:translate-y-0.5">
+                    <PlusIcon color={'white'} size={'30px'} />
+                </div>
+            </Link>
             { (orgs === undefined) ? <div className="flex justify-center items-center text-[#03061C] font-bold">
                 No organizations.
             </div> : '' }

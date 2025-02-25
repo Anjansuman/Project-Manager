@@ -13,6 +13,7 @@ import { MainPanel } from "./Components/pages/AllProjects/MainPanel/MainPanel";
 import { SidePanel } from "./Components/pages/AllProjects/SidePanel/SidePanel";
 import { NewProject } from "./Components/pages/AllProjects/MainPanel/AddNewProject/NewProject";
 import { ErrorProject } from "./Components/pages/AllProjects/ErrorProject/ErrorProject";
+import { NewOrg } from "./Components/pages/AllProjects/MainPanel/Org/NewOrg";
 
 function App() {
 
@@ -34,6 +35,8 @@ function App() {
                 <Route path="new-project" element={<NewProject />} />
                 <Route path="*" element={<ErrorProject />} />
             </Route>
+
+            <Route path="/new-organization" element={<NewOrganization />} />
 
             <Route path="*" element={<ErrorPage />} />
         </Routes>
@@ -66,6 +69,20 @@ function ErrorPage() {
   </div>
 }
 
+function NewOrganization() {
+
+  const theme_state = useRecoilValue(ThemeState);
+  const theme = theme_state.mode === "light" ? theme_state.light : theme_state.dark;
+
+  return <div className="h-[100vh] w-[100vw] overflow-hidden" style={{ backgroundColor: theme.background }}>
+      <div style={{ marginBottom: 10 }}>
+        <Nav />
+      </div>
+      <div className="flex justify-around mx-[15] mt-[15]">
+        <NewOrg />
+      </div>
+  </div>
+}
 
 export function ProjectLayout() {
 
