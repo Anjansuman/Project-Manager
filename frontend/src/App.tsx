@@ -30,6 +30,7 @@ function App() {
             <Route path="/projects/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
                 <Route path=":title" element={<Project />} />
+                <Route path="all/:members" element={<Project />} />
                 <Route path="new-project" element={<NewProject />} />
                 <Route path="*" element={<ErrorProject />} />
             </Route>

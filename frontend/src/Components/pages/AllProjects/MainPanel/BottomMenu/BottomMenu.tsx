@@ -8,6 +8,7 @@ import { DeleteIcon } from "../../../../ui/SVGs/DeleteIcon";
 import gsap from "gsap";
 import { PlusIcon } from "../../../../ui/SVGs/PlusIcon";
 import { Link } from "react-router-dom";
+import { TeamIcon } from "../../../../ui/SVGs/TeamIcon";
 
 
 
@@ -71,7 +72,7 @@ export const BottomMenu = () => {
     return <div>
         <div className="">
             <div className="main absolute bottom-0 right-0">
-                <BottomBox element={<div>28</div>} z={20} onClick={() => setClick(false)}/>
+                <BottomBox element={<TeamIcon size={'25px'} />} z={20} onClick={() => setClick(false)}/>
             </div>
             <div className="cross absolute right-16 bottom-24 opacity-0">
                 <CrossIcon color={'white'} onClick={() => setClick(true)} size={'40'} />
@@ -83,7 +84,9 @@ export const BottomMenu = () => {
             z={10} />
         </div>
         <div className="chat absolute bottom-0 right-0 opacity-0">
-            <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<ChatIcon color={'white'} size={'25'} />} z={10} />
+            <Link to='/projects/all/members' >
+                <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<TeamIcon size={'25px'} />} z={10} />
+            </Link>
         </div>
         <div className="delete absolute bottom-0 right-0 opacity-0">
             <Link to='/projects/new-project'>

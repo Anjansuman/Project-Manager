@@ -27,7 +27,7 @@ export const Project = ({ project }: ProjectProps) => {
         <div className="h-[1%] w-[30%] ml-3 bg-[#653AD847] mb-3 rounded-full"></div>
         <div className="h-[80%] flex flex-wrap pl-3 pb-2">
             
-            {project.map((details, key) => {
+            {project.slice(0, 4).map((details, key) => {
                 return <ProjectTile key={key} title={details.title} image={details.projectImg} completion={details.completion} />
             })}
 

@@ -19,7 +19,7 @@ export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
 
     return <div>
         <Link to={`/projects/${title}`}>
-            <div className="h-[213px] w-48 bg-[#653AD847] rounded-3xl mr-2 mb-2 pt-6 cursor-pointer">
+            <div className="h-[213px] w-48 bg-[#653AD847] rounded-3xl mr-2 mb-2 pt-6 cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1">
                 <div className="flex justify-center mb-4">
                     <div className="h-24 w-24 bg-[#653AD847] rounded-full shadow-lg flex justify-center items-center">
                         <div className="h-[90px] w-[90px] bg-[#653AD847] rounded-full shadow-lg flex justify-center items-center overflow-hidden">
