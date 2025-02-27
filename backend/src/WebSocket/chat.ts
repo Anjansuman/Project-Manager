@@ -41,7 +41,11 @@ export function setupWebSocket(server: Server) {
                 // If found then this loop will send the message to all users with same room I'd
                 allSockets.forEach((s) => {
                     if(s.room == currentUserRoom) {
-                        s.socket.send(parsedMessage.payload.message);
+                        s.socket.send(JSON.stringify({
+                            message: parsedMessage.payload.message,
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+                            sender: parsedMessage.payload.sender
+                        }));
                     }
                 })
             }

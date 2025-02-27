@@ -43,10 +43,11 @@ export function MainPanel() {
                     backgroundColor: theme.nav_bg,
                     borderColor: theme.card_img
                 }}
+                onClick={() => setVisibleOrg((prev) => !prev)}
             >
                 <div>Projects</div>
                 <div className="ml-1.5">
-                    <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} />
+                    <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} dynamicallyClicked={visibleOrg} />
                 </div>
             </div>
             <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"

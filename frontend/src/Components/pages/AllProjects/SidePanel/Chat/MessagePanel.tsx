@@ -9,7 +9,8 @@ import { ThemeState } from "@/Atoms/ThemeState";
 
 interface Messages {
     msg: string,
-    time: string
+    time: string,
+    sender: string | null
 }
 
 export const MessagePanel = ({ projectId }: { projectId: string }) => {
@@ -17,8 +18,10 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     const wsRef = useRef<WebSocket | null>();
     const [messages, setMessages] = useState<Messages[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
+        getUserId();
         const ws = new WebSocket("ws://localhost:3000");
         wsRef.current = ws;
 
@@ -29,7 +32,8 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
                 if(receivedData.message && receivedData.time) {
                     setMessages((m) => [...m, {
                         msg: receivedData.message,
-                        time: receivedData.time
+                        time: receivedData.time,
+                        sender: userId
                     }]);
                 }
 
@@ -42,7 +46,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             ws.send(JSON.stringify({
                 type: "join",
                 payload: {
-                    roomId: projectId
+                    roomId: 'hell'
                 }
             }))
         }
@@ -54,6 +58,24 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
 
     }, [projectId]);
 
+    function getUserId() {
+        try {
+            const jwt = localStorage.getItem("token");
+            if (!jwt) return;
+    
+            const payload = JSON.parse(atob(jwt.split(".")[1]));
+    
+            if (payload?.userId) {
+                setUserId(payload.userId);
+            } else {
+                console.warn("User ID not found in token payload");
+            }
+        } catch (error) {
+            console.error("Invalid token:", error);
+        }
+    }
+    
+
     function sendMessage() {
         const input = inputRef.current?.value.trim();
         if (!input || !wsRef.current) return;
@@ -62,17 +84,18 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             type: "chat",
             payload: {
                 message: input,
-                time: getTime()
-                //sender: userId
+                time: getTime(),
+                sender: userId
             }
         };
 
         wsRef.current.send(JSON.stringify(messageData));
 
-        setMessages((m) => [...m, {
-            msg: input,
-            time: getTime()
-        }])
+        // setMessages((m) => [...m, {
+        //     msg: input,
+        //     time: getTime(),
+        //     sender: userId
+        // }])
 
         if(inputRef.current) {
             inputRef.current.value = "";
@@ -93,9 +116,9 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
     
     return <div className="h-full w-full ">
-        <div className="h-[88%] w-full rounded-t-[14px] p-2 ">
-            {messages.map((m, key) => <div className="w-full mb-2 flex">
-                <MessageBox key={key} text={m.msg} time={m.time} />
+        <div className="h-[88%] w-full rounded-t-[14px] p-2 overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
+            {messages.map((m, key) => <div className={`w-full mb-2 flex ${m.sender == userId ? 'justify-end': ''}`}>
+                <MessageBox key={key} text={m.msg} time={m.time} me={m.sender == userId ? true : false} />
             </div>)}
         </div>
         <div className="border"
@@ -103,8 +126,13 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         ></div>
         <div className="h-[12%] w-full rounded-b-[14px] ">
             <div className="h-full w-full pr-2 rounded-lg flex items-center justify-between shadow-lg ">
-                <Input placeholder={"Type a message..."} bg={'transparent'}  inputRef={inputRef} onKeyDown={handleOnKeyDown} />
-                <SendButton onClick={sendMessage} size={'40'} color={theme.font_color} hoverBG={theme.card_img} />
+                <Input
+                    placeholder={"Type a message..."}
+                    bg={'transparent'}
+                    inputRef={inputRef}
+                    onKeyDown={handleOnKeyDown}
+                />
+                <SendButton onClick={sendMessage} size={'35'} color={theme.font_color} hoverBG={theme.card_img} />
             </div>
         </div>
     </div>
