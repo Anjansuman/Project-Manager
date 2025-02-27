@@ -26,11 +26,15 @@ export const Signin = () => {
             const response = await axios.post(`${backend}/signin`, { email, password });
     
             if (response.status === 200) {  // Check if the response was successful
-                const jwt = response.data.token;
+                const data = await response.data;
+
+                const jwt = data.token;
+                const username = data.username;
+
                 localStorage.setItem("token", jwt);
                 alert("Signed in successfully");
                 // Navigate to home-page 
-                navigate("/");
+                navigate(`/${username}`);
             } else {
                 alert("Sign-in failed. Please try again.");
             }

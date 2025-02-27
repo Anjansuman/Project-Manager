@@ -23,7 +23,7 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route index path="/:name" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
 
@@ -31,7 +31,7 @@ function App() {
             <Route path="/projects/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
                 <Route path=":title" element={<Project />} />
-                <Route path="all/:members" element={<Project />} />
+                <Route path="members" element={<Project />} />
                 <Route path="new-project" element={<NewProject />} />
                 <Route path="*" element={<ErrorProject />} />
             </Route>

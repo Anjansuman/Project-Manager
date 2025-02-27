@@ -13,6 +13,7 @@ import { NoProjectIcon } from "../../../ui/SVGs/NoProjectIcon";
 import { TriangleIcon } from "../../../ui/SVGs/TriangleIcon";
 import { useState } from "react";
 import { OrgPanel } from "./Org/OrgContainer";
+import { PlusIcon } from "lucide-react";
 
 
 interface ProjectData {
@@ -33,20 +34,34 @@ export function MainPanel() {
 
 
 
-    return <div className = "h-[80vh] w-[70%] border rounded-[14px] p-[25.2px] m-[15px] flex flex-col items-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
-        style = {{
-            backgroundColor:  theme.dark_panel,
-            borderColor: theme.gray_border
-        }}
-    >
-        <div className = "h-20 w-[99.74%] border bg-[#653AD8] border-[#653AD8] rounded-[14px] mb-[25.2px] flex justify-center items-center text-white text-[30px] font-calibri ">
-            <div className="max-h-20 w-[90%] flex justify-center items-center ">Projects</div>
-            <div className="flex justify-center ">
-                <TriangleIcon color={'#03061C'} size={'10px'} onClick={() => setVisibleOrg(prev => !prev)} />
+    return <div className = "h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
+        <div className="w-full flex items-center justify-between pb-5"
+            style={{ color: theme.font_color }}
+        >
+            <div className="font-semibold flex items-center justify-center bg-red-200 py-1.5 px-3 rounded-3xl cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105 "
+                style={{
+                    backgroundColor: theme.nav_bg,
+                    borderColor: theme.card_img
+                }}
+            >
+                <div>Projects</div>
+                <div className="ml-1.5">
+                    <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} />
+                </div>
+            </div>
+            <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
+                style={{
+                    backgroundColor: '#3F5EFF',
+                    borderColor: theme.card_img
+                }}
+            >
+                <div className="mr-1.5"><PlusIcon size={'18'} /></div>
+                <div>New Project</div>
             </div>
         </div>
         { visibleOrg && <OrgPanel /> }
-        <div className="flex flex-wrap w-[86%] ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 
+        [::-webkit-scrollbar]:hidden [scrollbar-width:none] pl-3 ">
             {(pro.state === "loading") ? 
                 <div className="text-white"> Loading...</div> : ''
             }

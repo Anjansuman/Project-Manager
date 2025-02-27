@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { MessageBox } from "../../../../ui/Customs/MessageBox"
 import { Input } from "../../../../ui/Customs/Input";
 import { SendButton } from "../../../../ui/SVGs/SendButton";
+import { useRecoilValue } from "recoil";
+import { ThemeState } from "@/Atoms/ThemeState";
 
 
 interface Messages {
@@ -87,8 +89,31 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     };
 
+    const theme_state = useRecoilValue(ThemeState);
+    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
     
-    return <div className="h-full w-full">
+    return <div className="h-full w-full ">
+        <div className="h-[88%] w-full rounded-t-[14px] p-2 ">
+            {messages.map((m, key) => <div className="w-full mb-2 flex">
+                <MessageBox key={key} text={m.msg} time={m.time} />
+            </div>)}
+        </div>
+        <div className="border"
+            style={{ borderColor: theme.card_img }}
+        ></div>
+        <div className="h-[12%] w-full rounded-b-[14px] ">
+            <div className="h-full w-full pr-2 rounded-lg flex items-center justify-between shadow-lg ">
+                <Input placeholder={"Type a message..."} bg={'transparent'}  inputRef={inputRef} onKeyDown={handleOnKeyDown} />
+                <SendButton onClick={sendMessage} size={'40'} color={theme.font_color} hoverBG={theme.card_img} />
+            </div>
+        </div>
+    </div>
+}
+
+
+/*
+
+<div className="h-full w-full">
         <div className="h-[89%] w-full bg-[#03061C69] p-[3px] rounded-xl mb-3 shadow-lg">
             <div className="h-full w-full bg-[#03061C] rounded-xl p-3 overflow-y-scroll overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] shadow-lg">
                 {messages.map((m, key) => <div className="w-full mb-2 shadow-sm flex">
@@ -103,7 +128,8 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             </div>
         </div>
     </div>
-}
+
+*/
 
 /*
             <div className="bg-white rounded-full pl-1 p-1 pr-1 flex justify-center items-center">

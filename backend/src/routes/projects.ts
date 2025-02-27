@@ -18,7 +18,7 @@ interface projectsData {
 }
 
 // this will show the projects
-router.get("/", userMiddleware, async (req, res) => {
+router.get("/solo-projects", userMiddleware, async (req, res) => {
     try {
         
         const userId = req.userId;
@@ -35,11 +35,8 @@ router.get("/", userMiddleware, async (req, res) => {
         }
 
         const projects = await ProjectModel.find({
-            members: user._id
-        })
-
-        const org = await OrganizationModel.findOne({
-            members: user._id
+            members: user._id,
+            orgId: null
         })
 
         // check if org members is empty
@@ -145,8 +142,54 @@ router.put("/", userMiddleware, async (req, res) => {
 });
 
 
-router.get('/new-project',userMiddleware, async (req, res) => {
+router.get('/org-projects', userMiddleware, async (req, res) => {
+    try {
+        
+        const userId = req.userId;
+        const orgName = req.body.orgName;
 
-})
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user) {
+            res.status(404).json({
+                message: "You're not signed-up"
+            });
+            return;
+        }
+
+        const org = await OrganizationModel.findOne({
+            name: orgName
+        })
+
+        if(!org) {
+            res.status(404).json({
+                message: "Organization does not exist"
+            })
+            return;
+        }
+
+        const projects = await ProjectModel.find({
+            members: userId,
+            orgId: org._id
+        });
+
+        res.status(200).json({
+            projects: projects.map(({ title, projectImg, completion }) => ({
+                title: title,
+                projectImg: projectImg,
+                completion: completion || '0'
+            }))
+        })
+        return;
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error"
+        });
+        return;
+    }
+});
 
 export default router;

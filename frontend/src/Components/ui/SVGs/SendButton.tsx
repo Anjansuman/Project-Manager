@@ -3,14 +3,17 @@ interface SendButton {
     onClick: () => void,
     size: string,
     color: string,
-
+    hoverBG: string,
 }
 
-export const SendButton = ({ onClick, size, color }: SendButton) => {
+export const SendButton = ({ onClick, size, color, hoverBG }: SendButton) => {
     return <div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
             stroke={`${color}`}
-            className="hover:bg-[#1e2136] p-1 rounded-sm cursor-pointer transition-colors duration-200 ease-in-out"
+            className="p-1 rounded-sm cursor-pointer transition-colors duration-200 ease-in-out"
+            style={{ "--hover-color": hoverBG } as React.CSSProperties}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hoverBG)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}      
             onClick={onClick}
             height={`${size}`}
         >

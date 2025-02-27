@@ -12,10 +12,10 @@ export function SidePanel() {
     const theme = (themeState.mode == 'light') ? themeState.light : themeState.dark;
 
 
-    return <div className = "h-[80vh] w-[28%] border rounded-[14px] p-4 m-[15px] "
+    return <div className = "h-[80vh] w-[35%] ml-5 mt-5 border-2 rounded-[14px] overflow-hidden shadow-lg "
         style={{
-            backgroundColor: theme.light_panel,
-            borderColor: theme.gray_border,
+            backgroundColor: theme.nav_bg,
+            borderColor: theme.card_img,
         }}
     >
         {/* <SearchButton/> */}

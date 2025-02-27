@@ -107,11 +107,13 @@ function FinalSignup() {
             email,
             password
         });
-        const jwt = response.data.token;
+        const data = await response.data;
+        // const userName = data.username;
+        const jwt = data.token;
         localStorage.setItem("token", jwt);
         alert("Signed-up");
         //navigate to home-page
-        navigate('/');
+        navigate(`/${username}`);
     }
 
 

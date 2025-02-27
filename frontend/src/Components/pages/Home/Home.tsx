@@ -5,6 +5,7 @@ import { ThemeState } from "../../../Atoms/ThemeState";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 interface ProfileData {
     name: string;
@@ -19,6 +20,8 @@ interface ProjectData {
 }
 
 export function Home() {
+
+    const { username } = useParams();
 
     const theme_state = useRecoilValue(ThemeState);
     const theme_mode = theme_state.mode;
@@ -50,8 +53,10 @@ export function Home() {
     }
     
     useEffect(() => {
-        fetchData();
-    }, []);
+        if(username) {
+            fetchData();
+        }
+    }, [username]);
 
     return <div className={`h-screen font-[sans]`}
         style={{ backgroundColor: theme.background }}

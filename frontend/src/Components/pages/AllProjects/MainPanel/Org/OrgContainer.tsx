@@ -52,9 +52,13 @@ export const OrgPanel = () => {
             { (orgs === undefined) ? <div className="flex justify-center items-center text-[#03061C] font-bold">
                 No organizations.
             </div> : '' }
-            { orgs?.map((org) => <div className="h-[43px] rounded-md text-white px-3 bg-[#03061C] hover:bg-[#131622] transition-colors duration-200 ease-in-out mb-1 flex justify-start items-center cursor-pointer">
-                {org}
-            </div>) }
+            { orgs?.map((org) => 
+                <Link to={`${org}`} >
+                    <div className="h-[43px] rounded-md text-white px-3 bg-[#03061C] hover:bg-[#131622] transition-colors duration-200 ease-in-out mb-1 flex justify-start items-center cursor-pointer">
+                        {org}
+                    </div>
+                </Link>
+            )}
         </div>
     </div>
 }

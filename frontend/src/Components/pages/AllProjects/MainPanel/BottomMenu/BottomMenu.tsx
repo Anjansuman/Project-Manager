@@ -84,7 +84,7 @@ export const BottomMenu = () => {
             z={10} />
         </div>
         <div className="chat absolute bottom-0 right-0 opacity-0">
-            <Link to='/projects/all/members' >
+            <Link to='/projects/members' >
                 <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<TeamIcon size={'25px'} />} z={10} />
             </Link>
         </div>

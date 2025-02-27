@@ -6,7 +6,7 @@ export const Project = selector({
     get: async () => {
         try {
             const backend = import.meta.env.VITE_BACKEND_URL;
-            const response = await axios.get(`${backend}/projects`, {
+            const response = await axios.get(`${backend}/projects/solo-projects`, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
