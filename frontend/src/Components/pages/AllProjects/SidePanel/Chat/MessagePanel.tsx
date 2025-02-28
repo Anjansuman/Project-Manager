@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import { MessageBox } from "../../../../ui/Customs/MessageBox"
 import { Input } from "../../../../ui/Customs/Input";
@@ -21,7 +22,17 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
-        getUserId();
+        getUserId().then(() => {
+            console.log("done!");
+        });
+    }, [])
+
+    useEffect(() => {
+        
+        if(!userId) return;
+
+        console.log("connecting ws");
+
         const ws = new WebSocket("ws://localhost:3000");
         wsRef.current = ws;
 
@@ -33,7 +44,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
                     setMessages((m) => [...m, {
                         msg: receivedData.message,
                         time: receivedData.time,
-                        sender: userId
+                        sender: receivedData.sender,
                     }]);
                 }
 
@@ -46,7 +57,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             ws.send(JSON.stringify({
                 type: "join",
                 payload: {
-                    roomId: 'hell'
+                    roomId: projectId
                 }
             }))
         }
@@ -55,23 +66,23 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             ws.close();
             wsRef.current = null;
         }
+        
+    }, [userId, projectId]);
 
-    }, [projectId]);
-
-    function getUserId() {
+    async function getUserId() {
         try {
             const jwt = localStorage.getItem("token");
-            if (!jwt) return;
+            if (!jwt) {
+                return;
+            }
     
-            const payload = JSON.parse(atob(jwt.split(".")[1]));
+            const decoded: any = await jwtDecode(jwt);
     
-            if (payload?.userId) {
-                setUserId(payload.userId);
-            } else {
-                console.warn("User ID not found in token payload");
+            if (decoded?.userId) {
+                setUserId(decoded.userId);
             }
         } catch (error) {
-            console.error("Invalid token:", error);
+            console.error("Error decoding token:", error);
         }
     }
     
@@ -90,12 +101,6 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         };
 
         wsRef.current.send(JSON.stringify(messageData));
-
-        // setMessages((m) => [...m, {
-        //     msg: input,
-        //     time: getTime(),
-        //     sender: userId
-        // }])
 
         if(inputRef.current) {
             inputRef.current.value = "";
@@ -116,10 +121,12 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
     
     return <div className="h-full w-full ">
-        <div className="h-[88%] w-full rounded-t-[14px] p-2 overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
-            {messages.map((m, key) => <div className={`w-full mb-2 flex ${m.sender == userId ? 'justify-end': ''}`}>
-                <MessageBox key={key} text={m.msg} time={m.time} me={m.sender == userId ? true : false} />
-            </div>)}
+        <div className="h-[88%] w-full rounded-t-[14px] p-3 overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
+        {messages.map((m, key) => (
+            <div key={key} className={`w-full mb-2 flex ${m.sender === userId ? 'justify-end' : 'justify-start'}`}>
+                <MessageBox text={m.msg} time={m.time} me={m.sender === userId} />
+            </div>
+        ))}
         </div>
         <div className="border"
             style={{ borderColor: theme.card_img }}
