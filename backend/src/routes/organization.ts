@@ -90,18 +90,8 @@ router.put("/createOrg", userMiddleware, async (req, res) => {
 // get members of an organization
 router.get("/getOrgMembers", userMiddleware, async (req, res) => {
     try {
-        const orgName = req.orgId;
 
-        const org = await UserModel.find({
-            organization: orgName
-        })
-
-        org.forEach(member => console.log(member.name))
-
-        res.status(200).json({
-            members: org
-        });
-        return;
+        
 
     } catch (error) {
         res.status(500).json({

@@ -31,8 +31,6 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         
         if(!userId) return;
 
-        console.log("connecting ws");
-
         const ws = new WebSocket("ws://localhost:3000");
         wsRef.current = ws;
 

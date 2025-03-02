@@ -14,6 +14,7 @@ import { SidePanel } from "./Components/pages/AllProjects/SidePanel/SidePanel";
 import { NewProject } from "./Components/pages/AllProjects/MainPanel/AddNewProject/NewProject";
 import { ErrorProject } from "./Components/pages/AllProjects/ErrorProject/ErrorProject";
 import { NewOrg } from "./Components/pages/AllProjects/MainPanel/Org/NewOrg";
+import { OrgMembers } from "./Components/pages/AllProjects/MainPanel/Org/OrgMembers";
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
             <Route path="/projects/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
                 <Route path=":title" element={<Project />} />
-                <Route path="members" element={<Project />} />
+                <Route path="members" element={<OrgMembers />} />
                 <Route path="new-project" element={<NewProject />} />
                 <Route path="*" element={<ErrorProject />} />
             </Route>

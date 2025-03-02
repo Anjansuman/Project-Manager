@@ -3,7 +3,7 @@
 // import { PlusBlockPanel } from "./Block/ProjectPanel/PlusBlockPanel";
 
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-
+import { Link } from "react-router-dom";
 
 import { ThemeState } from "../../../../Atoms/ThemeState";
 import { Project } from "../../../../Atoms/Project";
@@ -50,15 +50,17 @@ export function MainPanel() {
                     <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} dynamicallyClicked={visibleOrg} />
                 </div>
             </div>
-            <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
-                style={{
-                    backgroundColor: '#3F5EFF',
-                    borderColor: theme.card_img
-                }}
-            >
-                <div className="mr-1.5"><PlusIcon size={'18'} /></div>
-                <div>New Project</div>
-            </div>
+            <Link to='/projects/new-project' >
+                <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
+                    style={{
+                        backgroundColor: '#3F5EFF',
+                        borderColor: theme.card_img
+                    }}
+                >
+                    <div className="mr-1.5"><PlusIcon size={'18'} /></div>
+                    <div>New Project</div>
+                </div>
+            </Link>
         </div>
         { visibleOrg && <OrgPanel /> }
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 

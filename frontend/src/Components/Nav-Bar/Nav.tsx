@@ -29,7 +29,7 @@ export function Nav() {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
-    return <div className="bg-red-200 flex items-center justify-around font-semibold border-b-2 p-1 ml-2"
+    return <div className="bg-red-200 flex items-center justify-around font-semibold border-b-2 p-1 ml-2 "
         style={{
             backgroundColor: theme.nav_bg,
             color: theme.font_color,

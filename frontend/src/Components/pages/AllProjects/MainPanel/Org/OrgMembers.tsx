@@ -1,22 +1,34 @@
-import { useParams } from "react-router-dom"
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../../Atoms/ThemeState";
+import { Input } from "@/Components/ui/Customs/Input";
+import { UserData } from "./UserData/UserData";
 
 
 export const OrgMembers = () => {
-
-    const params = useParams().members;
 
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
-    return <div className="h-[80vh] w-[70%] border bg-[#03061C] rounded-[14px] p-[25.2px] m-[15px] "
-            style = {{
-                backgroundColor:  theme.dark_panel,
-                borderColor: theme.gray_border
+    return <div className="h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
+
+        <div className="h-14 w-[60%] border-2 border-white rounded-xl mb-3 shadow-sm "
+            style={{
+                borderColor: theme.card_img
             }}
         >
+            <Input placeholder="Search..." bg={theme.nav_bg} />
+        </div>
+
+        <div className="max-h-[85%] w-[60%] border border-x-2 border-white rounded-xl overflow-x-hidden overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] shadow-sm "
+            style={{
+                borderColor: theme.card_img
+            }}
+        >
+            {Array.from({ length: 30 }).map((_, i) => (
+                <UserData name={'Anjan Suman'} role={'Blockchain Developer'} commits={2} />
+            ))}
+        </div>
 
     </div>
 }
