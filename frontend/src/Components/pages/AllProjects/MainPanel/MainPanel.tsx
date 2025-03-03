@@ -3,7 +3,7 @@
 // import { PlusBlockPanel } from "./Block/ProjectPanel/PlusBlockPanel";
 
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { ThemeState } from "../../../../Atoms/ThemeState";
 import { Project } from "../../../../Atoms/Project";
@@ -12,7 +12,7 @@ import { BottomMenu } from "./BottomMenu/BottomMenu";
 import { NoProjectIcon } from "../../../ui/SVGs/NoProjectIcon";
 import { TriangleIcon } from "../../../ui/SVGs/TriangleIcon";
 import { useState } from "react";
-import { OrgPanel } from "./Org/OrgContainer";
+import { OrgContainer } from "./Org/OrgContainer";
 import { PlusIcon } from "lucide-react";
 
 
@@ -24,7 +24,9 @@ interface ProjectData {
 
 export function MainPanel() {
 
-    const pro = useRecoilValueLoadable(Project);
+    const { name, organization } = useParams();
+
+    const pro = useRecoilValueLoadable(Project(organization || ""));
 
     const [visibleOrg, setVisibleOrg] = useState(false);
 
@@ -50,7 +52,7 @@ export function MainPanel() {
                     <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} dynamicallyClicked={visibleOrg} />
                 </div>
             </div>
-            <Link to='/projects/new-project' >
+            <Link to={`/eject/${name}/${organization}/new-project`} >
                 <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
                     style={{
                         backgroundColor: '#3F5EFF',
@@ -62,7 +64,7 @@ export function MainPanel() {
                 </div>
             </Link>
         </div>
-        { visibleOrg && <OrgPanel /> }
+        { visibleOrg && <OrgContainer onClick={ () => setVisibleOrg(false) } /> }
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 
         [::-webkit-scrollbar]:hidden [scrollbar-width:none] pl-3 ">
             {(pro.state === "loading") ? 

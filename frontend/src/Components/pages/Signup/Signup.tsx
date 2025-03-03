@@ -113,7 +113,7 @@ function FinalSignup() {
         localStorage.setItem("token", jwt);
         alert("Signed-up");
         //navigate to home-page
-        navigate(`/${username}`);
+        navigate(`/eject/${username}`);
     }
 
 

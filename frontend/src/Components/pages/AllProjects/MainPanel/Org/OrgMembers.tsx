@@ -2,10 +2,12 @@ import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../../../Atoms/ThemeState";
 import { Input } from "@/Components/ui/Customs/Input";
 import { UserData } from "./UserData/UserData";
+import { useParams } from "react-router-dom";
 
 
 export const OrgMembers = () => {
 
+    const { organization } = useParams();
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
@@ -26,7 +28,7 @@ export const OrgMembers = () => {
             }}
         >
             {Array.from({ length: 30 }).map((_, i) => (
-                <UserData name={'Anjan Suman'} role={'Blockchain Developer'} commits={2} />
+                <UserData name={'Anjan Suman'} username={'ancient'} role={'Blockchain Developer'} commits={2} />
             ))}
         </div>
 

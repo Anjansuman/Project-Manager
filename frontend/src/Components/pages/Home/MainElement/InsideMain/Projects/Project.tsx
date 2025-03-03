@@ -4,13 +4,15 @@ import { ProjectTile } from "../../../../../ui/Customs/ProjectTile"
 import { ThemeState } from "../../../../../../Atoms/ThemeState";
 
 import { useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface ProjectProps {
     project: { title: string, projectImg: string, completion: string }[]
 }
 
 export const Project = ({ project }: ProjectProps) => {
+
+    const { name, organization } = useParams();
 
 
     const theme_state = useRecoilValue(ThemeState);
@@ -22,7 +24,7 @@ export const Project = ({ project }: ProjectProps) => {
         <div className="h-[15%] text-2xl font-bold p-4 flex items-center"
             style={{ color: theme.font_color }}
         >
-            <Link to='/projects'>Projects</Link>
+            <Link to={`/eject/${name}/my-secret-projects`}>Projects</Link>
         </div>
         <div className="h-[1%] w-[30%] ml-3 bg-[#653AD847] mb-3 rounded-full"></div>
         <div className="h-[80%] flex flex-wrap pl-3 pb-2">
@@ -32,7 +34,7 @@ export const Project = ({ project }: ProjectProps) => {
             })}
 
             <div className="flex items-center ml-11">
-                <Link to='/projects'>
+                <Link to={`/eject/${name}/my-secret-projects`}>
                     <div className="h-20 w-20 bg-[#653AD847] rounded-full flex justify-center items-center shadow-lg cursor-pointer">
                         <div className="h-16 w-16 bg-[#653AD847] rounded-full flex justify-center items-center shadow-lg hover:bg-[#653AD880] "
                             style = {{

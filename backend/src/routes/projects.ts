@@ -59,7 +59,7 @@ router.get("/solo-projects", userMiddleware, async (req, res) => {
 });
 
 // this is to add a project
-router.put("/", userMiddleware, async (req, res) => {
+router.put("/:organization", userMiddleware, async (req, res) => {
     try {
         const parsedData = AddProjectSchema.safeParse(req.body);
 
@@ -191,5 +191,195 @@ router.get('/org-projects', userMiddleware, async (req, res) => {
         return;
     }
 });
+
+router.get('/:organization', userMiddleware, async (req, res) => {
+    try {
+        
+        const userId = req.userId;
+        const orgName = req.params.organization;
+
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user) {
+            res.status(404).json({
+                message: "user not found!"
+            })
+            return;
+        }
+
+        if(orgName === 'my-secret-projects') {
+            // personal projects
+            const projects = await ProjectModel.find({
+                members: user._id,
+                orgId: null
+            })
+    
+            // check if org members is empty
+            res.status(200).json({
+                projects: projects.map(({ title, projectImg, completion }) => ({
+                    title,
+                    projectImg,
+                    completion: completion || '0'
+                }))
+                //return all the members of the org
+            });
+            return;
+        }
+
+        const org = await OrganizationModel.findOne({
+            name: orgName,
+            members: userId
+        });
+
+        if(!org) {
+            res.status(404).json({
+                message: "Organization does not exist"
+            })
+            return;
+        }
+
+        // const orgProjects: {
+        //     title: string,
+        //     projectImg: string,
+        //     completion: string
+        // }[] = []
+
+        const foundProjects = await Promise.all(
+            org.projects.map(async (p) => {
+                return await ProjectModel.findOne({
+                    _id: p
+                })
+            })
+        )
+
+        const validProjects = foundProjects.filter((project) => project !== null);
+
+        // orgProjects.push(validProjects);
+
+        // const projects = await ProjectModel.find({
+        //     members: userId,
+        //     orgId: org._id
+        // });
+
+        res.status(200).json({
+            projects: validProjects.map(({ title, projectImg, completion }) => ({
+                title: title,
+                projectImg: projectImg,
+                completion: completion || '0'
+            }))
+        })
+        return;
+
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
+        });
+        return;
+    }
+})
+
+// this can create a project for both an individual or an organization
+router.put('/:organization/new-project', userMiddleware, async (req, res) => {
+    try {
+        
+        const userId = req.userId;
+        const orgName = req.params.organization;
+        const parsedData = AddProjectSchema.safeParse(req.body);
+
+        if (!parsedData.success) {
+            res.status(400).json({ message: "Validation failed!" });
+            return;
+        }
+
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user) {
+            res.status(404).json({
+                message: "User not found!"
+            });
+            return;
+        }
+
+        const org = await OrganizationModel.findOne({
+            name: orgName,
+            members: userId
+        });
+
+        if(!org) {
+            res.status(404).json({
+                message: "Organization not found!"
+            });
+            return;
+        }
+
+        const { title, description, projectImg, deadline, completion, members, orgId } = parsedData.data;
+
+        // checks for individual project
+        if(orgName === 'my-secret-projects') {
+            
+            const existingProject = await ProjectModel.findOne({
+                title: title,
+                members: userId
+            });
+
+            if(existingProject) {
+                res.status(400).json({
+                    message: "Project with this name already exists!"
+                });
+                return;
+            }
+
+            const newProject = await ProjectModel.create({
+                title,
+                description,
+                projectImg,
+                deadline,
+                completion,
+                createdBy: userId,
+                members: userId, // members of individual project only includes the person who created it
+                orgId: null
+            });
+
+            if(!newProject) {
+                res.status(500).json({
+                    message: "Project creation failed due to internal server error!"
+                });
+                return;
+            }
+
+            res.status(200).json({
+                message: "Project created successfully!"
+            });
+            return;
+
+        }
+        // else for organizational projects
+
+        const existingProject = await OrganizationModel.findOne({
+            title: title
+        });
+        
+        if(existingProject) {
+            res.status(400).json({
+                message: "Project with this name already exists!"
+            });
+            return;
+        }
+
+        // as user will give input by username so find all the users from the organization members
+        // then check for valid members and add the userId in the members and then create a new project
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
+        });
+        return;
+    }
+})
 
 export default router;

@@ -7,12 +7,15 @@ import { DeleteIcon } from "../../../../ui/SVGs/DeleteIcon";
 
 import gsap from "gsap";
 import { PlusIcon } from "../../../../ui/SVGs/PlusIcon";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TeamIcon } from "../../../../ui/SVGs/TeamIcon";
 
 
 
 export const BottomMenu = () => {
+
+    const { name, organization } = useParams();
+
      const [click, setClick] = useState(true);
     
     useEffect(() => {
@@ -84,12 +87,12 @@ export const BottomMenu = () => {
             z={10} />
         </div>
         <div className="chat absolute bottom-0 right-0 opacity-0">
-            <Link to='/projects/members' >
+            <Link to={`/eject/${name}/${organization}/members`} >
                 <BottomBox color={'#1971c2'} hoverBG={'#1971c299'} element={<TeamIcon size={'25px'} />} z={10} />
             </Link>
         </div>
         <div className="delete absolute bottom-0 right-0 opacity-0">
-            <Link to='/projects/new-project'>
+            <Link to={`/eject/${name}/${organization}/new-project`}>
                 <BottomBox color={'#e03131'} hoverBG={'#e0313199'} element={<PlusIcon color={"white"} size={'35'} />} z={10} />
             </Link>
         </div>

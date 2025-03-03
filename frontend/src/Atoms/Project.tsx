@@ -1,12 +1,12 @@
 import axios from "axios";
-import { selector } from "recoil";
+import { selectorFamily } from "recoil";
 
-export const Project = selector({
+export const Project = selectorFamily({
     key: "Project",
-    get: async () => {
+    get: (organization: string) => async () => {
         try {
             const backend = import.meta.env.VITE_BACKEND_URL;
-            const response = await axios.get(`${backend}/projects/solo-projects`, {
+            const response = await axios.get(`${backend}/projects/${organization}`, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }

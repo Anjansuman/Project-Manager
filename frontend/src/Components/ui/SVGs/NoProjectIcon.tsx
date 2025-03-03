@@ -2,7 +2,7 @@
 
 export const NoProjectIcon = () => {
     return <div>
-        <svg height="453" className="absolute z-10 " viewBox="0 0 319 353" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg height="453" className="absolute z-10 right-70  " viewBox="0 0 319 353" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 <rect width="319" height="319" rx="159.5" fill="url(#pattern0_122_62)"/>
 <defs>
 <pattern id="pattern0_122_62" patternContentUnits="objectBoundingBox" width="1" height="1">

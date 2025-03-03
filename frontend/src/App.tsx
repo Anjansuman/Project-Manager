@@ -18,18 +18,17 @@ import { OrgMembers } from "./Components/pages/AllProjects/MainPanel/Org/OrgMemb
 
 function App() {
 
-  // use outlet to make nav bar stable and not render it on every call
 
   return (
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-            <Route index path="/:name" element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin />} />
+            <Route index path="eject/:name" element={<Home />} />
+            <Route path="eject/signup" element={<Signup />} />
+            <Route path="eject/signin" element={<Signin />} />
 
             {/* Group project-related routes under ProjectLayout */}
-            <Route path="/projects/*" element={<ProjectLayout />}>
+            <Route path="eject/:name/:organization/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
                 <Route path=":title" element={<Project />} />
                 <Route path="members" element={<OrgMembers />} />
@@ -37,7 +36,7 @@ function App() {
                 <Route path="*" element={<ErrorProject />} />
             </Route>
 
-            <Route path="/new-organization" element={<NewOrganization />} />
+            <Route path="eject/:name/new-organization" element={<NewOrganization />} />
 
             <Route path="*" element={<ErrorPage />} />
         </Routes>

@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "../../../Atoms/ThemeState";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface ProjectTileProps {
     title: string,
@@ -12,13 +12,14 @@ interface ProjectTileProps {
 
 export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
 
+    const { name, organization } = useParams();
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
     return <div>
-        <Link to={`/projects/${title}`}>
+        <Link to={`/eject/${name}/${organization}/${title}`}>
             <div className="h-90 w-68 border-2 border-[#202B44] mr-3 mt-3 rounded-2xl p-4 shadow-md transition-all duration-400 ease-in-out hover:-translate-y-1 hover:shadow-xl "
                 style={{
                     backgroundColor: theme.card_bg,

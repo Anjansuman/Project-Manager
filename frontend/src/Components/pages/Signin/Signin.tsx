@@ -34,7 +34,7 @@ export const Signin = () => {
                 localStorage.setItem("token", jwt);
                 alert("Signed in successfully");
                 // Navigate to home-page 
-                navigate(`/${username}`);
+                navigate(`/eject/${username}`);
             } else {
                 alert("Sign-in failed. Please try again.");
             }
