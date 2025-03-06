@@ -138,14 +138,7 @@ export const OrgContainer = ({ onClick }: { onClick: () => void }) => {
                             borderColor: theme.card_img
                         }}
                     >
-                        <div className="plus">
-                            <PlusIcon color={'white'} size={'30px'} />
-                        </div>
-                        <div className="flex absolute top-12">
-                            <div className="create mr-1">Create</div>
-                            <div className="new mr-1">new</div>
-                            <div className="org">organization</div>
-                        </div>
+                        <PlusIcon color={'white'} size={'30px'} />
                     </div>
                 </div>
                 <div className="h-auto w-full flex flex-col justify-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] " >

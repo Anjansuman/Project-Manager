@@ -7,7 +7,11 @@ import { ProjectFile } from "../../../ui/Customs/ProjectFile";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ClockIcon } from "@/Components/ui/SVGs/ClockIcon";
+import { BackArrowIcon } from "@/Components/ui/SVGs/BackArrowIcon";
+import { LastCommit } from "./FilesAndFolders/LastCommit";
+import { File } from "./FilesAndFolders/File";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -16,10 +20,10 @@ gsap.registerPlugin(TextPlugin);
 export const Project = () => {
 
     const title = useParams().title;
+    const navigate = useNavigate();
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
-    
 
     const textRef = useRef<HTMLDivElement>(null);
 
@@ -36,13 +40,42 @@ export const Project = () => {
     }, [])
 
 
-    return <div className="h-[80vh] w-[70%] border bg-[#03061C] rounded-[14px] p-[25.2px] m-[15px] "
-        style = {{
-            backgroundColor:  theme.dark_panel,
-            borderColor: theme.gray_border
+    return <div className="h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center  "
+        style={{
+            color: theme.font_color
         }}
     >
-        {/* start */}
+        <div className="w-full text-2xl font-semibold mb-2 flex justify-start items-center ">
+            <div className={`flex justify-start items-center transition-all duration-300 ease-in-out pr-2 rounded-md cursor-pointer hover:shadow-sm`}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
+                    onClick={() => navigate(-1)}
+                >
+                <div className="mr-2 rounded-l-md cursor-pointer py-2 px-1">
+                    <BackArrowIcon />
+                </div>
+                <div className="relative bottom-[3px] pr-2 ">
+                    {title}
+                </div>
+            </div>
+        </div>
+        <div className="h-full w-full flex flex-col border-2 rounded-xl overflow-hidden shadow-md "
+            style={{
+                borderColor: theme.card_img
+            }}
+        >
+            <LastCommit />
+            <div>
+                <File type={'Folder'} name={'Nav'} commit={'added logo'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+            </div>
+        </div>
+    </div>
+}
+
+/*
+
+<div className="h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
         <div className=" flex items-center justify-between">
             <div className="flex items-center">
                 <div className="h-50 w-50 bg-[#653AD847] p-1 rounded-xl mr-5">
@@ -86,4 +119,5 @@ export const Project = () => {
         <BottomMenu />
         
     </div>
-}
+
+*/
