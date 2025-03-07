@@ -10,27 +10,28 @@ import { HeadingBase } from "../../../../ui/SVGs/HeadingBase";
 import { useEffect, useRef } from "react";
 import { Button } from "../../../../ui/Customs/Button";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const NewProject = () => {
 
-    const theme_state = useRecoilValue(ThemeState);
-    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
+    const { name, organization } = useParams();
+    const navigate = useNavigate();
 
-    async function getBackend() {
-        const backend = import.meta.env.VITE_BACKEND_URL;
-        const response = await axios.get(`${backend}/new-project`, {
-            headers: {
-                Authorization: localStorage.getItem("token")
-            }
-        });
-        const data = await response.data;
-        alert(data);
+    // async function getBackend() {
+    //     const backend = import.meta.env.VITE_BACKEND_URL;
+    //     const response = await axios.get(`${backend}/new-project`, {
+    //         headers: {
+    //             Authorization: localStorage.getItem("token")
+    //         }
+    //     });
+    //     const data = await response.data;
+    //     alert(data);
 
-    }
+    // }
 
-    useEffect(() => {
-        getBackend();
-    }, []);
+    // useEffect(() => {
+    //     // getBackend();
+    // }, []);
     
     const titleRef = useRef<HTMLInputElement>(null);
     const deadlineRef = useRef<HTMLInputElement>(null);
@@ -45,7 +46,7 @@ export const NewProject = () => {
         const dead = deadline ? new Date(deadline) : null;
 
         try {
-            const response = await axios.put(`${backend}/projects`, {
+            const response = await axios.put(`${backend}/projects/${organization}/new-project`, {
                 title: title,
                 description: description,
                 deadline: dead
@@ -56,12 +57,17 @@ export const NewProject = () => {
                 }
             })
             const data = await response.data;
-            alert(data.message);
+            navigate(`/eject/${name}/${organization}`);
+            
+            
         } catch (error) {
-            console.error("Error submitting project:", error);
-            alert("Project submission failed!");
+            console.error("Error creating project: ", error);
+            alert("Project creation failed!");
         }
     }
+
+    const theme_state = useRecoilValue(ThemeState);
+    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
     return <div className="h-[80vh] w-[70%] border rounded-[14px] p-[25.2px] m-[15px] overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
         style = {{

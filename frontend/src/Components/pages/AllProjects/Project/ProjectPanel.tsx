@@ -65,8 +65,26 @@ export const Project = () => {
             }}
         >
             <LastCommit />
-            <div>
-                <File type={'Folder'} name={'Nav'} commit={'added logo'} time={'2 months ago'} />
+            <div className=" overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+                <File type={'Folder'} name={'Nav'} commit={'added logo'} time={'1 months ago'} />
+                <File type={'File'} name={'Home.tsx'} commit={'made a layout of home page'} time={'2 days ago'} />
+                <File type={'File'} name={'IconInterface.ts'} commit={'interface for icons'} time={'3 hours ago'} />
+                <File type={'File'} name={'Main.tsx'} commit={'main page inside home'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'3 days ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
                 <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
             </div>
         </div>

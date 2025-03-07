@@ -36,7 +36,7 @@ export function MainPanel() {
 
 
 
-    return <div className = "h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] ">
+    return <div className = "h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center ">
         <div className="w-full flex items-center justify-between pb-5"
             style={{ color: theme.font_color }}
         >

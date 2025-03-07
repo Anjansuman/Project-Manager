@@ -62,13 +62,14 @@ router.get("/solo-projects", userMiddleware, async (req, res) => {
 router.put("/:organization", userMiddleware, async (req, res) => {
     try {
         const parsedData = AddProjectSchema.safeParse(req.body);
+        const orgName = req.params.organization;
 
         if (!parsedData.success) {
             res.status(400).json({ message: "Validation failed!" });
             return;
         }
 
-        const { title, description, projectImg, deadline, completion, members, orgId } = parsedData.data;
+        const { title, description, projectImg, deadline, completion, members } = parsedData.data;
         const creatorId = new mongoose.Types.ObjectId(req.userId);
         if (!creatorId) {
             res.status(400).json({ message: "Creator ID is missing!" });
@@ -99,6 +100,13 @@ router.put("/:organization", userMiddleware, async (req, res) => {
         }
 
         // If project is inside an organization, ensure all members belong to the same org
+
+        const org = await OrganizationModel.findOne({
+            name: orgName
+        });
+
+        const orgId = org?._id;
+
         if (orgId) {
             const org = await OrganizationModel.findById(orgId);
             if (!org) {
@@ -305,19 +313,7 @@ router.put('/:organization/new-project', userMiddleware, async (req, res) => {
             return;
         }
 
-        const org = await OrganizationModel.findOne({
-            name: orgName,
-            members: userId
-        });
-
-        if(!org) {
-            res.status(404).json({
-                message: "Organization not found!"
-            });
-            return;
-        }
-
-        const { title, description, projectImg, deadline, completion, members, orgId } = parsedData.data;
+        const { title, description, projectImg, deadline, completion, members } = parsedData.data;
 
         // checks for individual project
         if(orgName === 'my-secret-projects') {
@@ -358,8 +354,21 @@ router.put('/:organization/new-project', userMiddleware, async (req, res) => {
             return;
 
         }
-        // else for organizational projects
 
+        // else for organizational projects
+        const org = await OrganizationModel.findOne({
+            name: orgName,
+            members: userId
+        });
+
+        if(!org) {
+            res.status(404).json({
+                message: "Organization not found!"
+            });
+            return;
+        }
+
+        // check for same project name
         const existingProject = await OrganizationModel.findOne({
             title: title
         });
@@ -370,6 +379,73 @@ router.put('/:organization/new-project', userMiddleware, async (req, res) => {
             });
             return;
         }
+
+        let validMembers: mongoose.Types.ObjectId[] = [];
+
+        // if user has sent some members with this project creation
+        if(members !== undefined) {
+            // Fetch all users in the members array
+            const foundMembers = await Promise.all(
+                members.map(async (username: string) => {
+                    return await UserModel.findOne({ username });
+                })
+            );
+
+            // Filter out members that do not exist
+            validMembers = foundMembers.filter(user => user !== null).map(user => user!._id);
+
+            if (validMembers.length !== members?.length) {
+                res.status(400).json({ message: "Some members do not exist!" });
+                return;
+            }
+        }
+
+        // this will add the creator as a member also
+        if (!validMembers.includes(new mongoose.Types.ObjectId(userId))) {
+            validMembers.push(new mongoose.Types.ObjectId(userId));
+        }
+
+        // this will check if the members are present in the same org
+        const invalidMembers = validMembers.filter(memberId => !org.members.includes(memberId));
+
+        if (invalidMembers.length > 0) {
+            res.status(400).json({ message: "Some members are not part of the organization!" });
+            return;
+        }
+
+        // Create the project
+        const newProject = await ProjectModel.create({
+            title,
+            description,
+            projectImg,
+            deadline,
+            completion,
+            members: validMembers, // Now includes all valid members
+            orgId: org._id
+        });
+
+        if (!newProject) {
+            res.status(400).json({ message: "Project creation failed!" });
+            return;
+        }
+
+        const addProjectToOrg = await OrganizationModel.updateOne(
+            { _id: org._id },
+            { $push: { projects: newProject._id } }
+        );
+
+        if(!addProjectToOrg) {
+            res.status(400).json({
+                message: "addition of projects to the organization failed!"
+            });
+            return;
+        }
+
+        // Send email notification to all members (implement SendGrid logic)
+        // await sendProjectInviteEmails(validMembers, title, description);
+
+        res.status(200).json({ message: "Project created successfully!" });
+        return;
 
         // as user will give input by username so find all the users from the organization members
         // then check for valid members and add the userId in the members and then create a new project
