@@ -6,47 +6,70 @@ import { ProjectFile } from "../../../ui/Customs/ProjectFile";
 
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
-import { useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { ClockIcon } from "@/Components/ui/SVGs/ClockIcon";
 import { BackArrowIcon } from "@/Components/ui/SVGs/BackArrowIcon";
-import { LastCommit } from "./FilesAndFolders/LastCommit";
-import { File } from "./FilesAndFolders/File";
+import { LastCommit } from "./FilesList/LastCommit";
+import { File } from "./FilesList/File";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(TextPlugin);
 
-
+interface FileProps {
+    type: 'File' | 'Folder',
+    title: string,
+    commit: string,
+    time: string,
+}
 
 export const Project = () => {
 
-    const title = useParams().title;
+    const { name, organization, projectTitle, fileTitle } = useParams();
     const navigate = useNavigate();
 
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
-    const textRef = useRef<HTMLDivElement>(null);
+    const [files, setFiles] = useState<FileProps[]>([]);
+
+    // Simulated file structure
+    const allFiles = {
+        "new project": {
+            "Home.tsx": { type: "File", commit: "Created home layout", time: "2 days ago" },
+            "Components": {
+                "Button.tsx": { type: "File", commit: "Added button", time: "3 days ago" },
+                "Navbar.tsx": { type: "File", commit: "Navbar update", time: "1 day ago" },
+                "UI": {
+                    "SendIcon.tsx": { type: "File", commit: "Made SVG of send icon", time: "3 days ago" },
+                    "LogoIcon.tsx": { type: "File", commit: "Logo designed", time: "1 day ago" }
+                }
+            }
+        }
+    };
+    
+    
 
     useEffect(() => {
-        gsap.to('.boundry', {
-            width: '100%',
-            duration: 2
-        })
-        gsap.to(textRef.current, {
-            text: title,
-            duration: 2,
-            ease: 'power1.out'
-        });
-    }, [])
-
+        console.log("Raw fileTitle:", fileTitle);
+        const decodedFileTitle = fileTitle ? decodeURIComponent(fileTitle) : "";
+        console.log("Decoded fileTitle:", decodedFileTitle);
+    
+        const currentFiles = getFiles(decodedFileTitle || "new project", allFiles);
+        console.log("Files found:", currentFiles);
+    
+        setFiles(currentFiles);
+    }, [projectTitle, fileTitle]);
+    
+    
 
     return <div className="h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center  "
         style={{
             color: theme.font_color
         }}
     >
-        <div className="w-full text-2xl font-semibold mb-2 flex justify-start items-center ">
-            <div className={`flex justify-start items-center transition-all duration-300 ease-in-out pr-2 rounded-md cursor-pointer hover:shadow-sm`}
+        <div className="w-full text-2xl font-semibold mb-2 flex justify-between items-center ">
+            <div className={`flex justify-start items-center transition-all duration-300 ease-in-out pr-2 rounded-md cursor-pointer hover:shadow-sm `}
                     onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
                     onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
                     onClick={() => navigate(-1)}
@@ -55,9 +78,17 @@ export const Project = () => {
                     <BackArrowIcon />
                 </div>
                 <div className="relative bottom-[3px] pr-2 ">
-                    {title}
+                    {projectTitle}
                 </div>
             </div>
+            <Link to={`/eject/${name}/${organization}/${projectTitle}/README.md`} >
+                <div className="text-lg font-normal hover:shadow-sm transition-all duration-300 ease-in-out rounded-md py-1 px-2 cursor-pointer "
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
+                    >
+                    README.md
+                </div>
+            </Link>
         </div>
         <div className="h-full w-full flex flex-col border-2 rounded-xl overflow-hidden shadow-md "
             style={{
@@ -66,30 +97,62 @@ export const Project = () => {
         >
             <LastCommit />
             <div className=" overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-                <File type={'Folder'} name={'Nav'} commit={'added logo'} time={'1 months ago'} />
-                <File type={'File'} name={'Home.tsx'} commit={'made a layout of home page'} time={'2 days ago'} />
-                <File type={'File'} name={'IconInterface.ts'} commit={'interface for icons'} time={'3 hours ago'} />
-                <File type={'File'} name={'Main.tsx'} commit={'main page inside home'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'3 days ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
-                <File type={'File'} name={'Package.json'} commit={'npm installed'} time={'2 months ago'} />
+                {/* Display files & folders */}
+                {files.map((file, index) => (
+                <File 
+                    key={index} 
+                    {...file} 
+                    onClick={() => {
+                        const newPath = file.type === "Folder"
+                            ? `/eject/${name}/${organization}/${projectTitle}/${fileTitle ? `${fileTitle}/${file.title}` : file.title}`
+                            : `/eject/${name}/${organization}/${projectTitle}/${fileTitle ? `${fileTitle}/` : ""}${file.title}`;
+                
+                        console.log("Navigating to:", newPath);
+                        navigate(newPath);
+                    }}
+                />          
+                ))}
             </div>
         </div>
     </div>
 }
+
+const getFiles = (path: string, structure: any): FileProps[] => {
+    const parts = path.split("/").filter(Boolean); // Split & remove empty parts
+    let current = structure;
+
+    for (const part of parts) {
+        if (current[part] && typeof current[part] === "object") {
+            current = current[part]; // Go deeper into the structure
+        } else {
+            return []; // Folder not found
+        }
+    }
+
+    return Object.entries(current).map(([title, details]) => {
+        const fileDetails = details as { type?: string; commit?: string; time?: string };
+
+        if (typeof details === "object" && !fileDetails.type) {
+            // If it's an object and has no "type", it's a folder
+            return {
+                title,
+                type: "Folder",
+                commit: "Folder", // Optional placeholder
+                time: "" // No time for folders
+            };
+        }
+
+        // Otherwise, assume it's a file
+        return {
+            title,
+            type: (fileDetails.type as "File" | "Folder") || "File", // If no type, assume it's a file
+            commit: fileDetails.commit || "",
+            time: fileDetails.time || ""
+        };
+    });
+};
+
+
 
 /*
 

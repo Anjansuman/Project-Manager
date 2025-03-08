@@ -4,13 +4,13 @@ import { ThemeState } from "../../../Atoms/ThemeState";
 import { Link, useParams } from "react-router-dom";
 
 interface ProjectTileProps {
-    title: string,
+    projectTitle: string,
     image: string,
     completion: string,
 }
 
 
-export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
+export const ProjectTile = ({ projectTitle, image, completion }: ProjectTileProps) => {
 
     const { name, organization } = useParams();
 
@@ -19,7 +19,7 @@ export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
 
 
     return <div>
-        <Link to={`/eject/${name}/${organization}/${title}`}>
+        <Link to={`/eject/${name}/${organization}/${projectTitle}`}>
             <div className="h-90 w-68 border-2 border-[#202B44] mr-3 mt-3 rounded-2xl p-4 shadow-md transition-all duration-400 ease-in-out hover:-translate-y-1 hover:shadow-xl "
                 style={{
                     backgroundColor: theme.card_bg,
@@ -38,7 +38,7 @@ export const ProjectTile = ({ title, image, completion }: ProjectTileProps) => {
                         color: theme.font_color
                     }}
                 >
-                    {title}
+                    {projectTitle}
                 </div>
                 <div className="h-1 w-full rounded-3xl bg-red-200 overflow-hidden"
                     style={{

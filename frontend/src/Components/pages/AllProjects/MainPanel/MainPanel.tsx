@@ -76,7 +76,7 @@ export function MainPanel() {
             {pro.state === 'hasValue' && pro.contents.length === 0 ? <NoProjectIcon /> : '' }
 
             {pro.state === 'hasValue' && pro.contents.map((details: ProjectData, key: number) => (
-                <ProjectTile key={key} title={details.title} image={details.projectImg} completion={details.completion} />
+                <ProjectTile key={key} projectTitle={details.title} image={details.projectImg} completion={details.completion} />
             ))}
         </div>
         <div>

@@ -15,7 +15,7 @@ export const LastCommit = () => {
         }}
     >
         <div className="flex ">
-            <div className="mr-5">
+            <div className="mr-5 cursor-pointer">
                 Anjan Suman
             </div>
             <div className="text-[gray] ">

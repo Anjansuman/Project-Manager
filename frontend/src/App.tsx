@@ -15,6 +15,7 @@ import { NewProject } from "./Components/pages/AllProjects/MainPanel/AddNewProje
 import { ErrorProject } from "./Components/pages/AllProjects/ErrorProject/ErrorProject";
 import { NewOrg } from "./Components/pages/AllProjects/MainPanel/Org/NewOrg";
 import { OrgMembers } from "./Components/pages/AllProjects/MainPanel/Org/OrgMembers";
+import { FileData } from "./Components/pages/AllProjects/Project/FileData/FileData";
 
 function App() {
 
@@ -30,7 +31,10 @@ function App() {
             {/* Group project-related routes under ProjectLayout */}
             <Route path="eject/:name/:organization/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
-                <Route path=":title" element={<Project />} />
+                <Route path=":projectTitle/*" element={<Project />} >
+                  <Route index element={<FileData />} />
+                  <Route path=":fileTitle/*" element={<FileData />} />
+                </Route>
                 <Route path="members" element={<OrgMembers />} />
                 <Route path="new-project" element={<NewProject />} />
                 <Route path="*" element={<ErrorProject />} />

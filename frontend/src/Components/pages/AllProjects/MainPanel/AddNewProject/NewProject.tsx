@@ -58,7 +58,7 @@ export const NewProject = () => {
             })
             const data = await response.data;
             navigate(`/eject/${name}/${organization}`);
-            
+
             
         } catch (error) {
             console.error("Error creating project: ", error);
@@ -99,7 +99,7 @@ export const NewProject = () => {
                     </div>
                     <div className="h-[213px] w-[1px] bg-[gray] rounded-2xl"></div>
                 </div>
-                <ProjectTile title={'project'} image={'imageSelected'} completion={"20"} />
+                <ProjectTile projectTitle={'project'} image={'imageSelected'} completion={"20"} />
             </div>
         </div>
         <div className="text-white flex flex-col bg-[#653AD847] p-1 rounded-lg mb-8 ">
