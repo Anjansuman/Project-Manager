@@ -6,6 +6,8 @@ import { UserSignupSchema } from "../zod/UserSignupSchema";
 import { UserModel } from "../db/UserSchema";
 import { SECRET_KEY } from "../config";
 import { OrganizationModel } from "../db/OrganizationSchema";
+import { generateOTP } from "../utils/generateOTP";
+import { SendEmail } from "../node-mailer/SendEmail";
 
 
 const router = Router();
@@ -78,6 +80,49 @@ router.post("/", async (req, res) => {
         res.status(500).json({
             message: "Internal server error!",
             error: error
+        });
+        return;
+    }
+});
+
+// for verification of email address
+// this will work only after clicking send OTP and then
+router.post("/send-OTP", async (req, res) => {
+    try {
+        const email = req.body.email;
+
+        if(!email) {
+            res.status(404).json({
+                message: "Provide an email!"
+            });
+            return;
+        }
+
+        // generate the OTP
+        const OTP = generateOTP(6);
+        console.log("OTP: ", OTP);
+
+        const subject: string = "Your eject OTP Verification Code";
+        const text = `Your OTP is ${OTP}`;
+
+        const sentEmail = await SendEmail(email, subject, text);
+
+        if(!sentEmail) {
+            res.status(500).json({
+                message: "Failed to send email due to an internal server error!"
+            });
+            return;
+        }
+
+        res.status(200).json({
+            message: "Sent the OTP",
+            OTP: OTP
+        });
+        return;
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
         });
         return;
     }

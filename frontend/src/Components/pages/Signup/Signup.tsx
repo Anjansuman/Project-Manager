@@ -50,8 +50,18 @@ function Verification({ verified, email }: VerificationProps) {
 
     const [otpPanel, setOtpPanel] = useState<[boolean, string, () => void]>([false, 'Send OTP', send]);
 
-    function send() {
+    async function send() {
         setOtpPanel([true, "Verify", verify]);
+
+        const email = emailRef.current?.value.trim();
+
+        const backend = import.meta.env.VITE_BACKEND_URL;
+        const response = await axios.post(`${backend}/eject/v1/signup/send-OTP`, {
+            email: email
+        });
+
+        const data = await response.data;
+
         // otp logic calling from the backend
     }
 
