@@ -85,6 +85,10 @@ router.post("/", async (req, res) => {
     }
 });
 
+
+// this will store the OTP, optimize it in future using redis
+const otpStore = new Map<string, {otp: string; expiresAt: number}>();
+
 // for verification of email address
 // this will work only after clicking send OTP and then
 router.post("/send-OTP", async (req, res) => {
@@ -92,7 +96,7 @@ router.post("/send-OTP", async (req, res) => {
         const email = req.body.email;
 
         if(!email) {
-            res.status(404).json({
+            res.status(400).json({
                 message: "Provide an email!"
             });
             return;
@@ -101,6 +105,9 @@ router.post("/send-OTP", async (req, res) => {
         // generate the OTP
         const OTP = generateOTP(6);
         console.log("OTP: ", OTP);
+
+        // store OTP with expiry of 5 mins
+        otpStore.set(email, { otp: OTP, expiresAt: Date.now() + 5 * 60 * 1000 });
 
         const subject: string = "Your eject OTP Verification Code";
         const text = `Your OTP is ${OTP}`;
@@ -115,10 +122,63 @@ router.post("/send-OTP", async (req, res) => {
         }
 
         res.status(200).json({
-            message: "Sent the OTP",
-            OTP: OTP
+            message: "Sent the OTP"
         });
         return;
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
+        });
+        return;
+    }
+});
+
+
+// this is for verifying OTP
+router.post("/verify-OTP", async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        if (!email || !otp) {
+            res.status(400).json({
+                message: "Provide email and OTP!"
+            });
+            return;
+        }
+
+        const storedOTP = otpStore.get(email);
+
+        if(!storedOTP) {
+            res.status(404).json({
+                message: "Failed to fetch OTP, try sending the OTP again!"
+            });
+            return;
+        }
+
+        // check if the OTP is expired!
+        if(storedOTP.expiresAt > Date.now()) {
+            res.status(400).json({
+                message: "OTP expired!"
+            });
+            return;
+        }
+
+        if(storedOTP.otp !== otp) {
+            res.status(400).json({
+                message: "Invalid OTP!"
+            });
+            return;
+        }
+
+        otpStore.delete(email);
+
+        // send a thanks giving joining mail
+
+        res.status(200).json({
+            message: "OTP verified!"
+        });
+
 
     } catch (error) {
         res.status(500).json({

@@ -61,20 +61,29 @@ function Verification({ verified, email }: VerificationProps) {
         });
 
         const data = await response.data;
+        alert(data.message);
 
         // otp logic calling from the backend
     }
 
-    function verify() {
-        alert("verified");
+    async function verify() {
         verified();
         if(emailRef.current === null || emailRef.current.value === "") {
             // display logic for email can't be empty
             console.log("email can't be empty");
             return;
         }
-        email = emailRef.current.value;
+        const email = emailRef.current.value;
+        const otp = otpRef.current?.value;
+        
         // verification logic from the backend
+        const backend = import.meta.env.VITE_BACKEND_URL;
+        const response = await axios.post(`${backend}/signup/verify-OTP`, {
+            email: email.trim(),
+            otp: otp?.trim()
+        });
+        const data = await response.data;
+        alert(data.message);
     }
 
     return <div>
@@ -89,6 +98,11 @@ function Verification({ verified, email }: VerificationProps) {
         <div>
             <Button text={otpPanel[1]} onClick={otpPanel[2]} size={'md'} w={'200px'} rounded={true} />
         </div>
+        { otpPanel[0] && <div className="flex justify-center hover:text-[red] cursor-pointer "
+            onClick={send}
+        >
+            resend OTP?
+        </div> }
     </div>
 }
 
