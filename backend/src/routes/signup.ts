@@ -66,6 +66,13 @@ router.post("/", async (req, res) => {
             return;
         }
 
+        if(!SECRET_KEY) {
+            res.status(500).json({
+                message: "Internal server error!"
+            });
+            return;
+        }
+
         const token = "Bearer " + jwt.sign({
             userId: newUser._id,
         }, SECRET_KEY);

@@ -32,29 +32,31 @@ export const UserData = ({ name, role, commits, username }: UserDataProps) => {
         {hoveredRole && <HoverUsername username={role} coords={cursorPos} />}
 
         <div
-            className="border-b border-t px-4 py-3 flex justify-between"
+            className="w-full border-b border-t px-4 py-3 flex justify-between"
             style={{
                 color: theme.font_color,
                 backgroundColor: theme.nav_bg,
                 borderColor: theme.card_img,
             }}
         >
-            <div className="cursor-pointer hover:text-[#1f6feb]"
+            <div className="w-[35%] cursor-pointer hover:text-[#1f6feb] overflow-hidden"
                 onMouseEnter={() => setHoveredName(true)}
                 onMouseMove={handleMouseMove} // Track cursor position
                 onMouseLeave={() => setHoveredName(false)}
             >
                 {name}
             </div>
-            <div className="text-gray-500 cursor-pointer hover:text-[#1f6feb]"
-                onMouseEnter={() => setHoveredRole(true)}
-                onMouseMove={handleMouseMove} // Track cursor position
-                onMouseLeave={() => setHoveredRole(false)}
-            >
-                {role}
-            </div>
-            <div className="text-gray-500 hover:text-[#1f6feb] cursor-pointer flex justify-center items-center">
-                {commits} commits
+            <div className="w-[80%] flex justify-between">
+                <div className="w-[65%] text-gray-500 cursor-pointer hover:text-[#1f6feb] overflow-hidden"
+                    onMouseEnter={() => setHoveredRole(true)}
+                    onMouseMove={handleMouseMove} // Track cursor position
+                    onMouseLeave={() => setHoveredRole(false)}
+                >
+                    {role}
+                </div>
+                <div className="text-gray-500 hover:text-[#1f6feb] cursor-pointer flex justify-center items-center">
+                    {commits} commits
+                </div>
             </div>
         </div>
     </div>

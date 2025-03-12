@@ -97,6 +97,7 @@ export function Nav() {
                     name={profileDetails.current.name}
                     username={profileDetails.current.username}
                     role={profileDetails.current.role}
+                    onClick={() => setVisibleProfile(false)}
                 />
             )}
         </div>

@@ -8,7 +8,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
 
     if(!authorization || !authorization.startsWith("Bearer ")) {
         res.status(400).json({
-            msg: "You are not authorized!"
+            message: "You are not authorized!"
         });
         return;
     }
@@ -17,7 +17,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
 
     if(!SECRET_KEY) {
         res.status(500).json({
-            msg: "internal server error!"
+            message: "internal server error!"
         });
         return;
     }
@@ -27,7 +27,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
 
         if(!verifiedToken || !verifiedToken.userId) {
             res.status(401).json({
-                msg: "Invalid token!"
+                message: "Invalid token!"
             });
             return;
         }
@@ -37,7 +37,7 @@ export const userMiddleware = (req: Request, res: Response, next: NextFunction) 
 
     } catch (error) {
         res.status(401).json({
-            msg: "Invalid or expired token!"
+            message: "Invalid or expired token!"
         });
         return;
     }

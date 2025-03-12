@@ -45,7 +45,12 @@ export async function connectDB(): Promise<void> {
     try {
         console.log("Connecting to database...");
 
-        await mongoose.connect(MONGO_URL);
+        if(!MONGO_URL) {
+            console.log("Cannot find Database URL!");
+            process.exit(1);
+        }
+
+        await mongoose.connect(`${MONGO_URL}`);
 
         console.log("Database Connected Successfully!");
     } catch (error) {

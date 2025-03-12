@@ -123,15 +123,17 @@ export const OrgContainer = ({ onClick }: { onClick: () => void }) => {
                             My Projects
                         </div>
                     </Link>
-                    <div className="h-[50px] px-3 border-2 rounded-xl flex flex-col justify-center items-center flex-1 backdrop-blur-[4px] cursor-pointer overflow-hidden hover:backdrop-blur-[20px] transition-all duration-200 ease-in-out "
-                        onMouseEnter={plusHover}
-                        onMouseLeave={plusHoverRemoved}
-                        style={{
-                            borderColor: theme.card_img
-                        }}
-                    >
-                        <PlusIcon color={'white'} size={'30px'} />
-                    </div>
+                    <Link to={`/eject/${name}/new-organization`} className="h-[50px] px-3 border-2 rounded-xl flex flex-col justify-center items-center flex-1 backdrop-blur-[4px] cursor-pointer overflow-hidden hover:backdrop-blur-[20px] transition-all duration-200 ease-in-out "
+                            onMouseEnter={plusHover}
+                            onMouseLeave={plusHoverRemoved}
+                            style={{
+                                borderColor: theme.card_img
+                            }}
+                        >
+                        <div className="">
+                            <PlusIcon color={'white'} size={'30px'} />
+                        </div>
+                    </Link>
                 </div>
                 <div className="h-auto w-full flex flex-col justify-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] " >
                     { (orgs === undefined) ? <div className="flex justify-center items-center font-bold"
