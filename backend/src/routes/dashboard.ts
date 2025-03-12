@@ -9,7 +9,7 @@ const router = Router();
 
 
 // this will show the dashboard
-router.get("/", userMiddleware, async (req, res) => {
+router.get("/", userMiddleware, async(req, res) => {
     try {
 
         const userId = req.userId;
@@ -52,6 +52,46 @@ router.get("/", userMiddleware, async (req, res) => {
         return;
     }
 });
+
+router.get("/profile", userMiddleware, async(req, res) => {
+    try {
+        
+        const userId = req.userId;
+
+        if(!userId) {
+            res.status(404).json({
+                message: "You are not authorized!"
+            });
+            return;
+        }
+
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user) {
+            res.status(404).json({
+                message: "User doesn't exist!"
+            });
+            return;
+        }
+
+        // now user is found
+        res.status(200).json({
+            name: user.name,
+            profileImg: user.profileImg,
+            username: user.username,
+            role: user.role
+        });
+        return;
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error!"
+        });
+        return;
+    }
+})
 
 
 export default router;

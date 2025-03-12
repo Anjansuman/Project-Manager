@@ -40,7 +40,7 @@ export function MainPanel() {
         <div className="w-full flex items-center justify-between pb-5"
             style={{ color: theme.font_color }}
         >
-            <div className="font-semibold flex items-center justify-center bg-red-200 py-1.5 px-3 rounded-3xl cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105 "
+            <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105 "
                 style={{
                     backgroundColor: theme.nav_bg,
                     borderColor: theme.card_img
@@ -53,7 +53,7 @@ export function MainPanel() {
                 </div>
             </div>
             <Link to={`/eject/${name}/${organization}/new-project`} >
-                <div className="font-semibold flex items-center justify-center bg-red-200 rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
+                <div className="font-semibold flex items-center justify-center rounded-3xl py-1.5 px-3 cursor-pointer border shadow-sm transition-all duration-300 ease-in-out hover:scale-105"
                     style={{
                         backgroundColor: '#3F5EFF',
                         borderColor: theme.card_img

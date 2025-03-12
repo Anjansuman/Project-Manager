@@ -48,14 +48,6 @@ export const OrgContainer = ({ onClick }: { onClick: () => void }) => {
         orgData();
     }, []);
 
-    useEffect(() => {
-        gsap.to('.panel', {
-            height: 'auto',
-            duration: 0.5
-        });
-        
-    }, []);
-
     function plusHover() {
         gsap.to('.plus', {
             opacity: 0,
@@ -142,7 +134,11 @@ export const OrgContainer = ({ onClick }: { onClick: () => void }) => {
                     </div>
                 </div>
                 <div className="h-auto w-full flex flex-col justify-center overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] " >
-                    { (orgs === undefined) ? <div className="flex justify-center items-center text-[#03061C] font-bold">
+                    { (orgs === undefined) ? <div className="flex justify-center items-center font-bold"
+                        style={{
+                            color: theme.font_color
+                        }}
+                    >
                         No organizations.
                     </div> : '' }
                     {/* something is wrong with this div printing as it is not printing the divs from starting, it is not showing them. */}

@@ -14,22 +14,48 @@ import { Logo } from "../ui/SVGs/Logo";
 import { SunIcon } from "../ui/SVGs/SunIcon";
 import { MoonIcon } from "../ui/SVGs/MoonIcon";
 import { ProfileIcon } from "../ui/SVGs/ProfileIcon";
+import { Element } from "./PanelElements/Element";
+import { HomeButton } from "../ui/SVGs/HomeButton";
+import { SmallProfilePanel } from "./Profile/SmallProfilePanel";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 export function Nav() {
 
-      const [theme_state, setTheme_State] = useRecoilState(ThemeState);
+    const [visibleProfile, setVisibleProfile] = useState(false);
+    const profileDetails = useRef<{ name: string, profileImg: string, username: string, role: string }>({ name: '', profileImg: '', username: '', role: '' });
     
-      function mode_switch() {
-          setTheme_State((prevTheme) => ({
-              ...prevTheme,
-              mode: prevTheme.mode === 'light' ? 'dark' : 'light',
-          }));
-      };
+    function mode_switch() {
+        setTheme_State((prevTheme) => ({
+            ...prevTheme,
+            mode: prevTheme.mode === 'light' ? 'dark' : 'light',
+        }));
+    };
 
+    async function fetchProfile() {
+        const backend = import.meta.env.VITE_BACKEND_URL;
+        const response = await axios.get(`${backend}/dashboard/profile`, {
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            }
+        });
+
+        const data = await response.data;
+        profileDetails.current.name = data.name;
+        profileDetails.current.profileImg = data.profileImg;
+        profileDetails.current.username = data.username;
+        profileDetails.current.role = data.role;
+    }
+
+    useEffect(() => {
+        fetchProfile();
+    }, []);
+    
+    const [theme_state, setTheme_State] = useRecoilState(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
 
-    return <div className="bg-red-200 flex items-center justify-around font-semibold border-b-2 p-1 ml-2 "
+    return <div className="flex items-center justify-around font-semibold border-b-2 p-1"
         style={{
             backgroundColor: theme.nav_bg,
             color: theme.font_color,
@@ -42,38 +68,10 @@ export function Nav() {
         </div>
 
         <div className="flex">
-            <div className={`flex flex-col items-center justify-center transition-colors duration-400 ease-in-out cursor-pointer px-3 py-2 hover:bg-red-100 rounded-lg mr-2`}
-                style={{ "--hover-color": theme.card_img } as React.CSSProperties}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.card_img)}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}      
-            >
-                <Home size={18} />
-                <span>Home</span>
-            </div>
-            <div className="flex flex-col items-center justify-center transition-colors duration-400 ease-in-out cursor-pointer px-3 py-2 rounded-lg mr-2"
-                style={{ "--hover-color": theme.card_img } as React.CSSProperties}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.card_img)}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}      
-            >
-                <FolderKanban size={18} />
-                <span>Projects</span>
-            </div>
-            <div className="flex flex-col items-center justify-center transition-colors duration-400 ease-in-out cursor-pointer px-3 py-2 rounded-lg mr-2"
-                style={{ "--hover-color": theme.card_img } as React.CSSProperties}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.card_img)}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}      
-            >
-                <MessageSquare size={18} />
-                <span>Messaging</span>
-            </div>
-            <div className="flex flex-col items-center justify-center transition-colors duration-400 ease-in-out cursor-pointer px-3 py-2 rounded-lg"
-                style={{ "--hover-color": theme.card_img } as React.CSSProperties}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.card_img)}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}      
-            >
-                <Bell size={18} />
-                <span>Notifications</span>
-            </div>
+            <Element logo={<Home size={18} />} name={'Home'} rightMargin={'2'} />
+            <Element logo={<FolderKanban size={18} />} name={'Projects'} rightMargin={'2'} />
+            <Element logo={<MessageSquare size={18} />} name={'Messaging'} rightMargin={'2'} />
+            <Element logo={<Bell size={18} />} name={'Notifications'} rightMargin={'0'} />
         </div>
 
         <div className="flex">
@@ -89,10 +87,18 @@ export function Nav() {
                 style={{ "--hover-color": theme.card_img } as React.CSSProperties}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.card_img)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
-                onClick={mode_switch}
+                onClick={() => setVisibleProfile(val => !val)}
             >
                 <ProfileIcon height={'30px'} />
             </div>
+            {visibleProfile && (
+                <SmallProfilePanel
+                    profileImg={profileDetails.current.profileImg}
+                    name={profileDetails.current.name}
+                    username={profileDetails.current.username}
+                    role={profileDetails.current.role}
+                />
+            )}
         </div>
     </div>
 }
