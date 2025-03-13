@@ -31,9 +31,9 @@ export const SmallProfilePanel = ({profileImg, name, username, role, onClick}: S
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode === 'light') ? theme_state.light : theme_state.dark;
 
-    return <div className="h-auto w-70 absolute z-20 right-42 top-13 rounded-sm shadow-md border px-3 py-2 overflow-hidden"
+    return <div className="h-auto w-70 absolute z-20 right-42 top-13 rounded-sm shadow-md border px-3 py-2 overflow-hidden backdrop-blur-md"
         style={{
-            backgroundColor: theme.card_bg,
+            // backgroundColor: theme.card_bg,
             borderColor: theme.card_img,
             color: theme.font_color
         }}
@@ -99,12 +99,13 @@ export const SmallProfilePanel = ({profileImg, name, username, role, onClick}: S
                     color: 'gray'
                 }}
             >
-                {['Settings', 'Help', 'Activity'].map((element) => (
+                {['Settings', 'Help', 'Activity'].map((element, key) => (
                     <Link to={`/eject/${username}/${element}`} >
                         <div
                             className="cursor-pointer transition-colors duration-200 ease-in-out hover:underline"
                             onMouseEnter={(e) => e.currentTarget.style.color = theme.font_color}
                             onMouseLeave={(e) => e.currentTarget.style.color = ''}
+                            key={key}
                         >
                             {element}
                         </div>

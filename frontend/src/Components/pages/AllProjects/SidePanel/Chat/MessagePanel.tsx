@@ -190,7 +190,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     
     return <div className="h-full w-full ">
         <div className="h-[88%] w-full relative flex flex-col">
-            <div className="h-[100%] w-full rounded-t-[14px] p-3 overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
+            <div className="h-[100%] w-full rounded-t-[14px] p-3 pb-0 overflow-y-scroll [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
                 ref={messageContainerRef}
                 onScroll={handleScroll}
             >

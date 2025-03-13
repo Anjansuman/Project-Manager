@@ -13,6 +13,8 @@ import { BackArrowIcon } from "@/Components/ui/SVGs/BackArrowIcon";
 import { LastCommit } from "./FilesList/LastCommit";
 import { File } from "./FilesList/File";
 import { Link } from "react-router-dom";
+import { TriangleIcon } from "@/Components/ui/SVGs/TriangleIcon";
+import { QuickAccess } from "./QuickAccess/QuickAccess";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -32,6 +34,8 @@ export const Project = () => {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
     const [files, setFiles] = useState<FileProps[]>([]);
+    // this is for Quick access menu
+    const [visibleQuickAccess, setVisibleQuickAccess] = useState(false);
 
     // Simulated file structure
     const allFiles = {
@@ -68,8 +72,8 @@ export const Project = () => {
             color: theme.font_color
         }}
     >
-        <div className="w-full text-2xl font-semibold mb-2 flex justify-between items-center ">
-            <div className={`flex justify-start items-center transition-all duration-300 ease-in-out pr-2 rounded-md cursor-pointer hover:shadow-sm `}
+        <div className="w-full mb-2 flex justify-between items-center ">
+            <div className={`flex justify-start items-center transition-all duration-300 ease-in-out pr-2 rounded-md cursor-pointer hover:shadow-sm text-2xl font-semibold `}
                     onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
                     onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
                     onClick={() => navigate(-1)}
@@ -81,14 +85,35 @@ export const Project = () => {
                     {projectTitle}
                 </div>
             </div>
-            <Link to={`/eject/${name}/${organization}/${projectTitle}/README.md`} >
-                <div className="text-lg font-normal hover:shadow-sm transition-all duration-300 ease-in-out rounded-md py-1 px-2 cursor-pointer "
-                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
-                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
-                    >
-                    README.md
+
+            <div className="flex items-center justify-between gap-5">
+                {/* quick access menu */}
+                {/* add a commit log */}
+                <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105 "
+                    style={{
+                        backgroundColor: theme.nav_bg,
+                        borderColor: theme.card_img
+                    }}
+                    onClick={() => setVisibleQuickAccess((prev) => !prev)}
+                >
+                    <div>Quick access</div>
+                    <div className="ml-1.5">
+                        <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleQuickAccess((prev) => !prev)} dynamicallyClicked={visibleQuickAccess} />
+                    </div>
                 </div>
-            </Link>
+                {/* READEME.md file */}
+                <Link to={`/eject/${name}/${organization}/${projectTitle}/README.md`} >
+                    <div className="text-lg font-normal hover:shadow-sm transition-all duration-300 ease-in-out rounded-md py-1 px-2 cursor-pointer "
+                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.nav_bg)}
+                            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
+                        >
+                        README.md
+                    </div>
+                </Link>
+            </div>
+
+            { visibleQuickAccess && <QuickAccess onClick={() => setVisibleQuickAccess(prev => !prev)} /> }
+
         </div>
         <div className="h-full w-full flex flex-col border-2 rounded-xl overflow-hidden shadow-md "
             style={{
