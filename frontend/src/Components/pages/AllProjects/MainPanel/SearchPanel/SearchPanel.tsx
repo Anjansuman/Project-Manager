@@ -1,5 +1,7 @@
 import { Project } from "@/Atoms/Project";
 import { ThemeState } from "@/Atoms/ThemeState";
+import { SkeletonLoader } from "@/Components/ui/Customs/SkeletonLoader";
+import { PlusIcon } from "@/Components/ui/SVGs/PlusIcon";
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -48,7 +50,66 @@ export const SearchPanel = ({ onClick }: SearchPanelProps) => {
         ref={wrapperRef}
     >
 
-        {pro.contents.map((details: ProjectData, index: number, key: number) => (
+        { pro.state === 'loading' ? 
+            ['1', '2', '3', '4'].map((index) => (
+                <div key={index} >
+                    <SkeletonLoader bg={theme.nav_bg} loadingColor={theme.background} h={'30px'} rounded={'5px'} />
+                    { index !== '4' ? 
+                        // dividing line
+                        <div className="h-0.5 w-full my-1 " style={{ backgroundColor: theme.card_img }} ></div>
+                    : ''}
+                </div>
+            ))
+        : '' }
+
+        { pro.state === 'hasValue' && pro.contents.length === 0 ? 
+            <div className="flex flex-col items-center font-semibold">
+                <div className="mb-2">
+                    No projects yet!
+                </div>
+                <Link to={`/eject/${name}/${organization}/new-project`} >
+                    <div className="border-2 border-[#3F5EFF] px-2.5 py-1 rounded-full flex justify-center items-center transition-colors duration-300 ease-in-out hover:bg-[#3f5fffb5] cursor-pointer shadow-md ">
+                        <PlusIcon size={'15px'} color={theme.font_color} />
+                        <div className="ml-2 flex justify-center ">
+                            Create One
+                        </div>
+                    </div>
+                </Link>
+            </div>
+        : '' }
+
+        { pro.state === 'hasValue' ?
+            pro.contents.map((details: ProjectData, index: number, key: number) => (
+                <div key={key} >
+                    <Link to={`/eject/${name}/${organization}/${details.title}`} >
+                        <div className="transition-all duration-200 ease-in-out hover:underline cursor-pointer " >
+                            {details.title}
+                        </div>
+                    </Link>
+                    {index !== pro.contents.length - 1 ? (
+                        // dividing line
+                        <div className="h-0.5 w-full my-1 " style={{ backgroundColor: theme.card_img }} ></div>
+                    ) : 
+                        ''
+                    }
+                </div>
+            ))
+        : '' }
+
+        {/* { pro.contents.length === 0 ? 
+            <div className="flex flex-col items-center font-semibold">
+                <div className="mb-2">
+                    No projects yet!
+                </div>
+                <Link to={`/eject/${name}/${organization}/new-project`} >
+                    <div className="border-2 border-[#3F5EFF] px-2.5 py-1 rounded-full flex justify-center items-center transition-colors duration-300 ease-in-out hover:bg-[#3f5fffb5] cursor-pointer shadow-md ">
+                        <PlusIcon size={'15px'} color={theme.font_color} />
+                        <div className="ml-2 flex justify-center ">
+                            Create One
+                        </div>
+                    </div>
+                </Link>
+            </div> : pro.contents.map((details: ProjectData, index: number, key: number) => (
             <div key={key} >
                 <Link to={`/eject/${name}/${organization}/${details.title}`} >
                     <div className="transition-all duration-200 ease-in-out hover:underline cursor-pointer " >
@@ -62,7 +123,10 @@ export const SearchPanel = ({ onClick }: SearchPanelProps) => {
                     ''
                 }
             </div>
-        ))}
+        ))
+        }
+
+        {} */}
 
     </div>
 }

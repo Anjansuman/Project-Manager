@@ -17,6 +17,7 @@ import { PlusIcon } from "lucide-react";
 import { QuickAccess } from "./QuickAccess/QuickAccess";
 import { Input } from "@/Components/ui/Customs/Input";
 import { SearchPanel } from "./SearchPanel/SearchPanel";
+import { SkeletonLoader } from "@/Components/ui/Customs/SkeletonLoader";
 
 
 interface ProjectData {
@@ -119,19 +120,21 @@ export function MainPanel() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 
         [::-webkit-scrollbar]:hidden [scrollbar-width:none] pl-3 ">
             {(pro.state === "loading") ? 
-                <div className="text-white"> Loading...</div> : ''
+                <SkeletonLoader bg={theme.nav_bg} h={'400px'} w={'200px'} rounded={'5px'} /> : ''
             }
             {/* as plus panel gets visible set the text bar to focus to make it more clean */}
             {/* {renderBlock} */}
             
-            {pro.state === 'hasValue' && pro.contents.length === 0 ? <NoProjectIcon /> : '' }
+            {pro.state === 'hasValue' && pro.contents.length === 0 ? <SkeletonLoader bg={theme.nav_bg} h={'400px'} w={'200px'} rounded={'5px'} loadingColor={theme.card_img} /> : '' }
+            {/*<NoProjectIcon />*/}
+            {/* <div className="text-white"> Loading...</div> */}
 
             {pro.state === 'hasValue' && pro.contents.map((details: ProjectData, key: number) => (
                 <ProjectTile key={key} projectTitle={details.title} image={details.projectImg} completion={details.completion} />
             ))}
         </div>
-        <div>
+        {/* <div>
             <BottomMenu />
-        </div>
+        </div> */}
     </div>
 }

@@ -26,7 +26,7 @@ export const UserData = ({ name, role, commits, username }: UserDataProps) => {
 
     return <div
         className="relative overflow-visible" // Makes sure HoverUsername is positioned correctly
-        >
+    >
         {/* Show the username tooltip on hover */}
         {hoveredName && <HoverUsername username={username} coords={cursorPos} />}
         {hoveredRole && <HoverUsername username={role} coords={cursorPos} />}

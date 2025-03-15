@@ -19,14 +19,22 @@ export default {
         },
         animation: {
           marquee: "marquee 5s linear infinite",
+          shimmer: 'shimmer 1.5s infinite',
         },
         keyframes: {
           marquee: {
             "0%": { transform: "translateX(100%)" },
             "100%": { transform: "translateX(-100%)" },
           },
+          shimmer: {
+            '0%': { transform: 'translateX(-150%) skewX(-20deg)' },
+            '100%': { transform: 'translateX(150%) skewX(-20deg)' },
+          },
         },
       },
     },
     plugins: [],
+    safelist: [
+      'animate-shimmer'
+    ],
   }

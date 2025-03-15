@@ -1,5 +1,8 @@
 
 import { ThemeState } from "@/Atoms/ThemeState"
+import { CameraIcon } from "@/Components/ui/SVGs/CameraIcon";
+import { PenIcon2 } from "@/Components/ui/SVGs/PenIcon2";
+import { TeamIcon } from "@/Components/ui/SVGs/TeamIcon";
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil"
@@ -39,12 +42,15 @@ export const QuickAccess = ({ onClick }: QuickAccessProps) => {
         ref={wrapperRef}
     >
 
-        <div className="w-full flex flex-col justify-center items-start ">
-            {['Meeting', 'Members'].map((element, index, array) => (
+        <div className="w-full flex flex-col justify-center items-start text-sm ">
+            {['Edit Organization', 'Meeting', 'Members'].map((element, index, array) => (
                 <div className="w-full hover:underline cursor-pointer ">
                     <Link to={`/eject/${name}/${organization}/${element}`} >
-                        <div>
-                            {element}
+                        <div className="flex items-center">
+                            <DivLogo type={element} />
+                            <div className="ml-2">
+                                {element}
+                            </div>
                         </div>
                     </Link>
                     { (index !== array.length - 1) ? (
@@ -57,4 +63,18 @@ export const QuickAccess = ({ onClick }: QuickAccessProps) => {
         </div>
 
     </div>
+}
+
+function DivLogo({ type }: { type: string }) {
+    
+    const theme_state = useRecoilValue(ThemeState);
+    const theme = (theme_state.mode === 'light') ? theme_state.light : theme_state.dark;
+
+    if(type === 'Edit Organization') {
+        return <PenIcon2 size={'15px'} />
+    } else if(type === 'Meeting') {
+        return <CameraIcon size={'15px'} color={theme.font_color} />
+    } else if(type === 'Members') {
+        return <TeamIcon size={'15px'} />
+    }
 }
