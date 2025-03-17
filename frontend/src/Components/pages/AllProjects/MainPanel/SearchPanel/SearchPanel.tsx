@@ -53,7 +53,7 @@ export const SearchPanel = ({ onClick }: SearchPanelProps) => {
         { pro.state === 'loading' ? 
             ['1', '2', '3', '4'].map((index) => (
                 <div key={index} >
-                    <SkeletonLoader bg={theme.nav_bg} loadingColor={theme.background} h={'30px'} rounded={'5px'} />
+                    <SkeletonLoader bg={theme.nav_bg} loaderColor={theme.background} h={'30px'} w={'100%'} rounded={'5px'} />
                     { index !== '4' ? 
                         // dividing line
                         <div className="h-0.5 w-full my-1 " style={{ backgroundColor: theme.card_img }} ></div>

@@ -1,4 +1,5 @@
 import { ThemeState } from "@/Atoms/ThemeState"
+import { SkeletonLoader } from "@/Components/ui/Customs/SkeletonLoader";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil"
@@ -40,23 +41,31 @@ export const SmallProfilePanel = ({profileImg, name, username, role, onClick}: S
         ref={wrapperRef}
     >
         <div className="flex items-center">
-            <div className="h-10 w-10 rounded-full overflow-hidden mr-3 "
+            <div className="h-10 w-10 rounded-full overflow-hidden mr-3 flex justify-center items-center "
                 style={{
                     backgroundColor: theme.card_img
                 }}
             >
-                <img src={`${profileImg}`} alt="" />
+                { profileImg ? <img src={`${profileImg}`} alt="" /> :
+                    <SkeletonLoader bg={theme.nav_bg} loaderColor={theme.background} h={'100%'} w={'100%'} rounded={'100%'} />
+                }
             </div>
             {/* if name is too long then it distorts the profile image, solve it by adding ... */}
-            <div>{name}</div>
+            <div className="w-[70%] ">
+                { name ? name :
+                    <SkeletonLoader bg={theme.nav_bg} loaderColor={theme.background} h={'20px'} w={'100%'} rounded={'5px'} />
+                }
+            </div>
         </div>
 
         {/* dividing line */}
         <div className="h-0.5 w-full my-2 " style={{ backgroundColor: theme.card_img }} ></div>
 
         <div className="flex flex-col items-center justify-center font-normal text-sm  ">
-            <div className="mb-3">
-                {role}
+            <div className="mb-3 w-[80%] ">
+                { role ? role :
+                    <SkeletonLoader bg={theme.nav_bg} loaderColor={theme.background} h={'20px'} w={'100%'} rounded={'5px'} />
+                }
             </div>
             <Link to={`/eject/${username}`} >
                 <div className="border-2 border-[#3F5EFF] px-2 py-1 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md ">

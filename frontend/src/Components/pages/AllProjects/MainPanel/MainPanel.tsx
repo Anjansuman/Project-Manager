@@ -120,13 +120,15 @@ export function MainPanel() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 
         [::-webkit-scrollbar]:hidden [scrollbar-width:none] pl-3 ">
             {(pro.state === "loading") ? 
-                <SkeletonLoader bg={theme.nav_bg} h={'400px'} w={'200px'} rounded={'5px'} /> : ''
+                [...Array(9)].map((_, key: number) => (
+                    <SkeletonLoader key={key} bg={theme.nav_bg} h={'360px'} w={'272px'} rounded={'16px'} loaderColor={theme.card_img} />
+                ))
+                : ''
             }
             {/* as plus panel gets visible set the text bar to focus to make it more clean */}
             {/* {renderBlock} */}
             
-            {pro.state === 'hasValue' && pro.contents.length === 0 ? <SkeletonLoader bg={theme.nav_bg} h={'400px'} w={'200px'} rounded={'5px'} loadingColor={theme.card_img} /> : '' }
-            {/*<NoProjectIcon />*/}
+            {pro.state === 'hasValue' && pro.contents.length === 0 ? <NoProjectIcon /> : '' }
             {/* <div className="text-white"> Loading...</div> */}
 
             {pro.state === 'hasValue' && pro.contents.map((details: ProjectData, key: number) => (
