@@ -3,7 +3,7 @@ import { Nav } from "./Components/Nav-Bar/Nav";
 import { Home } from "./Components/pages/Home/Home";
 import { Signup } from "./Components/pages/Signup/Signup";
 import { Signin } from "./Components/pages/Signin/Signin";
-import { Project } from "./Components/pages/AllProjects/Project/ProjectPanel";
+import { ProjectPanel } from "./Components/pages/AllProjects/Project/ProjectPanel";
 
 import { ThemeState } from "./Atoms/ThemeState";
 
@@ -16,6 +16,8 @@ import { ErrorProject } from "./Components/pages/AllProjects/ErrorProject/ErrorP
 import { NewOrg } from "./Components/pages/AllProjects/MainPanel/Org/NewOrg";
 import { OrgMembers } from "./Components/pages/AllProjects/MainPanel/Org/OrgMembers";
 import { FileData } from "./Components/pages/AllProjects/Project/FileData/FileData";
+import { Canvas } from "./Components/pages/AllProjects/Canvas/Canvas";
+import { ProjectData } from "./Components/pages/AllProjects/Project/ProjectData/ProjectData";
 
 function App() {
 
@@ -31,9 +33,10 @@ function App() {
             {/* Group project-related routes under ProjectLayout */}
             <Route path="eject/:name/:organization/*" element={<ProjectLayout />}>
                 <Route index element={<MainPanel />} />
-                <Route path=":projectTitle/*" element={<Project />} >
-                  <Route index element={<FileData />} />
-                  <Route path=":fileTitle/*" element={<FileData />} />
+                <Route path=":projectTitle/*" element={<ProjectPanel />} >
+                  <Route index element={<ProjectData />} />
+                  <Route path=":fileTitle/*" element={<ProjectData />} />
+                  <Route path="canvas" element={<Canvas />} />
                 </Route>
                 <Route path="members" element={<OrgMembers />} />
                 <Route path="new-project" element={<NewProject />} />
@@ -107,6 +110,7 @@ export function ProjectLayout() {
       </div>
   );
 }
+
 
 export default App
 

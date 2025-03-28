@@ -48,9 +48,9 @@ export const QuickAccess = ({ onClick }: QuickAccessProps) => {
     >
 
         <div className="w-full flex flex-col justify-center items-start text-sm ">
-            {['Description', 'Commits', 'Messaging', 'Meeting', 'Members', 'Sketch', 'Events'].map((element, index, array) => (
+            {['Description', 'Commits', 'Messaging', 'Meeting', 'Members', 'Canvas', 'Events'].map((element, index, array) => (
                 <div className="w-full cursor-pointer hover:underline ">
-                    <Link to={`/eject/${name}/${organization}/${projectTitle}/${element}`} >
+                    <Link to={`/eject/${name}/${organization}/${projectTitle}/${element.toLowerCase()}`} >
                         <div className="flex items-center">
                             <div className="mr-2">
                                 <DivLogo type={element} />
@@ -83,7 +83,7 @@ function DivLogo({ type }: { type: string }) {
         return <TeamIcon size={'15px'} />
     } else if(type === 'Messaging') {
         return <ChatIcon size={'15px'} color={theme.font_color} />
-    } else if(type === 'Sketch') {
+    } else if(type === 'Canvas') {
         return <PenIcon size={'15px'} />
     } else if(type === 'Events') {
         return <CalenderIcon size={'15px'} />
