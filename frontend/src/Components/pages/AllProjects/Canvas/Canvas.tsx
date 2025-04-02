@@ -22,7 +22,7 @@ export const Canvas = () => {
             <ToolBar />
             {/* <div className="h-[1000px] w-[1000px] bg-red-400 "></div> */}
             <RoomCanvas />
-            <Fullscreen />
+            {/* <Fullscreen /> */}
         </div>
     </div>
 }

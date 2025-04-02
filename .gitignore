@@ -1,4 +1,5 @@
 /backend/src/config.ts
-/backend/.env
 /backend/dist
-/frontend/.env
+
+# dotenv
+.env

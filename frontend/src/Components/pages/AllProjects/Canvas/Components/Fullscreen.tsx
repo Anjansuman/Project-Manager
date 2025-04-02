@@ -16,7 +16,7 @@ export const Fullscreen = () => {
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
     const invertedTheme = (theme_state.mode == 'light') ? theme_state.dark : theme_state.light;
 
-    return <div className="sticky start-0 z-10 bottom-4 right-14 h-full flex justify-end items-end ">
+    return <div className="sticky start-0 z-10 bottom-4 right-14 flex justify-end items-end ">
         { !toggleButton && <Maximize className="cursor-pointer p-1.5 size-10 rounded-sm transition-colors duration-200 ease-in-out"
             onClick={() => {
                 navigate("full-screen");
