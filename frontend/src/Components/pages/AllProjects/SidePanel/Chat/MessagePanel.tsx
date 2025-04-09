@@ -7,6 +7,8 @@ import { SendButton } from "../../../../ui/SVGs/SendButton";
 import { useRecoilValue } from "recoil";
 import { ThemeState } from "@/Atoms/ThemeState";
 import { DownArrowIcon } from "@/Components/ui/SVGs/DownArrowIcon";
+import { useProjectSocket } from "@/hooks/useProjectSocket";
+import { Socket } from "@/Atoms/socket";
 
 
 interface Messages {
@@ -22,6 +24,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     const messageContainerRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const socket = useRecoilValue(Socket);
     const [messages, setMessages] = useState<Messages[]>([]);
     const [userId, setUserId] = useState<string | null>(null);
     const [autoScroll, setAutoScroll] = useState(true); // this will store the scrolling of message panel
@@ -35,54 +38,68 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
         });
     }, [])
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        if(!userId) return;
+    //     if(!userId) return;
 
-        const ws = new WebSocket("ws://localhost:3000");
-        wsRef.current = ws;
+    //     const ws = new WebSocket("ws://localhost:3000");
+    //     wsRef.current = ws;
 
-        ws.onmessage = (event) => {
-            try {
-                const receivedData = JSON.parse(event.data);
+    //     ws.onmessage = (event) => {
+    //         try {
+    //             const receivedData = JSON.parse(event.data);
                 
-                if(receivedData.message && receivedData.time) {
-                    setMessages((m) => [...m, {
-                        msg: receivedData.message,
-                        time: receivedData.time,
-                        sender: receivedData.sender,
-                    }]);
+    //             if(receivedData.message && receivedData.time) {
+    //                 setMessages((m) => [...m, {
+    //                     msg: receivedData.message,
+    //                     time: receivedData.time,
+    //                     sender: receivedData.sender,
+    //                 }]);
 
-                    // Only show alert for incoming messages
-                    if (receivedData.sender !== userId) {
-                        setHasNewMessage(true);
-                        // if (!autoScroll) {
-                        //     setNewMessageAlert(true);
-                        // }
-                    }
+    //                 // Only show alert for incoming messages
+    //                 if (receivedData.sender !== userId) {
+    //                     setHasNewMessage(true);
+    //                     // if (!autoScroll) {
+    //                     //     setNewMessageAlert(true);
+    //                     // }
+    //                 }
 
-                }
+    //             }
 
-            } catch (error) {
-                console.log("Error parsing msg or time: ", error);
-            }
-        }
+    //         } catch (error) {
+    //             console.log("Error parsing msg or time: ", error);
+    //         }
+    //     }
 
-        ws.onopen = () => {
-            ws.send(JSON.stringify({
-                type: "join",
-                payload: {
-                    roomId: projectId
-                }
-            }))
-        }
+    //     ws.onopen = () => {
+    //         ws.send(JSON.stringify({
+    //             type: "join",
+    //             payload: {
+    //                 roomId: projectId
+    //             }
+    //         }))
+    //     }
 
-        return () => {
-            ws.close();
-            wsRef.current = null;
-        }
+    //     return () => {
+    //         ws.close();
+    //         wsRef.current = null;
+    //     }
         
-    }, [userId, projectId]);
+    // }, [userId, projectId]);
+
+    // check this
+    // if(!userId) return;
+
+    useProjectSocket({
+        projectId,
+        userId,
+        onMessage: (msg) => {
+            setMessages((prev) => [...prev, msg]);
+        },
+        onNewMessage: () => {
+            setHasNewMessage(true);
+        }
+    })
 
     useEffect(() => {
         if(messages.length === 0) return;
@@ -125,7 +142,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     
     function sendMessage() {
         const input = inputRef.current?.value.trim();
-        if (!input || !wsRef.current) return;
+        if (!input || !socket || socket.readyState === WebSocket.OPEN) return;
 
         const messageData = {
             type: "chat",
@@ -136,7 +153,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
             }
         };
 
-        wsRef.current.send(JSON.stringify(messageData));
+        socket.send(JSON.stringify(messageData));
 
         if(inputRef.current) {
             inputRef.current.value = "";

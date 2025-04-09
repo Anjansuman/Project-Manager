@@ -27,7 +27,7 @@ type Shape = {
     pointY: number
 };
 
-type Tool = "circle" | "rect" | "pencil" | "line";
+export type Tool = "circle" | "rect" | "pencil" | "line";
 
 export class Sketch {
 
