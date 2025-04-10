@@ -85,18 +85,23 @@ export const ProjectData = () => {
             <div className="flex items-center justify-between gap-5">
                 {/* quick access menu */}
                 {/* add a commit log */}
-                <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105 "
-                    style={{
-                        backgroundColor: theme.nav_bg,
-                        borderColor: theme.card_img
-                    }}
-                    onClick={() => setVisibleQuickAccess((prev) => !prev)}
-                >
-                    <div>Quick access</div>
-                    <div className="ml-1.5">
-                        <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleQuickAccess((prev) => !prev)} dynamicallyClicked={visibleQuickAccess} />
+                <div className="flex flex-col justify-center">
+                    <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105 "
+                        style={{
+                            backgroundColor: theme.nav_bg,
+                            borderColor: theme.card_img
+                        }}
+                        onClick={() => setVisibleQuickAccess((prev) => !prev)}
+                    >
+                        <div>Quick access</div>
+                        <div className="ml-1.5">
+                            <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleQuickAccess((prev) => !prev)} dynamicallyClicked={visibleQuickAccess} />
+                        </div>
                     </div>
+
+                    { visibleQuickAccess && <QuickAccess onClick={() => setVisibleQuickAccess(prev => !prev)} /> }
                 </div>
+
                 {/* READEME.md file */}
                 <Link to={`/eject/${name}/${organization}/${projectTitle}/README.md`} >
                     <div className="text-lg font-normal hover:shadow-sm transition-all duration-300 ease-in-out rounded-md py-1 px-2 cursor-pointer "
@@ -107,8 +112,6 @@ export const ProjectData = () => {
                     </div>
                 </Link>
             </div>
-
-            { visibleQuickAccess && <QuickAccess onClick={() => setVisibleQuickAccess(prev => !prev)} /> }
 
         </div>
         <div className="h-full w-full flex flex-col border-2 rounded-xl overflow-hidden shadow-md "

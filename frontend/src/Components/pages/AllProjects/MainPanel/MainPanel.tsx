@@ -65,29 +65,45 @@ export function MainPanel() {
                 </div>
             </div>
 
-            <div className="min-w-[30$] w-[40%] border rounded-3xl overflow-hidden shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:scale-105 focus:scale-105 "
-                style={{
-                    borderColor: theme.card_img
-                }}
-                onClick={() => setVisibleSearchPanel(prev => !prev)}
-            >
-                <Input placeholder={'Search...'} h={'35px'} bg={theme.nav_bg}  />
+            <div className="min-w-[30$] w-[40%] flex flex-col justify-center">
+                <div className="w-full border rounded-3xl overflow-hidden shadow-md transition-all duration-300 ease-in-out hover:scale-105 active:scale-105 focus:scale-105 "
+                    style={{
+                        borderColor: theme.card_img
+                    }}
+                    onClick={() => setVisibleSearchPanel(prev => !prev)}
+                >
+                    <Input placeholder={'Search...'} h={'35px'} bg={theme.nav_bg}  />
+                </div>
+
+                {/* for appearing Search panel */}
+                { visibleSearchPanel && <SearchPanel
+                    onClick={() => setVisibleSearchPanel(prev => !prev)}
+                />
+                }
             </div>
 
             <div className="flex items-center justify-between gap-5 ">
                 {/* quick access menu */}
-                <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105 "
-                    style={{
-                        backgroundColor: theme.nav_bg,
-                        borderColor: theme.card_img
-                    }}
-                    onClick={() => setVisibleQuickAccess((prev) => !prev)}
-                >
-                    <div>Quick access</div>
-                    <div className="ml-1.5">
-                        <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleQuickAccess((prev) => !prev)} dynamicallyClicked={visibleQuickAccess} />
+                <div className="flex flex-col justify-center">
+                    <div className="font-semibold flex items-center justify-center py-1.5 px-3 rounded-3xl cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105 "
+                        style={{
+                            backgroundColor: theme.nav_bg,
+                            borderColor: theme.card_img
+                        }}
+                        onClick={() => setVisibleQuickAccess((prev) => !prev)}
+                    >
+                        <div>Quick access</div>
+                        <div className="ml-1.5">
+                            <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleQuickAccess((prev) => !prev)} dynamicallyClicked={visibleQuickAccess} />
+                        </div>
                     </div>
+
+                    {/* for appearing Quick access panel */}
+                    {visibleQuickAccess && (
+                        <QuickAccess onClick={() => setVisibleQuickAccess(false)} />
+                    )}
                 </div>
+
                 {/* new project button */}
                 <Link to={`/eject/${name}/${organization}/new-project`} >
                     <div className="font-semibold flex items-center justify-center rounded-3xl py-1.5 px-3 cursor-pointer border shadow-md transition-all duration-300 ease-in-out hover:scale-105"
@@ -106,16 +122,6 @@ export function MainPanel() {
         {/* for appearing organization panel */}
         { visibleOrg && <OrgContainer onClick={ () => setVisibleOrg(false) } /> }
 
-        {/* for appearing Search panel */}
-        { visibleSearchPanel && <SearchPanel
-                onClick={() => setVisibleSearchPanel(prev => !prev)}
-            />
-        }
-
-        {/* for appearing Quick access panel */}
-        {visibleQuickAccess && (
-            <QuickAccess onClick={() => setVisibleQuickAccess(false)} />
-        )}
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto pb-4 
         [::-webkit-scrollbar]:hidden [scrollbar-width:none] pl-3 ">

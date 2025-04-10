@@ -104,7 +104,7 @@ export function ProjectLayout() {
           </div>
 
           <div className="flex justify-around mx-[15] mt-[15]">
-              <SidePanel />
+              {/* <SidePanel /> */}
               <Outlet /> {/* Dynamically render the correct component here */}
           </div>
       </div>
