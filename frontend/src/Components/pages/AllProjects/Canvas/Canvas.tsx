@@ -12,7 +12,7 @@ export const Canvas = () => {
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
-    return <div className="h-[80vh] w-full px-4 flex flex-col items-center">
+    return <div className="h-[80vh] w-full px-4 mt-[15px] flex flex-col items-center">
         <div className="relative h-full w-full rounded-xl border-2 shadow-md overflow-x-auto overflow-y-auto [::-webkit-scrollbar]:hidden [scrollbar-width:none] "
             style={{
                 backgroundColor: theme.nav_bg,

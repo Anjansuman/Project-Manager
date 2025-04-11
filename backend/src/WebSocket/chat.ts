@@ -10,14 +10,24 @@ export function setupWebSocket(server: Server) {
         room: string
     }
 
+    interface AuthenticatedSocket extends WebSocket {
+        userId?: string;
+    }
+
     let allSockets: User[] = [];
 
 
     wss.on("connection", (socket) => {
 
+        const authedSocket = socket as AuthenticatedSocket;
 
         socket.on("message", (message) => {
             const parsedMessage = JSON.parse(message.toString());
+
+            if(parsedMessage.type === "AUTH") {
+                // verify the user
+                authedSocket.userId = parsedMessage.payload.userId;
+            }
 
             // this is to check if the user requested to join a chat room or not
             if(parsedMessage.type === "join") {
@@ -29,7 +39,7 @@ export function setupWebSocket(server: Server) {
             }
 
             // this is to exit from a room
-            if(parsedMessage.type === "exit") {
+            if(parsedMessage.type === "leave") {
                 allSockets = allSockets.filter(x => x.socket !== socket);
             }
 

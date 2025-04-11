@@ -31,7 +31,7 @@ function App() {
             <Route path="eject/signin" element={<Signin />} />
 
             {/* Group project-related routes under ProjectLayout */}
-            <Route path="eject/:name/:organization/*" element={<ProjectLayout />}>
+            <Route path="eject/:name/:organization/*" element={<MainLayout />}>
                 <Route index element={<MainPanel />} />
                 <Route path=":projectTitle/*" element={<ProjectPanel />} >
                   <Route index element={<ProjectData />} />
@@ -91,7 +91,7 @@ function NewOrganization() {
   </div>
 }
 
-export function ProjectLayout() {
+export function MainLayout() {
 
   const theme_state = useRecoilValue(ThemeState);
   const theme = theme_state.mode === "light" ? theme_state.light : theme_state.dark;
@@ -109,6 +109,20 @@ export function ProjectLayout() {
           </div>
       </div>
   );
+}
+
+export function ProjectLayout() {
+
+  const theme_state = useRecoilValue(ThemeState);
+  const theme = theme_state.mode === "light" ? theme_state.light : theme_state.dark;
+
+  return <div className="h-full w-full overflow-hidden" style={{ backgroundColor: theme.background }}>
+    <div className="mb-[10px] "></div>
+    <div className="flex justify-around mx-[15] mt-[15] ">
+      <SidePanel />
+      <Outlet />
+    </div>
+  </div>
 }
 
 

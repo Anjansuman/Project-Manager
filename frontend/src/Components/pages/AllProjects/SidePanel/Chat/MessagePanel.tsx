@@ -34,7 +34,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
 
     useEffect(() => {
         getUserId().then(() => {
-            console.log("done!");
+            // console.log("done!");
         });
     }, [])
 
@@ -91,7 +91,6 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     // if(!userId) return;
 
     useProjectSocket({
-        projectId,
         userId,
         onMessage: (msg) => {
             setMessages((prev) => [...prev, msg]);

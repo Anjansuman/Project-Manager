@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import { TriangleIcon } from "@/Components/ui/SVGs/TriangleIcon";
 import { QuickAccess } from "./QuickAccess/QuickAccess";
 import { ProjectData } from "./ProjectData/ProjectData";
+import { SidePanel } from "../SidePanel/SidePanel";
+import { useSocket } from "@/hooks/useSocket";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -31,8 +33,6 @@ export const ProjectPanel = () => {
     const { name, organization, projectTitle, fileTitle } = useParams();
     const navigate = useNavigate();
 
-    const theme_state = useRecoilValue(ThemeState);
-    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
 
     const [files, setFiles] = useState<FileProps[]>([]);
     // this is for Quick access menu
@@ -56,24 +56,31 @@ export const ProjectPanel = () => {
     
 
     useEffect(() => {
-        console.log("Raw fileTitle:", fileTitle);
+        // console.log("Raw fileTitle:", fileTitle);
         const decodedFileTitle = fileTitle ? decodeURIComponent(fileTitle) : "";
-        console.log("Decoded fileTitle:", decodedFileTitle);
+        // console.log("Decoded fileTitle:", decodedFileTitle);
     
         const currentFiles = getFiles(decodedFileTitle || "new project", allFiles);
-        console.log("Files found:", currentFiles);
+        // console.log("Files found:", currentFiles);
     
         setFiles(currentFiles);
     }, [projectTitle, fileTitle]);
-    
-    
 
-    return <div className="h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center  "
+    // this is connecting the websocket server
+    useSocket(projectTitle!, name!);
+    
+    const theme_state = useRecoilValue(ThemeState);
+    const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;
+
+    return <div className="h-[80vh] w-full mt-5 px-4 flex items-center  "
         style={{
             color: theme.font_color
         }}
     >
-        <Outlet />
+        <SidePanel />
+        <div className="h-full w-[65%] mt-5 ">
+            <Outlet />
+        </div>
     </div>
 }
 

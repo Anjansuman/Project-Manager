@@ -55,12 +55,12 @@ export const ProjectData = () => {
     
 
     useEffect(() => {
-        console.log("Raw fileTitle:", fileTitle);
+        // console.log("Raw fileTitle:", fileTitle);
         const decodedFileTitle = fileTitle ? decodeURIComponent(fileTitle) : "";
-        console.log("Decoded fileTitle:", decodedFileTitle);
+        // console.log("Decoded fileTitle:", decodedFileTitle);
     
         const currentFiles = getFiles(decodedFileTitle || "new project", allFiles);
-        console.log("Files found:", currentFiles);
+        // console.log("Files found:", currentFiles);
     
         setFiles(currentFiles);
     }, [projectTitle, fileTitle]);

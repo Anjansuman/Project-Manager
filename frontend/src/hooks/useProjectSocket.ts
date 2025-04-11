@@ -9,26 +9,34 @@ interface useProjectSocketProps {
     onNewMessage?: () => void
 }
 
-export const useProjectSocket = ({ projectId, userId, onMessage, onNewMessage }: useProjectSocketProps) => {
+export const useProjectSocket = ({ userId, onMessage, onNewMessage }: useProjectSocketProps) => {
 
     const socket = useRecoilValue(Socket);
+    console.log(socket ? "connected to socket" : "disconnected to socket");
 
 
     useEffect(() => {
 
-        if(!socket || !userId) return;
+        if(!socket || socket.readyState !== WebSocket.OPEN || !userId) return;
 
-        const join = {
-            type: "join",
-            payload: {
-                roomId: projectId
-            }
-        };
-        socket.send(JSON.stringify(join));
+        // const sendJoin = () => {
+        //     const join = {
+        //         type: "join",
+        //         payload: {
+        //             roomId: projectId
+        //         }
+        //     };
+            
+        //     (socket.readyState === WebSocket.OPEN) ? socket.send(JSON.stringify(join)) : setTimeout(sendJoin, 100);
+        // }
+
+        // sendJoin();
 
         const handleMessage = (event: MessageEvent) => {
             try {
                 const data = JSON.parse(event.data);
+
+                console.log("message came");
 
                 if(data.message && data.time) {
                     onMessage?.({
@@ -49,16 +57,16 @@ export const useProjectSocket = ({ projectId, userId, onMessage, onNewMessage }:
 
         socket.addEventListener("message", handleMessage);
 
-        return () => {
-            socket.removeEventListener("message", handleMessage);
-            // optionally leave room
-            socket.send(JSON.stringify({
-              type: "leave",
-              payload: { roomId: projectId }
-            }));
-        }
+        // return () => {
+        //     socket.removeEventListener("message", handleMessage);
+        //     // optionally leave room
+        //     socket.send(JSON.stringify({
+        //       type: "leave",
+        //       payload: { roomId: projectId }
+        //     }));
+        // }
 
-    }, [userId, projectId, onMessage, onNewMessage]);
+    }, [userId, onMessage, onNewMessage]);
 
 
 }

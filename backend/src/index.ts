@@ -1,11 +1,12 @@
 
 import express from "express";
 import { createServer } from "http";
+import mongoose from "mongoose";
+import cors from "cors";
 
 
 import { MONGO_URL } from "./config";
-import mongoose from "mongoose";
-import cors from "cors";
+import { setupWebSocket } from "./WebSocket/chat";
 
 const app = express();
 const server = createServer(app);
@@ -19,7 +20,6 @@ import signinRoute from "./routes/signin";
 import dashboardRoute from "./routes/dashboard";
 import projectsRoute from "./routes/projects";
 import organization from "./routes/organization"
-import { setupWebSocket } from "./WebSocket/chat";
 
 app.use("/eject/v1/signup", signupRoute);
 app.use("/eject/v1/signin", signinRoute);
@@ -34,12 +34,13 @@ app.get("/eject/v1/projects/:project_name", async (req, res) => {
 })
 
 
-// const wss = new WebSocketServer({ server });
 
 setupWebSocket(server);
 
 const PORT = 3000;
-server.listen(PORT);
+server.listen(PORT, () => {
+    console.log("Server started on: ", PORT);
+});
 
 export async function connectDB(): Promise<void> {
     try {
