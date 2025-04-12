@@ -91,6 +91,7 @@ export const MessagePanel = ({ projectId }: { projectId: string }) => {
     // if(!userId) return;
 
     useProjectSocket({
+        projectId,
         userId,
         onMessage: (msg) => {
             setMessages((prev) => [...prev, msg]);

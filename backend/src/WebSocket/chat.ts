@@ -16,6 +16,23 @@ export function setupWebSocket(server: Server) {
 
     let allSockets: User[] = [];
 
+    /*
+    
+    type: "join",
+    payload: {
+        roomId: "",
+        userId: ""
+    }
+
+    type: "chat",
+    payload: {
+        message: "",
+        time: "",
+        sender: ""
+    }
+    
+    */
+
 
     wss.on("connection", (socket) => {
 

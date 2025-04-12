@@ -9,7 +9,7 @@ interface useProjectSocketProps {
     onNewMessage?: () => void
 }
 
-export const useProjectSocket = ({ userId, onMessage, onNewMessage }: useProjectSocketProps) => {
+export const useProjectSocket = ({ projectId, userId, onMessage, onNewMessage }: useProjectSocketProps) => {
 
     const socket = useRecoilValue(Socket);
     console.log(socket ? "connected to socket" : "disconnected to socket");
@@ -19,18 +19,18 @@ export const useProjectSocket = ({ userId, onMessage, onNewMessage }: useProject
 
         if(!socket || socket.readyState !== WebSocket.OPEN || !userId) return;
 
-        // const sendJoin = () => {
-        //     const join = {
-        //         type: "join",
-        //         payload: {
-        //             roomId: projectId
-        //         }
-        //     };
+        const sendJoin = () => {
+            const join = {
+                type: "join",
+                payload: {
+                    roomId: projectId
+                }
+            };
             
-        //     (socket.readyState === WebSocket.OPEN) ? socket.send(JSON.stringify(join)) : setTimeout(sendJoin, 100);
-        // }
+            (socket.readyState === WebSocket.OPEN) ? socket.send(JSON.stringify(join)) : setTimeout(sendJoin, 100);
+        }
 
-        // sendJoin();
+        sendJoin();
 
         const handleMessage = (event: MessageEvent) => {
             try {

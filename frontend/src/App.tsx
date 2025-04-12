@@ -8,7 +8,7 @@ import { ProjectPanel } from "./Components/pages/AllProjects/Project/ProjectPane
 import { ThemeState } from "./Atoms/ThemeState";
 
 import { RecoilRoot, useRecoilValue } from "recoil";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, useParams } from "react-router-dom";
 import { MainPanel } from "./Components/pages/AllProjects/MainPanel/MainPanel";
 import { SidePanel } from "./Components/pages/AllProjects/SidePanel/SidePanel";
 import { NewProject } from "./Components/pages/AllProjects/MainPanel/AddNewProject/NewProject";
@@ -18,6 +18,7 @@ import { OrgMembers } from "./Components/pages/AllProjects/MainPanel/Org/OrgMemb
 import { FileData } from "./Components/pages/AllProjects/Project/FileData/FileData";
 import { Canvas } from "./Components/pages/AllProjects/Canvas/Canvas";
 import { ProjectData } from "./Components/pages/AllProjects/Project/ProjectData/ProjectData";
+import { useSocket } from "./hooks/useSocket";
 
 function App() {
 
@@ -92,6 +93,10 @@ function NewOrganization() {
 }
 
 export function MainLayout() {
+
+  const { name } = useParams();
+
+  useSocket(name!);
 
   const theme_state = useRecoilValue(ThemeState);
   const theme = theme_state.mode === "light" ? theme_state.light : theme_state.dark;

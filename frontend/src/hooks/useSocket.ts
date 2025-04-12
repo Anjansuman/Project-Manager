@@ -3,7 +3,8 @@ import { useSetRecoilState } from "recoil";
 import { Socket } from "@/Atoms/socket";
 
 
-export function useSocket(projectId: string, userId: string) {
+// projectId: string, 
+export function useSocket(userId: string) {
 
     const setSocket = useSetRecoilState(Socket);
 
@@ -15,23 +16,23 @@ export function useSocket(projectId: string, userId: string) {
         console.log("socket connected to backend");
 
         socket.onopen = () => {
-            // const auth = {
-            //     type: "AUTH",
-            //     payload: {
-            //         userId: userId
-            //     }
-            // }
-
-            // socket.send(JSON.stringify(auth));
-            const join = {
-                type: "join",
+            const auth = {
+                type: "AUTH",
                 payload: {
-                    roomId: projectId,
                     userId: userId
                 }
             }
-            socket.send(JSON.stringify(join));
-            console.log("socket send the join message");
+
+            socket.send(JSON.stringify(auth));
+            // const join = {
+            //     type: "join",
+            //     payload: {
+            //         roomId: projectId,
+            //         userId: userId
+            //     }
+            // }
+            // socket.send(JSON.stringify(join));
+            // console.log("socket send the join message");
         }
 
 
@@ -51,6 +52,6 @@ export function useSocket(projectId: string, userId: string) {
         }
 
         // in the dependency array use userId if needed
-    }, [userId, projectId, setSocket])
+    }, [userId, setSocket])
 
 }

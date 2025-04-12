@@ -67,7 +67,7 @@ export const ProjectPanel = () => {
     }, [projectTitle, fileTitle]);
 
     // this is connecting the websocket server
-    useSocket(projectTitle!, name!);
+    // useSocket(projectTitle!, name!);
     
     const theme_state = useRecoilValue(ThemeState);
     const theme = (theme_state.mode == 'light') ? theme_state.light : theme_state.dark;

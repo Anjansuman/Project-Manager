@@ -47,7 +47,7 @@ export function MainPanel() {
 
 
 
-    return <div className = "h-[80vh] w-[65%] mt-5 px-4 flex flex-col items-center ">
+    return <div className = "h-[80vh] w-screen mt-5 px-4 flex flex-col items-center ">
         <div className="w-full flex items-center justify-between pb-5 gap-5"
             style={{ color: theme.font_color }}
         >
@@ -59,7 +59,7 @@ export function MainPanel() {
                 }}
                 onClick={() => setVisibleOrg((prev) => !prev)}
             >
-                <div>Projects</div>
+                <div>Organizations</div>
                 <div className="ml-1.5">
                     <TriangleIcon color={theme.font_color} size={'5'} onClick={() => setVisibleOrg((prev) => !prev)} dynamicallyClicked={visibleOrg} />
                 </div>
