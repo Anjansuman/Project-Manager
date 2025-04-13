@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { Socket } from "@/Atoms/socket";
 
 
 // projectId: string, 
 export function useSocket(userId: string) {
 
-    const setSocket = useSetRecoilState(Socket);
+    const [newSocket, setNewSocket] = useRecoilState(Socket);
 
     useEffect(() => {
 
-        if(!userId) return;
+        if(!userId || newSocket?.readyState === WebSocket.OPEN) return;
 
         const socket = new WebSocket("ws://localhost:3000");
         console.log("socket connected to backend");
@@ -43,15 +43,15 @@ export function useSocket(userId: string) {
 
         socket.onerror = (error) => console.log("Error occured!: ", error);
 
-        setSocket(socket);
+        setNewSocket(socket);
         console.log("socket value set");
 
         return () => {
             socket.close();
-            setSocket(null);
+            setNewSocket(null);
         }
 
         // in the dependency array use userId if needed
-    }, [userId, setSocket])
+    }, [userId, setNewSocket])
 
 }

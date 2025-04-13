@@ -16,6 +16,8 @@ export function setupWebSocket(server: Server) {
 
     let allSockets: User[] = [];
 
+    // websocket => user
+
     /*
     
     type: "join",
