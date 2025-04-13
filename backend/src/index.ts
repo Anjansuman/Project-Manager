@@ -20,6 +20,8 @@ import signinRoute from "./routes/signin";
 import dashboardRoute from "./routes/dashboard";
 import projectsRoute from "./routes/projects";
 import organization from "./routes/organization"
+import { WebSocketServerClass } from "./WebSocket/WebSocketClass";
+// import WebSocketServerClass from "./WebSocket/claude";
 
 app.use("/eject/v1/signup", signupRoute);
 app.use("/eject/v1/signin", signinRoute);
@@ -33,9 +35,9 @@ app.get("/eject/v1/projects/:project_name", async (req, res) => {
 
 })
 
-
-
-setupWebSocket(server);
+// setupWebSocket(server);
+new WebSocketServerClass(server);
+// new WebSocketServerClass(server);
 
 const PORT = 3000;
 server.listen(PORT, () => {

@@ -16,8 +16,9 @@ import { WebSocketMessage, WebSocketType } from './WebSocketTypes';
 export class WebSocketServerClass {
 
     private wss: WebSocketServer;
-    private wsSubscriptions: Map<WebSocket, String | null>;
+    // private eventSubscriptions: Map<WebSocket, Set<String>>;
     private projectSubscribers: Map<String, Set<WebSocket>>;
+    private wsSubscriptions: Map<WebSocket, String | null>;
 
 
     constructor(Server: Server) {
@@ -25,101 +26,189 @@ export class WebSocketServerClass {
             server: Server
         });
 
-        this.wsSubscriptions = new Map<WebSocket, String | null>();
+        // this.eventSubscriptions = new Map<WebSocket, Set<String>>();
+
+        // remember in this map complete socket is removed.
         this.projectSubscribers = new Map<String, Set<WebSocket>>(); // this is to broadcast message faster
+        this.wsSubscriptions = new Map<WebSocket, String | null>();
         this.init();
     }
 
     private init() {
-        this.wss.on('connection', (socket) => {
-            this.initializeTracking(socket);
-
-            socket.on('message', (data: string) => {
-                this.handleIncomingMessage(data, socket)
-            });
-
-            socket.on('close', () => {
-                this.handleSocketClose(socket);
-            });
-        })
+        try {
+            this.wss.on('connection', (socket) => {
+                this.initializeTracking(socket);
+    
+                socket.on('message', (data: string) => {
+                    this.handleIncomingMessage(data, socket)
+                });
+    
+                socket.on('close', () => {
+                    this.handleSocketClose(socket);
+                });
+            })
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
     private initializeTracking(socket: WebSocket) {
-        if (this.wsSubscriptions.has(socket)) return;
+        try {
+            if(this.wsSubscriptions.has(socket)) return;
 
-        // authorize the socket with it's JWT
-
-        this.wsSubscriptions.set(socket, null);
+            // authorize the socket with it's JWT
+    
+            this.wsSubscriptions.set(socket, null);
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
     private handleIncomingMessage(payload: string, socket: WebSocket) {
-        const parsedMessage: WebSocketMessage = JSON.parse(payload);
+        try {
+            const parsedMessage: WebSocketMessage = JSON.parse(payload);
 
-        switch (parsedMessage.type) {
-
-            case WebSocketType.subscribe_channel:
-                return this.handleChannelSubscription(socket, parsedMessage);
-
-            case WebSocketType.unsubscribe_channel:
-                return this.handleChannelUnsubscription(socket, parsedMessage);
-
-            case WebSocketType.chat:
-                return this.handleChannelChats(parsedMessage);
-
-            default:
-
+            switch (parsedMessage.type) {
+    
+                case WebSocketType.subscribe_channel:
+                    return this.handleChannelSubscription(socket, parsedMessage);
+    
+                case WebSocketType.unsubscribe_channel:
+                    return this.handleChannelUnsubscription(socket, parsedMessage);
+    
+                case WebSocketType.chat:
+                    return this.handleChannelChats(socket, parsedMessage);
+    
+                default:
+    
+            }
+        } catch (error) {
+            this.handleError(error);
         }
     }
 
     private handleChannelSubscription(socket: WebSocket, subscriptionMessage: WebSocketMessage) {
+        try {
 
-        this.wsSubscriptions.set(socket, subscriptionMessage.projectId);
+            const currentProjectId = this.wsSubscriptions.get(socket);
+            const projectId = subscriptionMessage.projectId;
+    
+            // discard if the user is sending same projectId from which he is connected
+            if(currentProjectId === projectId) return;
 
-        if (!this.projectSubscribers.has(subscriptionMessage.projectId)) {
-            this.projectSubscribers.set(subscriptionMessage.projectId, new Set<WebSocket>());
+            // deleting the socket from the past project
+            if(currentProjectId !== null && currentProjectId !== undefined) {
+                this.projectSubscribers.get(currentProjectId)?.delete(socket);
+            }
+    
+            // adding the socket to new project
+            if(projectId !== null) {
+                if(!this.projectSubscribers.has(projectId)) {
+                    this.projectSubscribers.set(projectId, new Set<WebSocket>());
+                }
+                this.projectSubscribers.get(projectId)?.add(socket); // this denotes that a project has how many sockets
+                this.wsSubscriptions.set(socket, projectId); // this denotes that a user is connected to which project
+            }
+
+        } catch (error) {
+            this.handleError(error);
         }
-
-        this.projectSubscribers.get(subscriptionMessage.projectId)?.add(socket);
-
     }
 
     private handleChannelUnsubscription(socket: WebSocket, unsubscriptionMessage: WebSocketMessage) {
-        this.wsSubscriptions.set(socket, null);
-
-        if(this.projectSubscribers.has(unsubscriptionMessage.projectId)) {
-            const sockets: Set<WebSocket> | undefined = this.projectSubscribers.get(unsubscriptionMessage.projectId);
+        try {
             
-            if(sockets === undefined) return;
-        
-            sockets.delete(socket);
-        }
+            const currentProjectId = this.wsSubscriptions.get(socket);
+            const projectId = unsubscriptionMessage.projectId;
 
+            // return if both the projectIds are not equal
+            if(currentProjectId !== projectId) return;
+
+            if(projectId !== null) {
+                this.projectSubscribers.get(projectId)?.delete(socket);
+                this.wsSubscriptions.set(socket, null);
+            }
+
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
-    private handleChannelChats(chatMessage: WebSocketMessage) {
+    private handleChannelChats(socket: WebSocket, chatMessage: WebSocketMessage) {
+        try {
 
-        if(chatMessage.type !== "chat") return;
-        
-        const message = JSON.stringify({
-            type: "chat",
-            payload: {
-                message: chatMessage.payload.message,
-                timeStamp: chatMessage.payload.message,
-                senderId: chatMessage.payload.senderId
-            }
-        });
+            if(!this.projectSubscribers.has(chatMessage.projectId)) return;
+            
+            const message = this.chatStringify(chatMessage);
 
-        // add redis and database in future
+            // see chatStringify
+            if(!message) return;
+    
+            const sockets: Set<WebSocket> | undefined = this.projectSubscribers.get(chatMessage.projectId);
+    
+            if(!sockets) return;
+    
+            sockets.forEach((member) => {
+                // only send if WebSocket is open to that user
+                if(member.readyState === WebSocket.OPEN && member !== socket) {
+                    member.send(message);
+                }
+            });
+    
+            // add redis and database in future
 
-        this.wsSubscriptions.forEach((projectId, s) => {
-            if(projectId === chatMessage.projectId) {
-                s.send(message);
-            }
-        })
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
     private handleSocketClose(socket: WebSocket) {
-        this.wsSubscriptions.delete(socket);
+        try {
+            
+            const currentProjectId = this.wsSubscriptions.get(socket);
+
+            if(currentProjectId !== undefined && currentProjectId !== null) {
+                const projectSocket = this.projectSubscribers.get(currentProjectId);
+                projectSocket?.delete(socket);
+
+                // clean the empty set
+                if(projectSocket?.size === 0) {
+                    this.projectSubscribers.delete(currentProjectId);
+                }
+            }
+
+            this.wsSubscriptions.delete(socket);
+
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    private chatStringify(chatMessage: WebSocketMessage): string | undefined {
+        try {
+            
+            // return if the message is not of type chat
+            if(chatMessage.type !== "chat") return;
+
+            const message = JSON.stringify({
+                type: "chat",
+                projectId: chatMessage.projectId,
+                payload: {
+                    message: chatMessage.payload.message,
+                    timeStamp: chatMessage.payload.timeStamp,
+                    senderId: chatMessage.payload.senderId
+                }
+            });
+
+            return message;
+
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    private handleError(error: unknown) {
+        console.error("WebSocket Error: ", error);
     }
 
 }

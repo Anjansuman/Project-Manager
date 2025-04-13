@@ -10,7 +10,7 @@ export type WebSocketMessage =
         projectId: String,
         payload: {
             message: String,
-            timestamp: Date,
+            timeStamp: Date,
             senderId: String
         }
     }
