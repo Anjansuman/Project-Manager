@@ -1,4 +1,4 @@
-import { getExistingShapes } from "./ExistingShape";
+import { getExistingShapes } from "../Components/pages/AllProjects/Canvas/CanvasStructure/ExistingShape";
 
 
 type Shape = {

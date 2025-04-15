@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Sketch, Tool } from "./Sketch";
+import { Sketch, Tool } from "../../../../../lib/Sketch";
 import { ToolBar } from "../Components/ToolBar";
 import { useParams } from "react-router-dom";
 

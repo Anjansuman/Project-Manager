@@ -71,33 +71,77 @@ export class WebSocketClient {
     }
     
     private handleSubscription(message: WebSocketMessage) {
-        const sendingMessage = JSON.stringify({
-            type: "subscribe_channel",
-            projectId: message.projectId
-        });
+        const sendingMessage = this.stringify(message);
 
-        this.ws?.send(sendingMessage);
+        if(!sendingMessage) return;
+
+        this.sendMessage(sendingMessage);
     }
 
     private handleUnsubscription(message: WebSocketMessage) {
-        const sendingMessage = JSON.stringify({
-            type: "unsubscribe_channel",
-            projectId: message.projectId
-        });
+        const sendingMessage = this.stringify(message);
 
-        this.ws?.send(sendingMessage);
+        if(!sendingMessage) return;
+
+        this.sendMessage(sendingMessage);
     }
 
     private handleChat(message: WebSocketMessage) {
+        const sendingMessage = this.stringify(message);
 
+        if(!sendingMessage) return;
+
+        this.sendMessage(sendingMessage);
     }
 
     private handleSketch(message: WebSocketMessage) {
+        const sendingMessage = this.stringify(message);
 
+        if(!sendingMessage) return;
+
+        this.sendMessage(sendingMessage);
     }
 
-    private sendMessage(message: WebSocketMessage) {
-        this.ws?.
+    private sendMessage(message: string) {
+        this.ws?.send(message);
+    }
+    
+    private stringify(webSocketMessage: WebSocketMessage): string | null {
+
+        switch(webSocketMessage.type) {
+
+            case "subscribe_channel":
+            case "unsubscribe_channel":
+                return JSON.stringify({
+                    type: webSocketMessage.type,
+                    projectId: webSocketMessage.projectId
+                });
+
+            case "chat":
+                return JSON.stringify({
+                    type: webSocketMessage.type,
+                    projectId: webSocketMessage.projectId,
+                    payload: {
+                        message: webSocketMessage.payload.message,
+                        timestamp: webSocketMessage.payload.timestamp,
+                        senderId: webSocketMessage.payload.senderId
+                    }
+                });
+
+            case "sketch":
+                return JSON.stringify({
+                    type: webSocketMessage.type,
+                    projectId: webSocketMessage.projectId,
+                    payload: {
+                        //kuchh kuchh add krna h
+                    }
+                });
+
+            default:
+                return null;
+
+        }
+
     }
 
 }
